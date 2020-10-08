@@ -7,7 +7,8 @@ namespace MazeKz
         static void Main(string[] args)
         {
             var mazeGenerator = new MazeGenerator();
-            var maze = mazeGenerator.Generate();
+            var maze = mazeGenerator.GenerateSmart(20, 10);
+
             var draw = new Drawer();
             draw.DrawMaze(maze);
         }

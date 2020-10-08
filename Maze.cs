@@ -14,6 +14,22 @@ namespace MazeKz
         public int Width { get; set; }
         public int Height { get; set; }
 
+        public Cell this[int x, int y]
+        {
+            get
+            {
+                return Cells.SingleOrDefault(c => c.X == x && c.Y == y);
+            }
+
+            set
+            {
+                var oldCell = Cells.SingleOrDefault(c => c.X == x && c.Y == y);
+                Cells.Remove(oldCell);
+
+                Cells.Add(value);
+            }
+        }
+
         public Maze()
         {
             Cells = new List<Cell>();

@@ -17,5 +17,10 @@ namespace MazeKz.Cells
         public int Y { get; set; }
 
         public CellType CellType { get; set; }
+
+        public override string ToString()
+        {
+            return $"[{X},{Y}]{CellType.ToString()}";
+        }
     }
 }
