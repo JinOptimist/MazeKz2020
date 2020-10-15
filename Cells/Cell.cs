@@ -20,7 +20,7 @@ namespace MazeKz.Cells
 
         public override string ToString()
         {
-            return $"[{X},{Y}]{CellType.ToString()}";
+            return $"[{X},{Y}]{CellType}";
         }
     }
 }

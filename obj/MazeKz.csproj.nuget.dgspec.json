@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\git\\MazeKz2020\\MazeKz.csproj": {}
+    "D:\\git\\MazeKz2020\\MazeKz.csproj": {}
   },
   "projects": {
-    "d:\\git\\MazeKz2020\\MazeKz.csproj": {
+    "D:\\git\\MazeKz2020\\MazeKz.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\git\\MazeKz2020\\MazeKz.csproj",
+        "projectUniqueName": "D:\\git\\MazeKz2020\\MazeKz.csproj",
         "projectName": "MazeKz",
-        "projectPath": "d:\\git\\MazeKz2020\\MazeKz.csproj",
+        "projectPath": "D:\\git\\MazeKz2020\\MazeKz.csproj",
         "packagesPath": "C:\\Users\\Pavel_Lvou\\.nuget\\packages\\",
-        "outputPath": "d:\\git\\MazeKz2020\\obj\\",
+        "outputPath": "D:\\git\\MazeKz2020\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Pavel_Lvou\\AppData\\Roaming\\NuGet\\NuGet.Config",
