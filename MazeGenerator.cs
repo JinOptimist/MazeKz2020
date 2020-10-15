@@ -12,30 +12,6 @@ namespace MazeKz
         private Random _random = new Random();
         private Maze _maze;
 
-        public Maze GenerateRandom(int width = 10, int height = 5)
-        {
-            var maze = new Maze
-            {
-                Width = width,
-                Height = height
-            };
-
-            for (int y = 0; y < maze.Height; y++)
-            {
-                for (int x = 0; x < maze.Width; x++)
-                {
-                    var number = _random.Next(1, 4);
-
-                    var cellType = (CellType)number;
-
-                    var cell = new Cell(x, y, cellType);
-                    maze.Cells.Add(cell);
-                }
-            }
-
-            return maze;
-        }
-
         public Maze GenerateSmart(int width = 10, int height = 5)
         {
             //Создали лабиринты полный стен
@@ -45,7 +21,18 @@ namespace MazeKz
             var minerX = 0;
             var minerY = 0;
 
-            List<Cell> cellsAllowToBreak = new List<Cell>();
+            GenerateWall(minerX, minerY);
+
+            _maze.Hero = new Hero(0, 0, _maze);
+
+            GenerateCoin();
+
+            return _maze;
+        }
+
+        private void GenerateWall(int minerX, int minerY)
+        {
+            List<CellBase> cellsAllowToBreak = new List<CellBase>();
             do
             {
                 //DraweMaze();
@@ -59,11 +46,11 @@ namespace MazeKz
                 }
 
                 //Выбрать ближайшие к шахтёры ячейки
-                var nearCells = GetNearCells(minerX, minerY, CellType.Wall);
+                var nearCells = GetNearCells<Wall>(minerX, minerY);//CellType.Wall
                 cellsAllowToBreak.AddRange(nearCells);
                 cellsAllowToBreak = cellsAllowToBreak
                     .Where(wall =>
-                        GetNearCells(wall.X, wall.Y, CellType.Ground).Count() <= 1)
+                        GetNearCells<Ground>(wall.X, wall.Y).Count() <= 1)//CellType.Ground
                     .Distinct()
                     .ToList();
 
@@ -74,7 +61,6 @@ namespace MazeKz
                 minerY = randomCell?.Y ?? 0;
             } while (cellsAllowToBreak.Any());
 
-            return _maze;
         }
 
         private void DraweMaze()
@@ -85,35 +71,49 @@ namespace MazeKz
             Thread.Sleep(200);
         }
 
-        private Cell GetRandomCell(List<Cell> nearCells)
+        private void GenerateCoin()
+        {
+            var grounds = _maze.Cells.OfType<Ground>().ToList();
+
+            for (int i = 0; i < 10; i++)
+            {
+                var randomGround = GetRandomCell(grounds);
+                var coin = new Coin(randomGround.X, randomGround.Y, _maze);
+                _maze.ReplaceCell(coin);
+            }
+        }
+
+        private CellBase GetRandomCell(IEnumerable<CellBase> nearCells)
         {
             if (!nearCells.Any())
             {
                 return null;
             }
-            var randomIndex = _random.Next(0, nearCells.Count);
-            return nearCells[randomIndex];
+            var list = nearCells.ToList();
+            var randomIndex = _random.Next(0, list.Count());
+            return list[randomIndex];
         }
 
-        private List<Cell> GetNearCells(int minerX, int minerY, CellType type)
+        private IEnumerable<CellBase> GetNearCells<T>(int minerX, int minerY) 
+            where T : CellBase
         {
-            var nearCells = new List<Cell>()
+            var nearCells = new List<CellBase>()
             {
                 _maze[minerX - 1, minerY],
                 _maze[minerX + 1, minerY],
                 _maze[minerX, minerY + 1],
                 _maze[minerX, minerY - 1],
             };
-            nearCells = nearCells
-                .Where(x => x != null && x.CellType == type)
-                .ToList();
-            return nearCells;
+            var answer = nearCells
+                .Where(x => x != null)
+                .OfType<T>();
+            return answer;
         }
 
         private void BreakWall(int minerX, int minerY)
         {
-            var cell = _maze[minerX, minerY];
-            cell.CellType = CellType.Ground;
+            var ground = new Ground(minerX, minerY, _maze);
+            _maze.ReplaceCell(ground);
         }
 
         private Maze GenerateMazeFullWall(int width, int height)
@@ -128,7 +128,7 @@ namespace MazeKz
             {
                 for (int x = 0; x < maze.Width; x++)
                 {
-                    maze.Cells.Add(new Cell(x, y, CellType.Wall));
+                    maze.Cells.Add(new Wall(x, y, maze));
                 }
             }
 

@@ -4,23 +4,24 @@ using System.Text;
 
 namespace MazeKz.Cells
 {
-    public class Cell
+    public abstract class CellBase
     {
-        public Cell(int x, int y, CellType cellType)
+        public CellBase(int x, int y, Maze maze)
         {
             X = x;
             Y = y;
-            CellType = cellType;
+            Maze = maze;
         }
 
         public int X { get; set; }
         public int Y { get; set; }
+        public Maze Maze { get; set; }
 
-        public CellType CellType { get; set; }
+        public abstract bool TryStep();
 
         public override string ToString()
         {
-            return $"[{X},{Y}]{CellType}";
+            return $"[{X},{Y}]";
         }
     }
 }

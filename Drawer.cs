@@ -10,24 +10,32 @@ namespace MazeKz
     {
         public void DrawMaze(Maze maze)
         {
+            Console.Clear();
+
             for (int y = 0; y < maze.Height; y++)
             {
                 for (int x = 0; x < maze.Width; x++)
                 {
-                    var cell = maze.Cells.Single(cell => cell.X == x && cell.Y == y);
-                    switch (cell.CellType)
+                    var cell = maze.CellsWithHero.Single(cell => cell.X == x && cell.Y == y);
+                    if (cell is Wall)
                     {
-                        case CellType.Wall:
-                            Console.Write("#");
-                            break;
-                        case CellType.Ground:
-                            Console.Write(".");
-                            break;
-                        case CellType.Coin:
-                            Console.Write("c");
-                            break;
-                        default:
-                            throw new Exception($"Update way to display {cell.CellType}");
+                        Console.Write("#");
+                    }
+                    else if (cell is Ground)
+                    {
+                        Console.Write(".");
+                    }
+                    else if (cell is Coin)
+                    {
+                        Console.Write("c");
+                    }
+                    else if (cell is Hero)
+                    {
+                        Console.Write("@");
+                    }
+                    else
+                    {
+                        throw new Exception($"Update way to display {cell.GetType()}");
                     }
                 }
 
