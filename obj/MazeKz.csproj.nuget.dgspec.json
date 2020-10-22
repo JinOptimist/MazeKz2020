@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\git\\MazeKz2020\\MazeKz.csproj": {}
+    "D:\\+GitHub\\MazeKz2020\\MazeKz.csproj": {}
   },
   "projects": {
-    "D:\\git\\MazeKz2020\\MazeKz.csproj": {
+    "D:\\+GitHub\\MazeKz2020\\MazeKz.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\git\\MazeKz2020\\MazeKz.csproj",
+        "projectUniqueName": "D:\\+GitHub\\MazeKz2020\\MazeKz.csproj",
         "projectName": "MazeKz",
-        "projectPath": "D:\\git\\MazeKz2020\\MazeKz.csproj",
-        "packagesPath": "C:\\Users\\Pavel_Lvou\\.nuget\\packages\\",
-        "outputPath": "D:\\git\\MazeKz2020\\obj\\",
+        "projectPath": "D:\\+GitHub\\MazeKz2020\\MazeKz.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "D:\\+GitHub\\MazeKz2020\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Pavel_Lvou\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

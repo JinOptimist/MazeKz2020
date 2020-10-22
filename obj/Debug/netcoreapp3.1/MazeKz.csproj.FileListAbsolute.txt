@@ -24,3 +24,16 @@ d:\git\MazeKz2020\obj\Debug\netcoreapp3.1\MazeKz.csproj.CoreCompileInputs.cache
 d:\git\MazeKz2020\obj\Debug\netcoreapp3.1\MazeKz.dll
 d:\git\MazeKz2020\obj\Debug\netcoreapp3.1\MazeKz.pdb
 d:\git\MazeKz2020\obj\Debug\netcoreapp3.1\MazeKz.genruntimeconfig.cache
+D:\+GitHub\MazeKz2020\bin\Debug\netcoreapp3.1\MazeKz.exe
+D:\+GitHub\MazeKz2020\bin\Debug\netcoreapp3.1\MazeKz.deps.json
+D:\+GitHub\MazeKz2020\bin\Debug\netcoreapp3.1\MazeKz.runtimeconfig.json
+D:\+GitHub\MazeKz2020\bin\Debug\netcoreapp3.1\MazeKz.runtimeconfig.dev.json
+D:\+GitHub\MazeKz2020\bin\Debug\netcoreapp3.1\MazeKz.dll
+D:\+GitHub\MazeKz2020\bin\Debug\netcoreapp3.1\MazeKz.pdb
+D:\+GitHub\MazeKz2020\obj\Debug\netcoreapp3.1\MazeKz.csprojAssemblyReference.cache
+D:\+GitHub\MazeKz2020\obj\Debug\netcoreapp3.1\MazeKz.AssemblyInfoInputs.cache
+D:\+GitHub\MazeKz2020\obj\Debug\netcoreapp3.1\MazeKz.AssemblyInfo.cs
+D:\+GitHub\MazeKz2020\obj\Debug\netcoreapp3.1\MazeKz.csproj.CoreCompileInputs.cache
+D:\+GitHub\MazeKz2020\obj\Debug\netcoreapp3.1\MazeKz.dll
+D:\+GitHub\MazeKz2020\obj\Debug\netcoreapp3.1\MazeKz.pdb
+D:\+GitHub\MazeKz2020\obj\Debug\netcoreapp3.1\MazeKz.genruntimeconfig.cache
