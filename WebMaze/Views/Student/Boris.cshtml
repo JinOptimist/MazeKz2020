@@ -1,0 +1,11 @@
+﻿@model MazeKz.Maze
+@{ 
+    var cells = Model.Cells;
+}
+
+<div>
+    @foreach (var cell in cells)
+    {
+        <div>@cell.ToString()</div>
+    }
+</div>
