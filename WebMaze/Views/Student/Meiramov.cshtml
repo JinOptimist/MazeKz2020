@@ -1,0 +1,18 @@
+﻿@model List<GirlViewModel>
+
+<div>
+    Я молодец
+</div>
+
+@foreach (var girl in Model)
+{
+    <div>
+        @girl.Name (@girl.Hegith)
+    </div>
+    @if (girl.Url != null)
+    {
+        <div>
+            <img src="@girl.Url" />
+        </div>
+    }
+}

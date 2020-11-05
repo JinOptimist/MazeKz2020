@@ -1,0 +1,15 @@
+﻿@model List<StudentViewModel>
+
+@foreach (var student in Model)
+{
+    <div class="header">
+        Текущий студент @student.CurentUserName
+    </div>
+
+    <div>
+        Сейчас @student.Second секунд. А ещё сегодня @student.DayOfWeek
+    </div>
+    <div>
+        Иван, Пётр, Батыр
+    </div>
+}
