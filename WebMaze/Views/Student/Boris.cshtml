@@ -1,11 +1,38 @@
-﻿@model MazeKz.Maze
+﻿@using MazeKz; 
+@model Maze
+
 @{ 
-    var cells = Model.Cells;
+    var width = Model.Width;
+    var height = Model.Height;
+
+    string className(MazeKz.Cells.CellBase cell)
+    {
+        switch (cell)
+        {
+            case MazeKz.Cells.Coin c:
+                return "coin";
+            case MazeKz.Cells.WallGold c:
+                return "wall gold";
+            case MazeKz.Cells.Wall c:
+                return "wall";
+            case MazeKz.Cells.Ground c:
+                return "ground";
+            case MazeKz.Cells.Hero c:
+                return "hero";
+            default:
+                return "";
+        }
+    }
 }
 
-<div>
-    @foreach (var cell in cells)
+<div class="maze">
+    @for (int y = 0; y < height; y++)
     {
-        <div>@cell.ToString()</div>
+        <div class="row">
+            @for (int x = 0; x < width; x++)
+            {
+                <div class="cell @className(Model[x, y])"></div>
+            }
+        </div>
     }
 </div>
