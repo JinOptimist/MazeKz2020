@@ -1,0 +1,30 @@
+﻿@model List<GamesViewModel>
+
+<div style="margin-bottom: 40px">
+    Батыров Амир - домашнее задание и по совместительству топ моих любимых игр
+</div>
+
+@foreach (var game in Model)
+{
+    <div 
+         style="width: 700px;
+                height: 400px;
+                margin-bottom: 50px;
+                background-image:url(@game.ImageUrl); 
+                background-repeat: no-repeat;
+                background-size:100%, 250%;" 
+    >
+        <p class="games_name">
+            @game.Name
+        </p>
+        <p class="games_name" 
+           style="padding-top:0px;
+                    font-size: 22px">
+            @game.Genre
+        </p>
+        
+    </div>
+    <p>
+        @game.Descriprion
+    </p>
+}
