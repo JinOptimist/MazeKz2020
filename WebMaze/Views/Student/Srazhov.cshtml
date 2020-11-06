@@ -1,0 +1,31 @@
+﻿@model List<AnimeGirlViewModel>
+
+<style>
+    .centr {
+        text-align: center;
+    }
+</style>
+
+<h1 class="centr">Anime girl tier list</h1>
+<p>
+    You can be anyone you want in the real life. But sometimes you feel like you are missing something. Something really important.
+    That's why Japanese Scientiests created the thing that everybode really needed. It's called <a href="https://en.wiktionary.org/wiki/waifu">Waifu</a> (i.e. Wife - Japanese anglicism)
+</p>
+<p class="centr">
+    <img src="https://scontent.fala6-1.fna.fbcdn.net/v/t1.0-1/s720x720/109891562_2642548109323569_4038629475162152775_o.jpg?_nc_cat=109&ccb=2&_nc_sid=dbb9e7&_nc_ohc=6hN38zRyXfQAX8tP7k0&_nc_ht=scontent.fala6-1.fna&tp=7&oh=9f3b28f67d9446be8e89c40d299c6dbe&oe=5FCC54B2" />
+</p>
+<h2 class="centr">But no Waifu is perfect</h2>
+<p>
+    There are a lot of Waifus that were made to satisfy everyone. Everyone of them has their advantage and disadvantages. So if you are new to this, I created a simple tier list to show 
+    the best representatives of the world Waifus.
+</p>
+
+@foreach (var girl in Model)
+{
+    <h3>
+        @girl.Name from the @girl.Title_Name
+    </h3>
+    <p class="centr">
+        <img src="@girl.URL_To_PNG">
+    </p>
+}
