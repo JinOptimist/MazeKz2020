@@ -45,5 +45,34 @@ namespace WebMaze.Controllers
 
             return View(models);
         }
+        public IActionResult Yessenturov()
+        {
+            var prods = new List<ProductsViewModel>();
+
+            prods.Add(new ProductsViewModel
+            {
+                Name = "Artificial limb",
+                Description = "Artificial limb or Prosthesis is a next generational leap into cyber era, no difference with the original limbs in terms of cognitive feelings.",
+                Price = 150000,
+                imgUrl = "https://images.theconversation.com/files/127834/original/image-20160622-7165-egq4no.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip"
+            });
+            prods.Add(new ProductsViewModel
+            {
+                Name = "Animus",
+                Description = "Animus is a virtual reality machine developed, and eventually commercialized, by Kazakh Technologies. It allows the user to read a subject's genetic memory and project the output onto an external screen in three dimensions.",
+                Price = 550000,
+                imgUrl = "https://static.wikia.nocookie.net/assassinscreed/images/8/8e/AC1_Animus_1.28.png"
+            });
+            prods.Add(new ProductsViewModel
+            {
+                Name = "Focus",
+                Description = "​​​​​​A Focus is a small augmented reality device worn by people that serves as a multipurpose sensory interface. " +
+                "This device is responsive to the user's gestures and voice, and displays a visual 3D interface visible only to them, " +
+                "aiding in the operation of machinery and technology alike, as well as in communications.",
+                Price = 5000,
+                imgUrl = "https://static.wikia.nocookie.net/horizonzerodawn/images/3/37/Focus.png"
+            });
+            return View(prods);
+        }
     }
 }
