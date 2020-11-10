@@ -7,7 +7,6 @@ namespace WebMaze.Models
 {
     public class StudentViewModel
     {
-        // comment
         public string CurentUserName { get; set; }
 
         public int Second { get; set; }
