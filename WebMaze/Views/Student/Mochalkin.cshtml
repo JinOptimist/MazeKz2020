@@ -1,0 +1,25 @@
+﻿@model List<HookahViewModel>
+
+<div>
+    Как же мой ноут это всё не тянет. Исус, Мария и Иосиф ( >_|_< )
+</div>
+<div>
+    Новое видео Антона Птушкина
+</div>
+
+<div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/BNdJaetPrlg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    </iframe>
+
+</div>
+
+@foreach (var hookah in Model)
+{
+    <div>
+        @hookah.Name @hookah.Height @hookah.Material @hookah.ManufacturerCountry @String.Format("{0:C}", hookah.Price)
+    </div>
+
+    <div>
+        <img src="@hookah.Url" />
+    </div>
+}
