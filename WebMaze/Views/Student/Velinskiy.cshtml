@@ -1,0 +1,22 @@
+﻿@model List<GwentViewModel>
+
+@foreach (var card in Model)
+{
+<div class= "card">
+    <div class="innerCard"><p align="center">@card.CardTitle (@card.DisplayFaction)</p></div>
+    
+    @if (card.CardUrl != null)
+    {
+<div class="innerCard">
+    <img src="@card.CardUrl" class="leftimg" />
+    Strenght : @card.CardStrenght
+    <br>
+    <br>
+    <i>"@card.CardDescription"</i>
+    <br>
+    <br>
+    @card.CardAbility
+</div>
+    }
+</div>
+}
