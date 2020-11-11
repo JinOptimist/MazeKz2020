@@ -1,0 +1,27 @@
+@model List<ChampionViewModel>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>My Champions Page</title>
+</head>
+<body>
+<div>
+    
+@foreach (var champion in Model)
+{
+    <div>
+        @champion.Name (@champion.Name)
+    </div>
+    @if (champion.SplashUrl != null)
+    {
+        <div>
+            <img src="@champion.SplashUrl" />
+        </div>
+    }
+}
+
+</div>
+</body>
+</html>

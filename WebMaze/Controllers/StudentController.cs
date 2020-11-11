@@ -45,5 +45,26 @@ namespace WebMaze.Controllers
 
             return View(models);
         }
+
+        public IActionResult Kenzhebayev()
+        {
+            var models = new List<ChampionViewModel>();
+            var akaliViewModel = new ChampionViewModel
+            {
+                Name = "Akali",
+                Fraction = "Ionia",
+                ShortBio = "TEMP BIO",
+                CurrentUpdateStats = new ChampionViewModel.Stats()
+                {
+                    BaseHealth = 610, 
+                    BaseMana = 100,
+                    IsEnergy = true,
+                    BaseDamage = 72,
+                },
+                UrlFractionIcon = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Mei_Overwatch.png/220px-Mei_Overwatch.png"
+            };
+
+            return View(models);
+        }
     }
 }
