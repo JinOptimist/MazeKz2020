@@ -11,15 +11,67 @@
     
 @foreach (var champion in Model)
 {
-    <div>
-        @champion.Name (@champion.Name)
-    </div>
-    @if (champion.SplashUrl != null)
-    {
-        <div>
-            <img src="@champion.SplashUrl" />
+    <div class="league_champion">
+        <div style="font-weight: bold;">
+            @champion.Name (@champion.Name)
         </div>
-    }
+        @if (champion.SplashUrl != null)
+        {
+            <div>
+                <img class="league_champion_img" src="@champion.SplashUrl" />
+            </div>
+        }
+        <div style="font-weight: bold; font-style: italic;"> 
+            Fraction: @champion.Fraction
+        </div>
+        @if (champion.UrlFractionIcon != null)
+        {
+            <div>
+                <img src="@champion.UrlFractionIcon" />
+            </div>
+        }
+        <div style="font-weight: bold"> 
+            Short Bio:
+        </div>
+        <br>
+        <span style="font-weight: bolder; font-style: italic; font-size: 0.8em;">
+            @champion.ShortBio
+        </span>
+
+        <div style="font-weight: bold"> 
+            Stats in this Patch:
+        </div>
+        <br>
+        <table class="league_champion_stats" style="width: 100%;">
+            <tbody>
+                <tr>
+                    <td>
+                        <div>
+                            Health: <div style="color: lawngreen;"> @champion.CurrentUpdateStats.BaseHealth </div>
+                        </div>
+                    </td>
+                    <td>
+                        @if (@champion.CurrentUpdateStats.IsEnergy)
+                        {
+                            <div>
+                                Energy: <div style="color: yellow;"> @champion.CurrentUpdateStats.BaseMana </div>
+                            </div>
+                        }else
+                        {
+                            <div>
+                                Mana: <div style="color: lightblue;"> @champion.CurrentUpdateStats.BaseMana </div>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        <div>
+                            Damage: <div style="color: orangered;"> @champion.CurrentUpdateStats.BaseDamage </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 }
 
 </div>

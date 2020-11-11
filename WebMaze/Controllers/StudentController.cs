@@ -52,17 +52,43 @@ namespace WebMaze.Controllers
             var akaliViewModel = new ChampionViewModel
             {
                 Name = "Akali",
+                SplashUrl = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Akali_0.jpg",
                 Fraction = "Ionia",
-                ShortBio = "TEMP BIO",
+                ShortBio = "Abandoning the Kinkou Order and her title of the Fist of Shadow, Akali now strikes alone, " +
+                "ready to be the deadly weapon her people need. Though she holds onto all she learned from her master " +
+                "Shen, she has pledged to defend Ionia from its enemies, one kill at a time. Akali may strike in silence, " +
+                "but her message will be heard loud and clear: fear the assassin with no master.",
                 CurrentUpdateStats = new ChampionViewModel.Stats()
                 {
-                    BaseHealth = 610, 
-                    BaseMana = 100,
+                    BaseHealth = 575, 
+                    BaseMana = 200,
                     IsEnergy = true,
-                    BaseDamage = 72,
+                    BaseDamage = 62.4,
                 },
-                UrlFractionIcon = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Mei_Overwatch.png/220px-Mei_Overwatch.png"
+                UrlFractionIcon = "https://static.wikia.nocookie.net/leagueoflegends/images/a/ae/Ionia_Crest.png",
             };
+
+            var gangplankViewModel = new ChampionViewModel
+            {
+                Name = "Gangplank",
+                SplashUrl = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gangplank_0.jpg",
+                Fraction = "Bilgewater",
+                ShortBio = "As unpredictable as he is brutal, the dethroned reaver king Gangplank is feared far and wide. " +
+                "Once, he ruled the port city of Bilgewater, and while his reign is over, there are those who believe this " +
+                "has only made him more dangerous. Gangplank would see Bilgewater bathed in blood once more before letting someone " +
+                "else take it—and now with pistol, cutlass, and barrels of gunpowder, he is determined to reclaim what he has lost.",
+                CurrentUpdateStats = new ChampionViewModel.Stats()
+                {
+                    BaseHealth = 540,
+                    BaseMana = 280,
+                    IsEnergy = false,
+                    BaseDamage = 64,
+                },
+                UrlFractionIcon = "https://static.wikia.nocookie.net/leagueoflegends/images/0/06/Bilgewater_Crest.png",
+            };
+
+            models.Add(akaliViewModel);
+            models.Add(gangplankViewModel);
 
             return View(models);
         }
