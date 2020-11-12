@@ -45,5 +45,26 @@ namespace WebMaze.Controllers
 
             return View(models);
         }
+
+        public IActionResult Rudich()
+        {
+            var models = new List<CountryViewModel>();
+
+            var jordanViewModel = new CountryViewModel();
+            jordanViewModel.Name = "Jordan";
+            jordanViewModel.Continent = "Asia";
+            jordanViewModel.Area = 92300;
+            jordanViewModel.Url = "https://i.pinimg.com/originals/a5/4c/73/a54c730efc294c758934033455b7eb9d.jpg";
+            models.Add(jordanViewModel);
+
+            var indiaViewModel = new CountryViewModel();
+            indiaViewModel.Name = "India";
+            indiaViewModel.Continent = "South Asia";
+            indiaViewModel.Area = 3287263;
+            indiaViewModel.Url = "https://www.africanjacana.com/wp-content/uploads/IND.jpg.image_.750.563.low_.jpg";
+            models.Add(indiaViewModel);
+
+            return View(models);
+        }
     }
 }
