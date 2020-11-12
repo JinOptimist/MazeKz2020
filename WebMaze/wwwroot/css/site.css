@@ -85,6 +85,36 @@ body {
     color: #c4c4c4;
 }
 
+.league_champion_text {
+    font-weight: bold; 
+}
+
+.league_champion_text_bio {
+    font-weight: bold; 
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+.league_champion_statbar {
+    width: 100%;
+}
+
+.league_champion_stats_health {
+    color: lawngreen;
+}
+
+.league_champion_stats_mana {
+    color: lightblue;
+}
+
+.league_champion_stats_energy {
+     color: yellow;
+}
+
+.league_champion_stats_damage {
+    color: orangered;
+}
+
 .header {
     background: #1b6ec2;
     font-size: 30px;

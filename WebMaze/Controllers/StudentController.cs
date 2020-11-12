@@ -58,7 +58,7 @@ namespace WebMaze.Controllers
                 "ready to be the deadly weapon her people need. Though she holds onto all she learned from her master " +
                 "Shen, she has pledged to defend Ionia from its enemies, one kill at a time. Akali may strike in silence, " +
                 "but her message will be heard loud and clear: fear the assassin with no master.",
-                CurrentUpdateStats = new ChampionViewModel.Stats()
+                CurrentUpdateStats = new ChampionViewModel.StatsViewModel()
                 {
                     BaseHealth = 575, 
                     BaseMana = 200,
@@ -77,7 +77,7 @@ namespace WebMaze.Controllers
                 "Once, he ruled the port city of Bilgewater, and while his reign is over, there are those who believe this " +
                 "has only made him more dangerous. Gangplank would see Bilgewater bathed in blood once more before letting someone " +
                 "else take it—and now with pistol, cutlass, and barrels of gunpowder, he is determined to reclaim what he has lost.",
-                CurrentUpdateStats = new ChampionViewModel.Stats()
+                CurrentUpdateStats = new ChampionViewModel.StatsViewModel()
                 {
                     BaseHealth = 540,
                     BaseMana = 280,
