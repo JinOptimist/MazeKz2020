@@ -45,5 +45,68 @@ namespace WebMaze.Controllers
 
             return View(models);
         }
+
+        public IActionResult Karayev()
+        {
+            var models = new List<BucsTeamCaptainViewModel>();
+
+            var tomBrady = new BucsTeamCaptainViewModel
+            {
+                Name = "Tom Brady",
+                Position = "Quarterback / Offense",
+                College = "Michigan",
+                Experience = 21,
+                PhotoURL = "https://i.ibb.co/m9v7CNV/TomBrady.webp"
+            };
+            var mikeEvans = new BucsTeamCaptainViewModel
+            {
+                Name = "Mike Evans",
+                Position = "Wide Receiver / Offense",
+                College = "Texas A&M",
+                Experience = 7,
+                PhotoURL = "https://i.ibb.co/5LfnR8j/Mike-Evans.webp"
+            };
+            var lavonteDavid = new BucsTeamCaptainViewModel
+            {
+                Name = "Lavonte David",
+                Position = "Linebacker / Defense",
+                College = "Nebraska",
+                Experience = 9,
+                PhotoURL = "https://i.ibb.co/PwKWRTM/Lavonte-David.webp",
+            };
+            var devinWhite = new BucsTeamCaptainViewModel
+            {
+                Name = "Devin White",
+                Position = "Linebacker / Defense",
+                College = "LSU",
+                Experience = 2,
+                PhotoURL = "https://i.ibb.co/892CCqC/Devin-White.webp",
+            };
+            var kevinMinter = new BucsTeamCaptainViewModel
+            {
+                Name = "Kevin Minter",
+                Position = "Linebacker / Special Teams",
+                College = "LSU",
+                Experience = 8,
+                PhotoURL = "https://i.ibb.co/P1S1YNR/Kevin-Minter.webp",
+            };
+            var bradleyPinion = new BucsTeamCaptainViewModel
+            {
+                Name = "Bradley Pinion",
+                Position = "Punter / Special Teams",
+                College = "Clemson",
+                Experience = 6,
+                PhotoURL = "https://i.ibb.co/MZ745my/Bradley-Pinion.webp",
+            };
+            models.AddRange(new List<BucsTeamCaptainViewModel>{
+                            tomBrady,
+                            mikeEvans,
+                            lavonteDavid,
+                            devinWhite,
+                            kevinMinter,
+                            bradleyPinion});
+
+            return View(models);
+        }
     }
 }

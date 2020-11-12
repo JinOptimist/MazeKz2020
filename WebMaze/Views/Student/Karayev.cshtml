@@ -1,0 +1,25 @@
+﻿@model List<BucsTeamCaptainViewModel>
+
+<div>
+    <h1>TAMPA BAY BUCCANEERS TEAM CAPTAINS</h1>
+</div>
+
+@foreach (var captain in Model)
+{
+    <div>
+        <br>
+        <img src="@captain.PhotoURL" alt="Not Available" style="width:640px;height:360px"/>
+    </div>
+    <div>
+        <b>@captain.Name</b>
+    </div>
+    <div>
+        <b>Position: </b>@captain.Position
+    </div>
+    <div>
+        <b>Experience: </b>@captain.Experience
+    </div>
+    <div>
+        <b>College: </b>@captain.College
+    </div>
+ }
