@@ -1,11 +1,5 @@
 ﻿@model List<AnimeGirlViewModel>
 
-<style>
-    .centr {
-        text-align: center;
-    }
-</style>
-
 <h1 class="centr">Anime girl tier list</h1>
 <p>
     You can be anyone you want in the real life. But sometimes you feel like you are missing something. Something really important.
@@ -23,9 +17,9 @@
 @foreach (var girl in Model)
 {
     <h3>
-        @girl.Name from the @girl.Title_Name
+        @girl.Name from the @girl.TitleName
     </h3>
     <p class="centr">
-        <img src="@girl.URL_To_PNG">
+        <img src="@girl.URLToPNG">
     </p>
 }

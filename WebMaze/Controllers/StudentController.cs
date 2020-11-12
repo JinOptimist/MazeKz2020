@@ -49,38 +49,27 @@ namespace WebMaze.Controllers
         public IActionResult Srazhov()
         {
             var models = new List<AnimeGirlViewModel>();
-            var names = new string[]
-            {
-                "Rem",
-                "Taiga",
-                "Megumin",
-            };
 
-            var titleNames = new string[]
+            models.Add(new AnimeGirlViewModel()
             {
-                "Ri:Zero kara Hajimeru Isekai Seikatsu",
-                "ToraDora",
-                "Kono Subarashii Sekai ni Shukufuku wo!"
-            };
+                Name = "Rem",
+                TitleName = "Ri:Zero kara Hajimeru Isekai Seikatsu",
+                URLToPNG = "https://i.pinimg.com/originals/3a/da/82/3ada82dc265205ee239f0f69f373aa31.png"
+            });
 
-            var pngUrls = new string[]
+            models.Add(new AnimeGirlViewModel()
             {
-                "https://i.pinimg.com/originals/3a/da/82/3ada82dc265205ee239f0f69f373aa31.png",
-                "https://pbs.twimg.com/media/ELW4PuaVUAA1M_l.jpg",
-                "https://cs10.pikabu.ru/post_img/big/2020/05/01/7/1588333493125556579.png"
-            };
+                Name = "Taiga",
+                TitleName = "ToraDora",
+                URLToPNG = "https://pbs.twimg.com/media/ELW4PuaVUAA1M_l.jpg"
+            });
 
-            for (int i = 0; i < 3; i++)
+            models.Add(new AnimeGirlViewModel()
             {
-                var model = new AnimeGirlViewModel()
-                {
-                    Name = names[i],
-                    Title_Name = titleNames[i],
-                    URL_To_PNG = pngUrls[i]
-                };
-
-                models.Add(model);
-            }
+                Name = "Megumin",
+                TitleName = "Kono Subarashii Sekai ni Shukufuku wo!",
+                URLToPNG = "https://cs10.pikabu.ru/post_img/big/2020/05/01/7/1588333493125556579.png"
+            });
 
             return View(models);
         }
