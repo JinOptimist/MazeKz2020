@@ -77,3 +77,22 @@ body {
     background: #1b6ec2;
     font-size: 30px;
 }
+
+.beverage-table-head {
+    text-align: center;
+    background-color: #ffc107;
+}
+
+.beverage-table-body {
+    vertical-align: top;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.beverage-table-price {
+    background-color: #dea80a;
+    text-align: right;
+}
+
+
+

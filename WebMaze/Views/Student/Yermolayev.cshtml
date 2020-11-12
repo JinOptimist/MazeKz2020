@@ -7,8 +7,8 @@
 
 <div>
     <table>
-        <thead style=" text-align: center;">
-            <tr style="background-color: #ffc107;">
+        <thead class="beverage-table-head">
+            <tr>
                 @foreach (var currentBeverage in Model)
                 {
                     <th>
@@ -16,22 +16,23 @@
                     </th>
                 }
             </tr>
-            <tr>
-                <td>Состав:</td>
-                <td>Состав:</td>
-                <td>Состав:</td>
-            </tr>
-        <tbody style="vertical-align: top">
+        <tbody class="beverage-table-body">
             <tr>
                 @foreach (var currentBeverage in Model)
                 {
-                    <td style="border: 1px solid #ddd; padding: 8px;">
+                    <td>Состав:</td>
+                }
+            </tr>
+            <tr>
+                @foreach (var currentBeverage in Model)
+                {
+                    <td>
 
                         @foreach (var currentIngredient in currentBeverage.BeverageIngredients)
                         {
                             <div>
                                 @currentIngredient.Name @currentIngredient.Quantity
-                                @currentIngredient.Units
+                                @currentIngredient.UnitsAsString
                             </div>
                             <div>
                                 <img src="@currentIngredient.PictureUrl" alt="@currentIngredient.Name" />
@@ -44,7 +45,7 @@
                 @foreach (var currentBeverage in Model)
                 {
                     <td>
-                        <h4 style="background-color: #dea80a;text-align: right;">
+                        <h4 class="beverage-table-price">
                             @currentBeverage.BeveragePriceAsString
                         </h4>
                     </td>

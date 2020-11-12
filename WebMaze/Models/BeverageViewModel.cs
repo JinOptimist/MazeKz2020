@@ -7,7 +7,7 @@ namespace WebMaze.Models
     public class BeverageViewModel
     {
         public string BeverageName { get; set; }
-        public List<Ingredient> BeverageIngredients { get; set; }
+        public List<BeverageIngredient> BeverageIngredients { get; set; }
 
         public decimal BeveragePricePerPiece { get; set; }
 
@@ -17,13 +17,5 @@ namespace WebMaze.Models
         }
 
     }
-
-    public class Ingredient
-    {
-        public string Name { get; set; }
-        public double Quantity { get; set; }
-        public string Units { get; set; }
-        public string PictureUrl { get; set; }
-
-    }
+    
 }
