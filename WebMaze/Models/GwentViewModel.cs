@@ -25,36 +25,7 @@ namespace WebMaze.Models
         public string CardAbility { get; set; }
         public string CardDescription { get; set; }
         public Faction CardFaction {private get; set; }
-
-        public string DisplayFaction
-        {
-            get
-            {
-                var faction = "";
-                switch (this.CardFaction)
-                {
-                    case Faction.Monsters:
-                        faction = "Monsters";
-                        break;
-                    case Faction.Northern_Realms:
-                        faction = "Northern Realms";
-                        break;
-                    case Faction.ScoiaTael:
-                        faction = "Scoia'tael";
-                        break;
-                    case Faction.Skellige:
-                        faction = "Skelliege";
-                        break;
-                    case Faction.Nilfgaard:
-                        faction = "Nilfgaard";
-                        break;
-                    case Faction.Neutral:
-                        faction = "Neutral";
-                        break;
-                }
-                return faction;
-            }
-        }
+        public string DisplayFaction => CardFaction.ToString();
 
     }
 }
