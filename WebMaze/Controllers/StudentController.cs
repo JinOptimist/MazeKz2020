@@ -27,7 +27,7 @@ namespace WebMaze.Controllers
             return View(models);
         }
 
-        public IActionResult Meiramov()
+        public IActionResult Lvou()
         {
             var models = new List<GirlViewModel>();
 
@@ -37,11 +37,17 @@ namespace WebMaze.Controllers
             meiViewModel.Url = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Mei_Overwatch.png/220px-Mei_Overwatch.png";
             models.Add(meiViewModel);
 
-            var diva = new GirlViewModel();
-            diva.Name = "diva";
-            diva.Hegith = 150;
-            diva.Url = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Mei_Overwatch.png/220px-Mei_Overwatch.png";
-            models.Add(diva);
+            var ViewModel = new GirlViewModel();
+            ViewModel.Name = "diva";
+            ViewModel.Hegith = 150;
+            ViewModel.Url = "https://i.pinimg.com/originals/36/aa/aa/36aaaaeb580f226c5d1a48c2a8821dad.jpg";
+            models.Add(ViewModel);
+
+            var bastionViewModel = new GirlViewModel();
+            bastionViewModel.Name = "bastion";
+            bastionViewModel.Hegith = 200;
+            bastionViewModel.Url = "/image/Lvou/Bastion_portrait.png";
+            models.Add(bastionViewModel);
 
             return View(models);
         }
@@ -93,6 +99,27 @@ namespace WebMaze.Controllers
             return View(championModels);
         }
 
+        public IActionResult Rudich()
+        {
+            var models = new List<CountryViewModel>();
+
+            var jordanViewModel = new CountryViewModel();
+            jordanViewModel.Name = "Jordan";
+            jordanViewModel.Continent = "Asia";
+            jordanViewModel.Area = 92300;
+            jordanViewModel.Url = "https://i.pinimg.com/originals/a5/4c/73/a54c730efc294c758934033455b7eb9d.jpg";
+            models.Add(jordanViewModel);
+
+            var indiaViewModel = new CountryViewModel();
+            indiaViewModel.Name = "India";
+            indiaViewModel.Continent = "South Asia";
+            indiaViewModel.Area = 3287263;
+            indiaViewModel.Url = "https://www.africanjacana.com/wp-content/uploads/IND.jpg.image_.750.563.low_.jpg";
+            models.Add(indiaViewModel);
+            return models;
+
+        }
+
         public IActionResult Yessenturov()
         {
             var prods = new List<ProductsViewModel>();
@@ -120,6 +147,7 @@ namespace WebMaze.Controllers
                 Price = 5000,
                 imgUrl = "https://static.wikia.nocookie.net/horizonzerodawn/images/3/37/Focus.png"
             });
+
             return View(prods);
         }
 
@@ -140,7 +168,7 @@ namespace WebMaze.Controllers
             vinsentViewModel.Name = "Indroduce Vinsent Vega!";
             vinsentViewModel.Price = null;
             vinsentViewModel.Url = "https://i.gifer.com/origin/3e/3e6bcf910e0ba9422b6e1ea79cdc6665_w200.webp";
-            models.Add(vinsentViewModel);
+            models.Add(vinsentViewModel)
 
             return View(models);
         }
