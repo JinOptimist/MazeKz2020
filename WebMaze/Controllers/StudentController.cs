@@ -52,6 +52,53 @@ namespace WebMaze.Controllers
             return View(models);
         }
 
+        public IActionResult Kenzhebayev()
+        {
+            var championModels = new List<ChampionViewModel>();
+            var akaliViewModel = new ChampionViewModel
+            {
+                Name = "Akali",
+                SplashUrl = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Akali_0.jpg",
+                Fraction = "Ionia",
+                ShortBio = "Abandoning the Kinkou Order and her title of the Fist of Shadow, Akali now strikes alone, " +
+                "ready to be the deadly weapon her people need. Though she holds onto all she learned from her master " +
+                "Shen, she has pledged to defend Ionia from its enemies, one kill at a time. Akali may strike in silence, " +
+                "but her message will be heard loud and clear: fear the assassin with no master.",
+                CurrentUpdateStats = new ChampionViewModel.StatsViewModel()
+                {
+                    BaseHealth = 575, 
+                    BaseMana = 200,
+                    IsEnergy = true,
+                    BaseDamage = 62.4,
+                },
+                UrlFractionIcon = "https://static.wikia.nocookie.net/leagueoflegends/images/a/ae/Ionia_Crest.png",
+            };
+
+            var gangplankViewModel = new ChampionViewModel
+            {
+                Name = "Gangplank",
+                SplashUrl = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Gangplank_0.jpg",
+                Fraction = "Bilgewater",
+                ShortBio = "As unpredictable as he is brutal, the dethroned reaver king Gangplank is feared far and wide. " +
+                "Once, he ruled the port city of Bilgewater, and while his reign is over, there are those who believe this " +
+                "has only made him more dangerous. Gangplank would see Bilgewater bathed in blood once more before letting someone " +
+                "else take it—and now with pistol, cutlass, and barrels of gunpowder, he is determined to reclaim what he has lost.",
+                CurrentUpdateStats = new ChampionViewModel.StatsViewModel()
+                {
+                    BaseHealth = 540,
+                    BaseMana = 280,
+                    IsEnergy = false,
+                    BaseDamage = 64,
+                },
+                UrlFractionIcon = "https://static.wikia.nocookie.net/leagueoflegends/images/0/06/Bilgewater_Crest.png",
+            };
+
+            championModels.Add(akaliViewModel);
+            championModels.Add(gangplankViewModel);
+
+            return View(championModels);
+        }
+      
         public IActionResult Rudich()
         {
             var models = new List<CountryViewModel>();
@@ -69,6 +116,7 @@ namespace WebMaze.Controllers
             indiaViewModel.Area = 3287263;
             indiaViewModel.Url = "https://www.africanjacana.com/wp-content/uploads/IND.jpg.image_.750.563.low_.jpg";
             models.Add(indiaViewModel);
+
             return View(models);
         }
 
