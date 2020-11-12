@@ -12,5 +12,14 @@ namespace WebMaze.Models
         public int Second { get; set; }
 
         public string DayOfWeek { get; set; }
+
+        public Sex Sex { get; set; }
+    }
+
+    public enum Sex
+    {
+        Male = 1,
+        Female = 2,
+        Null = 3
     }
 }
