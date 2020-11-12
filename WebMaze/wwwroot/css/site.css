@@ -2,76 +2,121 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
 
+.league_champion {
+    background: #2c5c54;
+    color: #d0bdad;
+}
 
+.league_champion_img {
+    width: 80%;
+    height: 80%;
+}
 
+.league_champion_stats {
+    background: #3c3c3c;
+    color: #c4c4c4;
+}
+
+.league_champion_text {
+    font-weight: bold; 
+}
+
+.league_champion_text_bio {
+    font-weight: bold; 
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+.league_champion_statbar {
+    width: 100%;
+}
+
+.league_champion_stats_health {
+    color: lawngreen;
+}
+
+.league_champion_stats_mana {
+    color: lightblue;
+}
+
+.league_champion_stats_energy {
+     color: yellow;
+}
+
+.league_champion_stats_damage {
+    color: orangered;
+}
 
 .header {
     background: #1b6ec2;
@@ -97,6 +142,7 @@ body {
     width: 180px;
     height: 260px;
 }
+
 .innerCard {
     margin-top: 4%;
     margin-right: 4%;
@@ -107,3 +153,81 @@ body {
     src: url(https://www.playgwent.com/fonts/hinted-GWENT-ExtraBold.ttf);
 }
 
+.country {
+    width: 32%;
+}
+
+.country_flag {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.card {
+    display: inline-block;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+}
+
+.price {
+    color: grey;
+    font-size: 22px;
+}
+
+.card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+.alert {
+    padding: 20px;
+    background-color: green;
+    color: white;
+}
+
+.student-names{
+    color: red;
+    font-size: 30px;
+}
+
+.girls-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.girl {
+    border: 1px red solid;
+    width: 200px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 5px;
+}
+
+.girl-name{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.girls-container .girl img {
+    max-width: 200px;
+    max-height: 200px;
+}
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
