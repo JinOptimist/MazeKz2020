@@ -27,7 +27,7 @@ namespace WebMaze.Controllers
             return View(models);
         }
 
-        public IActionResult Meiramov()
+        public IActionResult Lvou()
         {
             var models = new List<GirlViewModel>();
 
@@ -37,11 +37,17 @@ namespace WebMaze.Controllers
             meiViewModel.Url = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Mei_Overwatch.png/220px-Mei_Overwatch.png";
             models.Add(meiViewModel);
 
-            var diva = new GirlViewModel();
-            diva.Name = "diva";
-            diva.Hegith = 150;
-            diva.Url = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Mei_Overwatch.png/220px-Mei_Overwatch.png";
-            models.Add(diva);
+            var ViewModel = new GirlViewModel();
+            ViewModel.Name = "diva";
+            ViewModel.Hegith = 150;
+            ViewModel.Url = "https://i.pinimg.com/originals/36/aa/aa/36aaaaeb580f226c5d1a48c2a8821dad.jpg";
+            models.Add(ViewModel);
+
+            var bastionViewModel = new GirlViewModel();
+            bastionViewModel.Name = "bastion";
+            bastionViewModel.Hegith = 200;
+            bastionViewModel.Url = "/image/Lvou/Bastion_portrait.png";
+            models.Add(bastionViewModel);
 
             return View(models);
         }
@@ -72,6 +78,7 @@ namespace WebMaze.Controllers
                 Price = 5000,
                 imgUrl = "https://static.wikia.nocookie.net/horizonzerodawn/images/3/37/Focus.png"
             });
+
             return View(prods);
         }
 
