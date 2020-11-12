@@ -3,13 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebMaze</title>
+    <title>WebMaze</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </head>
 <body>
@@ -27,7 +25,16 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li>
-                            <a href="/Student/Meiramov">Meiramov</a>
+                            <a class="nav-link text-dark" href="/Student/Index">Student</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" href="/Student/Meiramov">Meiramov</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" href="/Student/Mochalkin">Mochalkin</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" href="/Student/Yessenturov">Yessenturov</a>
                         </li>
                     </ul>
                 </div>
@@ -45,6 +52,6 @@
             Этот сайт сделал я сам
         </div>
     </footer>
-    
+
 </body>
 </html>
