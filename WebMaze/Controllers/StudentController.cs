@@ -45,5 +45,27 @@ namespace WebMaze.Controllers
 
             return View(models);
         }
+
+        public IActionResult Mochalkin()
+        {
+            var models = new List<HookahViewModel>();
+
+            var maklaudViewModel = new HookahViewModel();
+            maklaudViewModel.Name = "Maklaud Skytech";
+            maklaudViewModel.Price = 26900;
+            maklaudViewModel.Material = "Stainless steel";
+            maklaudViewModel.ManufacturerCountry = "Russia";
+            maklaudViewModel.Height = 62;
+            maklaudViewModel.Url = "https://maklaud.ru/image/cache/catalog/Exlusive/Maklaud%20Skytech/Maklaud%20Skytech%20(7)-400x600.jpg";
+            models.Add(maklaudViewModel);
+
+            var vinsentViewModel = new HookahViewModel();
+            vinsentViewModel.Name = "Indroduce Vinsent Vega!";
+            vinsentViewModel.Price = null;
+            vinsentViewModel.Url = "https://i.gifer.com/origin/3e/3e6bcf910e0ba9422b6e1ea79cdc6665_w200.webp";
+            models.Add(vinsentViewModel);
+
+            return View(models);
+        }
     }
 }
