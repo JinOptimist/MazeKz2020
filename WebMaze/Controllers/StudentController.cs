@@ -48,7 +48,7 @@ namespace WebMaze.Controllers
 
         public IActionResult Kenzhebayev()
         {
-            var models = new List<ChampionViewModel>();
+            var championModels = new List<ChampionViewModel>();
             var akaliViewModel = new ChampionViewModel
             {
                 Name = "Akali",
@@ -87,10 +87,10 @@ namespace WebMaze.Controllers
                 UrlFractionIcon = "https://static.wikia.nocookie.net/leagueoflegends/images/0/06/Bilgewater_Crest.png",
             };
 
-            models.Add(akaliViewModel);
-            models.Add(gangplankViewModel);
+            championModels.Add(akaliViewModel);
+            championModels.Add(gangplankViewModel);
 
-            return View(models);
+            return View(championModels);
         }
     }
 }
