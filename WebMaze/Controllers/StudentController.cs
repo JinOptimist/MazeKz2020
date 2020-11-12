@@ -51,6 +51,7 @@ namespace WebMaze.Controllers
 
             return View(models);
         }
+
         public IActionResult Rudich()
         {
             var models = new List<CountryViewModel>();
@@ -68,7 +69,7 @@ namespace WebMaze.Controllers
             indiaViewModel.Area = 3287263;
             indiaViewModel.Url = "https://www.africanjacana.com/wp-content/uploads/IND.jpg.image_.750.563.low_.jpg";
             models.Add(indiaViewModel);
-            return models;
+            return View(models);
         }
 
         public IActionResult Yessenturov()
@@ -119,7 +120,7 @@ namespace WebMaze.Controllers
             vinsentViewModel.Name = "Indroduce Vinsent Vega!";
             vinsentViewModel.Price = null;
             vinsentViewModel.Url = "https://i.gifer.com/origin/3e/3e6bcf910e0ba9422b6e1ea79cdc6665_w200.webp";
-            models.Add(vinsentViewModel)
+            models.Add(vinsentViewModel);
 
             return View(models);
         }
