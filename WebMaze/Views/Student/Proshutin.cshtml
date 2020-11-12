@@ -8,9 +8,9 @@
     <div class="row d-flex justify-content-between">
         @foreach (var country in Model)
         {
-        <div class="mb-3" style="width: 32%;">
+        <div class="mb-3 country">
             <div class="card h-100 text-center">
-                <img src=@country.Flag class="card-img-top img-fluid border-bottom" style="width: 100%; height: 15vw; object-fit: cover;" alt="Flag of @country.CountryName"> 
+                <img src=@country.Flag class="card-img-top img-fluid border-bottom country_flag" alt="Flag of @country.CountryName"> 
                 <div class="card-body">
                     <h5 class="card-title">@country.CountryName</h5>
                 </div>

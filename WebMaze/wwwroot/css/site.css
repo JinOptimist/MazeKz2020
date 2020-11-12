@@ -77,3 +77,13 @@ body {
     background: #1b6ec2;
     font-size: 30px;
 }
+
+.country {
+    width: 32%;
+}
+
+.country_flag {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
