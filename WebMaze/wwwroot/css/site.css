@@ -77,3 +77,8 @@ body {
     background: #1b6ec2;
     font-size: 30px;
 }
+
+.bucs-team-captain-photos {
+    width: 640px;
+    height:360px;
+}
