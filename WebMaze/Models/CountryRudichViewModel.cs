@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebMaze.Models
 {
-    public class CountryViewModel
+    public class CountryRudichViewModel
     {
         public string Name { get; set; }
         public string Continent {get; set; }

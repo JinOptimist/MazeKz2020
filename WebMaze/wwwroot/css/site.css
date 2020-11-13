@@ -153,6 +153,10 @@ body {
     src: url(https://www.playgwent.com/fonts/hinted-GWENT-ExtraBold.ttf);
 }
 
+.centr {
+    text-align: center;
+}
+
 .country {
     width: 32%;
 }

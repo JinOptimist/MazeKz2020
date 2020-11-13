@@ -101,16 +101,16 @@ namespace WebMaze.Controllers
       
         public IActionResult Rudich()
         {
-            var models = new List<CountryViewModel>();
+            var models = new List<CountryRudichViewModel>();
 
-            var jordanViewModel = new CountryViewModel();
+            var jordanViewModel = new CountryRudichViewModel();
             jordanViewModel.Name = "Jordan";
             jordanViewModel.Continent = "Asia";
             jordanViewModel.Area = 92300;
             jordanViewModel.Url = "https://i.pinimg.com/originals/a5/4c/73/a54c730efc294c758934033455b7eb9d.jpg";
             models.Add(jordanViewModel);
 
-            var indiaViewModel = new CountryViewModel();
+            var indiaViewModel = new CountryRudichViewModel();
             indiaViewModel.Name = "India";
             indiaViewModel.Continent = "South Asia";
             indiaViewModel.Area = 3287263;
@@ -119,7 +119,6 @@ namespace WebMaze.Controllers
 
             return View(models);
         }
-
 
         public IActionResult Velinskiy()
         {
@@ -151,9 +150,35 @@ namespace WebMaze.Controllers
             DandelionViewModel.CardUrl = "https://i.pinimg.com/originals/74/c7/96/74c796199c5fea2aa05ee2a9565b43c2.jpg";
             DandelionViewModel.CardFaction = GwentViewModel.Faction.Northern_Realms;
             models.Add(DandelionViewModel);
-
             return View(models);
         }
+        
+        public IActionResult Srazhov()
+        {
+            var models = new List<AnimeGirlViewModel>();
+
+            models.Add(new AnimeGirlViewModel()
+            {
+                Name = "Rem",
+                TitleName = "Ri:Zero kara Hajimeru Isekai Seikatsu",
+                URLToPNG = "https://i.pinimg.com/originals/3a/da/82/3ada82dc265205ee239f0f69f373aa31.png"
+            });
+
+            models.Add(new AnimeGirlViewModel()
+            {
+                Name = "Taiga",
+                TitleName = "ToraDora",
+                URLToPNG = "https://pbs.twimg.com/media/ELW4PuaVUAA1M_l.jpg"
+            });
+
+            models.Add(new AnimeGirlViewModel()
+            {
+                Name = "Megumin",
+                TitleName = "Kono Subarashii Sekai ni Shukufuku wo!",
+                URLToPNG = "https://cs10.pikabu.ru/post_img/big/2020/05/01/7/1588333493125556579.png"
+            });
+            return View(models);
+        }        
 
         public IActionResult Yessenturov()
         {
@@ -239,6 +264,72 @@ namespace WebMaze.Controllers
 
             return View(countries);
         }
+        
+        public IActionResult Karayev()
+        {
+            var models = new List<BucsTeamCaptainViewModel>();
 
+            var tomBrady = new BucsTeamCaptainViewModel
+            {
+                Name = "Tom Brady",
+                Position = "Quarterback / Offense",
+                College = "Michigan",
+                Experience = 21,
+                PhotoURL = "https://i.ibb.co/m9v7CNV/TomBrady.webp"
+            };
+            models.Add(tomBrady);
+
+            var mikeEvans = new BucsTeamCaptainViewModel
+            {
+                Name = "Mike Evans",
+                Position = "Wide Receiver / Offense",
+                College = "Texas A&M",
+                Experience = 7,
+                PhotoURL = "https://i.ibb.co/5LfnR8j/Mike-Evans.webp"
+            };
+            models.Add(mikeEvans);
+
+            var lavonteDavid = new BucsTeamCaptainViewModel
+            {
+                Name = "Lavonte David",
+                Position = "Linebacker / Defense",
+                College = "Nebraska",
+                Experience = 9,
+                PhotoURL = "https://i.ibb.co/PwKWRTM/Lavonte-David.webp",
+            };
+            models.Add(lavonteDavid);
+
+            var devinWhite = new BucsTeamCaptainViewModel
+            {
+                Name = "Devin White",
+                Position = "Linebacker / Defense",
+                College = "LSU",
+                Experience = 2,
+                PhotoURL = "https://i.ibb.co/892CCqC/Devin-White.webp",
+            };
+            models.Add(devinWhite);
+
+            var kevinMinter = new BucsTeamCaptainViewModel
+            {
+                Name = "Kevin Minter",
+                Position = "Linebacker / Special Teams",
+                College = "LSU",
+                Experience = 8,
+                PhotoURL = "https://i.ibb.co/P1S1YNR/Kevin-Minter.webp",
+            };
+            models.Add(kevinMinter);
+
+            var bradleyPinion = new BucsTeamCaptainViewModel
+            {
+                Name = "Bradley Pinion",
+                Position = "Punter / Special Teams",
+                College = "Clemson",
+                Experience = 6,
+                PhotoURL = "https://i.ibb.co/MZ745my/Bradley-Pinion.webp",
+            };
+            models.Add(kevinMinter);
+
+            return View(models);
+        }
     }
 }
