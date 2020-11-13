@@ -120,6 +120,39 @@ namespace WebMaze.Controllers
             return View(models);
         }
 
+        public IActionResult Velinskiy()
+        {
+            var models = new List<GwentViewModel>();
+
+            var GeraltViewModel = new GwentViewModel();
+            GeraltViewModel.CardAbility = "";
+            GeraltViewModel.CardDescription = "If that's what it takes to save the world, it's better to let that world die.";
+            GeraltViewModel.CardStrenght = 15;
+            GeraltViewModel.CardTitle = "Geralt of Rivia";
+            GeraltViewModel.CardUrl = "https://cdnb.artstation.com/p/assets/images/images/000/848/617/large/marek-madej-gwent-geralt-by-marekmadej.jpg?1443928905";
+            GeraltViewModel.CardFaction = GwentViewModel.Faction.Neutral;
+            models.Add(GeraltViewModel);
+
+            var TiborViewModel = new GwentViewModel();
+            TiborViewModel.CardAbility = "Deploy: If neither player has passed, Boost self by 15, then your opponent draws the top Bronze card from their Deck and Reveals it.";
+            TiborViewModel.CardDescription = "Tibor's zeal was legendary. It was said when the emperor passed, he'd not so much bow as somersault.";
+            TiborViewModel.CardStrenght = 10;
+            TiborViewModel.CardTitle = "Tibor Eggebracht";
+            TiborViewModel.CardUrl = "https://i.pinimg.com/originals/00/8f/7d/008f7d76ec909ad104a0d4a478f60675.jpg";
+            TiborViewModel.CardFaction = GwentViewModel.Faction.Nilfgaard;
+            models.Add(TiborViewModel);
+
+            var DandelionViewModel = new GwentViewModel();
+            DandelionViewModel.CardAbility = "Deploy: Add 2 strength to every non-Gold unit played on your side of the battlefield.";
+            DandelionViewModel.CardDescription = "Dandelion, you're a cynic, a lecher, a liar – and my best friend.";
+            DandelionViewModel.CardStrenght = 4;
+            DandelionViewModel.CardTitle = "Dandelion";
+            DandelionViewModel.CardUrl = "https://i.pinimg.com/originals/74/c7/96/74c796199c5fea2aa05ee2a9565b43c2.jpg";
+            DandelionViewModel.CardFaction = GwentViewModel.Faction.Northern_Realms;
+            models.Add(DandelionViewModel);
+            return View(models);
+        }
+        
         public IActionResult Srazhov()
         {
             var models = new List<AnimeGirlViewModel>();
@@ -144,9 +177,8 @@ namespace WebMaze.Controllers
                 TitleName = "Kono Subarashii Sekai ni Shukufuku wo!",
                 URLToPNG = "https://cs10.pikabu.ru/post_img/big/2020/05/01/7/1588333493125556579.png"
             });
-
             return View(models);
-        }
+        }        
 
         public IActionResult Yessenturov()
         {
