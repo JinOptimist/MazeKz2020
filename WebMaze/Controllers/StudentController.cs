@@ -101,16 +101,16 @@ namespace WebMaze.Controllers
       
         public IActionResult Rudich()
         {
-            var models = new List<CountryViewModel>();
+            var models = new List<CountryRudichViewModel>();
 
-            var jordanViewModel = new CountryViewModel();
+            var jordanViewModel = new CountryRudichViewModel();
             jordanViewModel.Name = "Jordan";
             jordanViewModel.Continent = "Asia";
             jordanViewModel.Area = 92300;
             jordanViewModel.Url = "https://i.pinimg.com/originals/a5/4c/73/a54c730efc294c758934033455b7eb9d.jpg";
             models.Add(jordanViewModel);
 
-            var indiaViewModel = new CountryViewModel();
+            var indiaViewModel = new CountryRudichViewModel();
             indiaViewModel.Name = "India";
             indiaViewModel.Continent = "South Asia";
             indiaViewModel.Area = 3287263;
