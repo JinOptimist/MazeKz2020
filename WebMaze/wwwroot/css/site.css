@@ -123,6 +123,10 @@ body {
     font-size: 30px;
 }
 
+.centr {
+    text-align: center;
+}
+
 .country {
     width: 32%;
 }

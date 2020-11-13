@@ -120,6 +120,35 @@ namespace WebMaze.Controllers
             return View(models);
         }
 
+
+        public IActionResult Srazhov()
+        {
+            var models = new List<AnimeGirlViewModel>();
+
+            models.Add(new AnimeGirlViewModel()
+            {
+                Name = "Rem",
+                TitleName = "Ri:Zero kara Hajimeru Isekai Seikatsu",
+                URLToPNG = "https://i.pinimg.com/originals/3a/da/82/3ada82dc265205ee239f0f69f373aa31.png"
+            });
+
+            models.Add(new AnimeGirlViewModel()
+            {
+                Name = "Taiga",
+                TitleName = "ToraDora",
+                URLToPNG = "https://pbs.twimg.com/media/ELW4PuaVUAA1M_l.jpg"
+            });
+
+            models.Add(new AnimeGirlViewModel()
+            {
+                Name = "Megumin",
+                TitleName = "Kono Subarashii Sekai ni Shukufuku wo!",
+                URLToPNG = "https://cs10.pikabu.ru/post_img/big/2020/05/01/7/1588333493125556579.png"
+            });
+
+            return View(models);
+        }
+
         public IActionResult Yessenturov()
         {
             var prods = new List<ProductsViewModel>();
