@@ -123,23 +123,39 @@ body {
     font-size: 30px;
 }
 
+.card-gwent {
+    background: url(https://legion.lenovo.com/assets/images/picture/XodPQ28fltOE5WLt.png) no-repeat;
+    float: left;
+    width: 45%;
+    height: 30%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    color: white;
+    font-family: GwentFont;
+}
 
-.beverage-table-head {
+.leftimg {
+    float: left;
+    margin-bottom: 4%;
+    margin-left: 4%;
+    margin-right: 4%;
+    width: 180px;
+    height: 260px;
+}
+
+.innerCard {
+    margin-top: 4%;
+    margin-right: 4%;
+}
+
+@font-face {
+    font-family: 'GwentFont';
+    src: url(https://www.playgwent.com/fonts/hinted-GWENT-ExtraBold.ttf);
+}
+
+.centr {
     text-align: center;
-    background-color: #ffc107;
 }
-
-.beverage-table-body {
-    vertical-align: top;
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.beverage-table-price {
-    background-color: #dea80a;
-    text-align: right;
-}
-
 
 .country {
     width: 32%;
@@ -219,4 +235,18 @@ body {
     align-items: center;
     flex: 1;
 }
+.beverage-table-head {
+    text-align: center;
+    background-color: #ffc107;
+}
 
+.beverage-table-body {
+    vertical-align: top;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.beverage-table-price {
+    background-color: #dea80a;
+    text-align: right;
+}

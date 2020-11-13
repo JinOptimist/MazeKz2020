@@ -101,16 +101,16 @@ namespace WebMaze.Controllers
       
         public IActionResult Rudich()
         {
-            var models = new List<CountryViewModel>();
+            var models = new List<CountryRudichViewModel>();
 
-            var jordanViewModel = new CountryViewModel();
+            var jordanViewModel = new CountryRudichViewModel();
             jordanViewModel.Name = "Jordan";
             jordanViewModel.Continent = "Asia";
             jordanViewModel.Area = 92300;
             jordanViewModel.Url = "https://i.pinimg.com/originals/a5/4c/73/a54c730efc294c758934033455b7eb9d.jpg";
             models.Add(jordanViewModel);
 
-            var indiaViewModel = new CountryViewModel();
+            var indiaViewModel = new CountryRudichViewModel();
             indiaViewModel.Name = "India";
             indiaViewModel.Continent = "South Asia";
             indiaViewModel.Area = 3287263;
@@ -280,6 +280,67 @@ namespace WebMaze.Controllers
             };
                 
             return View(beveragesViewModel);
+        }
+
+        public IActionResult Velinskiy()
+        {
+            var models = new List<GwentViewModel>();
+
+            var GeraltViewModel = new GwentViewModel();
+            GeraltViewModel.CardAbility = "";
+            GeraltViewModel.CardDescription = "If that's what it takes to save the world, it's better to let that world die.";
+            GeraltViewModel.CardStrenght = 15;
+            GeraltViewModel.CardTitle = "Geralt of Rivia";
+            GeraltViewModel.CardUrl = "https://cdnb.artstation.com/p/assets/images/images/000/848/617/large/marek-madej-gwent-geralt-by-marekmadej.jpg?1443928905";
+            GeraltViewModel.CardFaction = GwentViewModel.Faction.Neutral;
+            models.Add(GeraltViewModel);
+
+            var TiborViewModel = new GwentViewModel();
+            TiborViewModel.CardAbility = "Deploy: If neither player has passed, Boost self by 15, then your opponent draws the top Bronze card from their Deck and Reveals it.";
+            TiborViewModel.CardDescription = "Tibor's zeal was legendary. It was said when the emperor passed, he'd not so much bow as somersault.";
+            TiborViewModel.CardStrenght = 10;
+            TiborViewModel.CardTitle = "Tibor Eggebracht";
+            TiborViewModel.CardUrl = "https://i.pinimg.com/originals/00/8f/7d/008f7d76ec909ad104a0d4a478f60675.jpg";
+            TiborViewModel.CardFaction = GwentViewModel.Faction.Nilfgaard;
+            models.Add(TiborViewModel);
+
+            var DandelionViewModel = new GwentViewModel();
+            DandelionViewModel.CardAbility = "Deploy: Add 2 strength to every non-Gold unit played on your side of the battlefield.";
+            DandelionViewModel.CardDescription = "Dandelion, you're a cynic, a lecher, a liar – and my best friend.";
+            DandelionViewModel.CardStrenght = 4;
+            DandelionViewModel.CardTitle = "Dandelion";
+            DandelionViewModel.CardUrl = "https://i.pinimg.com/originals/74/c7/96/74c796199c5fea2aa05ee2a9565b43c2.jpg";
+            DandelionViewModel.CardFaction = GwentViewModel.Faction.Northern_Realms;
+            models.Add(DandelionViewModel);
+            return View(models);
+        }
+        
+        public IActionResult Srazhov()
+        {
+            var models = new List<AnimeGirlViewModel>();
+
+            models.Add(new AnimeGirlViewModel()
+            {
+                Name = "Rem",
+                TitleName = "Ri:Zero kara Hajimeru Isekai Seikatsu",
+                URLToPNG = "https://i.pinimg.com/originals/3a/da/82/3ada82dc265205ee239f0f69f373aa31.png"
+            });
+
+            models.Add(new AnimeGirlViewModel()
+            {
+                Name = "Taiga",
+                TitleName = "ToraDora",
+                URLToPNG = "https://pbs.twimg.com/media/ELW4PuaVUAA1M_l.jpg"
+            });
+
+            models.Add(new AnimeGirlViewModel()
+            {
+                Name = "Megumin",
+                TitleName = "Kono Subarashii Sekai ni Shukufuku wo!",
+                URLToPNG = "https://cs10.pikabu.ru/post_img/big/2020/05/01/7/1588333493125556579.png"
+            });
+            return View(models);
+        }
 
         public IActionResult Yessenturov()
         {
@@ -364,6 +425,73 @@ namespace WebMaze.Controllers
             countries.Add(indonesia);
 
             return View(countries);
+        }
+        
+        public IActionResult Karayev()
+        {
+            var models = new List<BucsTeamCaptainViewModel>();
+
+            var tomBrady = new BucsTeamCaptainViewModel
+            {
+                Name = "Tom Brady",
+                Position = "Quarterback / Offense",
+                College = "Michigan",
+                Experience = 21,
+                PhotoURL = "https://i.ibb.co/m9v7CNV/TomBrady.webp"
+            };
+            models.Add(tomBrady);
+
+            var mikeEvans = new BucsTeamCaptainViewModel
+            {
+                Name = "Mike Evans",
+                Position = "Wide Receiver / Offense",
+                College = "Texas A&M",
+                Experience = 7,
+                PhotoURL = "https://i.ibb.co/5LfnR8j/Mike-Evans.webp"
+            };
+            models.Add(mikeEvans);
+
+            var lavonteDavid = new BucsTeamCaptainViewModel
+            {
+                Name = "Lavonte David",
+                Position = "Linebacker / Defense",
+                College = "Nebraska",
+                Experience = 9,
+                PhotoURL = "https://i.ibb.co/PwKWRTM/Lavonte-David.webp",
+            };
+            models.Add(lavonteDavid);
+
+            var devinWhite = new BucsTeamCaptainViewModel
+            {
+                Name = "Devin White",
+                Position = "Linebacker / Defense",
+                College = "LSU",
+                Experience = 2,
+                PhotoURL = "https://i.ibb.co/892CCqC/Devin-White.webp",
+            };
+            models.Add(devinWhite);
+
+            var kevinMinter = new BucsTeamCaptainViewModel
+            {
+                Name = "Kevin Minter",
+                Position = "Linebacker / Special Teams",
+                College = "LSU",
+                Experience = 8,
+                PhotoURL = "https://i.ibb.co/P1S1YNR/Kevin-Minter.webp",
+            };
+            models.Add(kevinMinter);
+
+            var bradleyPinion = new BucsTeamCaptainViewModel
+            {
+                Name = "Bradley Pinion",
+                Position = "Punter / Special Teams",
+                College = "Clemson",
+                Experience = 6,
+                PhotoURL = "https://i.ibb.co/MZ745my/Bradley-Pinion.webp",
+            };
+            models.Add(kevinMinter);
+
+            return View(models);
         }
     }
 }
