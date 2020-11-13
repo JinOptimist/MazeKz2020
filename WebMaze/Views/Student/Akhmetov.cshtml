@@ -1,4 +1,4 @@
-﻿@model List<Building>
+﻿@model List<BuildingViewModel>
 
 <div class="row justify-content-center align-items-center">
     <div class="col-md-12 mb-4">
@@ -19,7 +19,7 @@
                         <img alt="@building.Name" class="card-img-top embed-responsive-item" src="@building.Url" />
                     </div>
                     <div class="card-footer">
-                        <h5>Высота: @building.Height.ToString() м</h5>
+                        <h5>Высота: @building.Height м</h5>
                     </div>
                 </div>
             </div>

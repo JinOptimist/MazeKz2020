@@ -1,6 +1,6 @@
 ﻿namespace WebMaze.Models
 {
-    public class Building
+    public class BuildingViewModel
     {
         public string Name { get; set; }
 
