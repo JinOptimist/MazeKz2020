@@ -1,0 +1,58 @@
+﻿@model List<BeverageViewModel>
+
+<div>
+    Привет! Меня зовут Антон Ермолаев. Предлагаю вспомнить о том, что в мире вегда есть место прекрасному.
+</div>
+<br />
+
+<div>
+    <table>
+        <thead class="beverage-table-head">
+            <tr>
+                @foreach (var currentBeverage in Model)
+                {
+                    <th>
+                        <h2>@currentBeverage.BeverageName</h2>
+                    </th>
+                }
+            </tr>
+        <tbody class="beverage-table-body">
+            <tr>
+                @foreach (var currentBeverage in Model)
+                {
+                    <td>Состав:</td>
+                }
+            </tr>
+            <tr>
+                @foreach (var currentBeverage in Model)
+                {
+                    <td>
+
+                        @foreach (var currentIngredient in currentBeverage.BeverageIngredients)
+                        {
+                            <div>
+                                @currentIngredient.Name @currentIngredient.Quantity
+                                @currentIngredient.UnitsAsString
+                            </div>
+                            <div>
+                                <img src="@currentIngredient.PictureUrl" alt="@currentIngredient.Name" />
+                            </div>
+                        }
+                    </td>
+                }
+            </tr>
+            <tr>
+                @foreach (var currentBeverage in Model)
+                {
+                    <td>
+                        <h4 class="beverage-table-price">
+                            @currentBeverage.BeveragePriceAsString
+                        </h4>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
