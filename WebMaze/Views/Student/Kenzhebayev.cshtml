@@ -1,0 +1,68 @@
+@model List<ChampionViewModel>
+
+<div>
+    @foreach (var champion in Model)
+    {
+        <div class="league_champion">
+            <div class="league_champion_text">
+                @champion.Name (@champion.Name)
+            </div>
+            @if (champion.SplashUrl != null)
+            {
+                <div>
+                    <img class="league_champion_img" src="@champion.SplashUrl" />
+                </div>
+            }
+            <div class="league_champion_text"> 
+                Fraction: @champion.Fraction
+            </div>
+            @if (champion.UrlFractionIcon != null)
+            {
+                <div>
+                    <img src="@champion.UrlFractionIcon" />
+                </div>
+            }
+            <div class="league_champion_text"> 
+                Short Bio:
+            </div>
+            <br>
+            <span class="league_champion_text_bio">
+                @champion.ShortBio
+            </span>
+
+            <div class="league_champion_text"> 
+                Stats in this Patch:
+            </div>
+            <br>
+            <table class="league_champion_stats league_champion_statbar">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                Health: <div class="league_champion_stats_health"> @champion.CurrentUpdateStats.BaseHealth </div>
+                            </div>
+                        </td>
+                        <td>
+                            @if (@champion.CurrentUpdateStats.IsEnergy)
+                            {
+                                <div>
+                                    Energy: <div class="league_champion_stats_mana"> @champion.CurrentUpdateStats.BaseMana </div>
+                                </div>
+                            }else
+                            {
+                                <div>
+                                    Mana: <div class="league_champion_stats_mana"> @champion.CurrentUpdateStats.BaseMana </div>
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            <div>
+                                Damage: <div class="league_champion_stats_damage"> @champion.CurrentUpdateStats.BaseDamage </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
