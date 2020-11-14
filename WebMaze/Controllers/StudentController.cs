@@ -543,5 +543,25 @@ namespace WebMaze.Controllers
 
             return View(buildings.OrderByDescending(building => building.Height).ToList());
         }
+        public IActionResult Shilnikov()
+        {
+            List<HeroViewModels> heroes = new List<HeroViewModels>
+            {
+                new HeroViewModels { Name="Blast", Number=1, Rang=HeroViewModels.Rangs.S, UrlPhoto="/image/Shilnikov/Blast.jpg" },
+                new HeroViewModels { Name="Tornado of Terror", Number=2, Rang=HeroViewModels.Rangs.S, UrlPhoto="/image/Shilnikov/Tatsumaki_Manga.webp" },
+                new HeroViewModels { Name="Silver Fang", Number=3, Rang=HeroViewModels.Rangs.S, UrlPhoto="/image/Shilnikov/Bang_Manga_Profile.webp" },
+                new HeroViewModels { Name="Secret Mask", Number=1, Rang=HeroViewModels.Rangs.A, UrlPhoto="/image/Shilnikov/SweetMaskProfile.webp" },
+                new HeroViewModels { Name="Iaian", Number=2, Rang=HeroViewModels.Rangs.A, UrlPhoto="/image/Shilnikov/Iaian_Anime_Profile.webp" },
+                new HeroViewModels { Name="Okamaitachi", Number=3, Rang=HeroViewModels.Rangs.A, UrlPhoto="/image/Shilnikov/Slicing_SheMan.webp" },
+                new HeroViewModels { Name="Fubuki", Number=1, Rang=HeroViewModels.Rangs.B, UrlPhoto="/image/Shilnikov/Fubuki_Manga.webp" },
+                new HeroViewModels { Name="Eyelashes", Number=2, Rang=HeroViewModels.Rangs.B, UrlPhoto="/image/Shilnikov/Eyelashes_Anime.webp" },
+                new HeroViewModels { Name="Saitama", Number=7, Rang=HeroViewModels.Rangs.B, UrlPhoto="/image/Shilnikov/Saitama_Manga.webp" },
+                new HeroViewModels { Name="Satoru", Number=1, Rang=HeroViewModels.Rangs.C, UrlPhoto="/image/Shilnikov/Mumen_Rider_Manga.webp" },
+                new HeroViewModels { Name="Monster Roper Shell", Number=3, Rang=HeroViewModels.Rangs.C, UrlPhoto="/image/Shilnikov/Monster_Roper_Shell.webp" },
+                new HeroViewModels { Name="Horse-Bone", Number=283, Rang=HeroViewModels.Rangs.C, UrlPhoto="/image/Shilnikov/HorseBoneAnime.webp" },
+            };
+            
+            return View(heroes);
+        }
     }
 }

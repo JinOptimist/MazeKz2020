@@ -264,3 +264,15 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
 }
+.table-heroes {
+    border: 3px black solid;
+    text-align-last: center;
+}
+.text-heroes {
+    font: italic bold ;
+    color: darkred;
+}
+.image-heroes {
+    max-width: 200px;
+    max-height: 200px;
+}
