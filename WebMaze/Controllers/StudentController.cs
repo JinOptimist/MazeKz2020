@@ -54,7 +54,7 @@ namespace WebMaze.Controllers
         {
             var mazeGenerator = new MazeGenerator();
             var maze = mazeGenerator.GenerateSmart(MazeWidth, MazeHeight);
-            return View(maze);
+            return View(new MazeViewModel(maze));
         }
     }
 }
