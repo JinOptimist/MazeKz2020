@@ -1,0 +1,28 @@
+﻿@model List<BuildingViewModel>
+
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-12 mb-4">
+        <h1 class="text-center">Самые высокие здания в мире.</h1>
+    </div>
+    <div class="card-deck">
+        @foreach (var building in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="bootstrap_card h-100 ml-0 mr-0">
+                    <div class="card-header">
+                        <h5>@building.Name</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@building.Description</p>
+                    </div>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <img alt="@building.Name" class="card-img-top embed-responsive-item" src="@building.Url" />
+                    </div>
+                    <div class="card-footer">
+                        <h5>Высота: @building.Height м</h5>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
