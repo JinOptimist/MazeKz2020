@@ -264,6 +264,7 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
 }
+
 .table-heroes {
     border: 3px black solid;
     text-align-last: center;
@@ -276,3 +277,55 @@ body {
     max-width: 200px;
     max-height: 200px;
 }
+
+
+
+.maze-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.maze {
+    margin: 50px;
+}
+
+.cell {
+    width: 25px;
+    height: 25px;
+}
+
+    .cell.coin {
+        background-color: lightcyan;
+        position: relative;
+    }
+
+        .cell.coin::after {
+            display: block;
+            position: absolute;
+            content: "";
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: gold;
+            transform: translate(-50%, -50%);
+        }
+
+        .cell.coin:hover::after {
+            transform: translate(-50%, -50%) rotateY(180deg);
+            transition: transform 200ms linear;
+        }
+
+    .cell.ground {
+        background-color: lightcyan;
+    }
+
+    .cell.wall {
+        background-color: blueviolet;
+    }
+
+    .cell.hero {
+        background-color: green;
+    }
+

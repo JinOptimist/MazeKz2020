@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using MazeKz;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebMaze.Models;
@@ -11,6 +12,9 @@ namespace WebMaze.Controllers
 {
     public class StudentController : Controller
     {
+        private const int MazeWidth = 25;
+        private const int MazeHeight = 20;
+
         public IActionResult Index()
         {
             var models = new List<StudentViewModel>();
@@ -543,6 +547,7 @@ namespace WebMaze.Controllers
 
             return View(buildings.OrderByDescending(building => building.Height).ToList());
         }
+
         public IActionResult Shilnikov()
         {
             List<HeroViewModels> heroes = new List<HeroViewModels>
@@ -562,6 +567,14 @@ namespace WebMaze.Controllers
             };
             
             return View(heroes);
+         }
+
+        public IActionResult Boris()
+        {
+            var mazeGenerator = new MazeGenerator();
+            var maze = mazeGenerator.GenerateSmart(MazeWidth, MazeHeight);
+            return View(new MazeViewModel(maze));
+
         }
     }
 }
