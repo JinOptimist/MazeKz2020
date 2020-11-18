@@ -1,0 +1,13 @@
+﻿@model MazeViewModel
+
+<div class="maze">
+    @for (int y = 0; y < Model.Height; y++)
+    {
+        <div class="maze-row">
+            @for (int x = 0; x < Model.Width; x++)
+            {
+                <div class="cell @Model[x, y]"></div>
+            }
+        </div>
+    }
+</div>

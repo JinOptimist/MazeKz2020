@@ -1,0 +1,21 @@
+﻿@model List<CountryRudichViewModel>
+
+<div>
+    Countries to visit
+</div>
+
+@foreach (var country in Model)
+{
+    <div>
+        @country.Name is located in @country.Continent
+    </div>
+    <div>
+        Area - @country.Area square km
+    </div>
+    @if (country.Url != null)
+    {
+        <div>
+            <img src="@country.Url" />
+        </div>
+    }
+}
