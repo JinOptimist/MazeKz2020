@@ -1,0 +1,42 @@
+﻿
+@using (Html.BeginForm("Maze", "Student", FormMethod.Post))
+{
+    @model WebMaze.Models.MazeKZViewModel
+   
+    <table class="table-for-maze-sh">
+
+        @for (int i = 0; i < 10; i++)
+        {
+            <tr class="cell-for-maze-sh">
+                @for (int j = 0; j < 20; j++)
+                {
+                    @foreach (var item in Model.Table)
+                    {
+                        @if (item.X == j && item.Y == i)
+                        {
+
+                            <td class="cell-for-maze-sh">
+                                <div class="symbol-for-naze-sh">@item.Symbol</div> 
+                            </td>
+
+                        }
+
+                    }
+
+                }
+            </tr>
+        }
+    </table>
+    <div>Coin: @Model.Maze.Hero.Money.ToString()</div>
+    <div class="button-top-for-maze-sh">
+        <button type="submit" name="action" value="3">Top</button>
+    </div>
+    <div>
+        <button type="submit" name="action" value="1">Left</button>
+        <button type="submit" name="action" value="2">Right</button>
+    </div>
+    
+    <div class="button-bottom-for-maze-sh">
+        <button type="submit" name="action" value="4">Bottom</button>
+    </div>
+        }

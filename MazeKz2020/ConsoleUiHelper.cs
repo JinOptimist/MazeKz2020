@@ -6,6 +6,29 @@ namespace MazeKz
 {
     public class ConsoleUiHelper
     {
+        public static List<MazeKZModel> PlayWeb(Maze maze, string key)
+        {
+            switch (key)
+            {
+                case "1":
+                    maze.TryToStep(Direction.Left);
+                    break;
+                case "2":
+                    maze.TryToStep(Direction.Right);
+                    break;
+                case "3":
+                    maze.TryToStep(Direction.Top);
+                    break;
+                case "4":
+                    maze.TryToStep(Direction.Bottom);
+                    break;
+                case "0":
+                    break;
+            }
+
+            List<MazeKZModel> draw = Drawer.DrawMazeWeb(maze);
+            return draw;
+        }
         public void Play()
         {
             var mazeGenerator = new MazeGenerator();

@@ -276,3 +276,22 @@ body {
     max-width: 200px;
     max-height: 200px;
 }
+.table-for-maze-sh {
+    border: 3px black solid;
+}
+.cell-for-maze-sh {
+    width: 20px;
+    height: 20px;
+}
+
+.symbol-for-naze-sh {
+    text-align-last: center;
+}
+
+.button-top-for-maze-sh {
+    margin-left: 25px;
+}
+
+.button-bottom-for-maze-sh {
+    margin-left: 15px;
+}

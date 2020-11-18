@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using MazeKz;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebMaze.Models;
+
 
 namespace WebMaze.Controllers
 {
@@ -562,6 +564,24 @@ namespace WebMaze.Controllers
             };
             
             return View(heroes);
+        }
+        [HttpGet]
+        public IActionResult Maze()
+        {
+
+            MazeKZViewModel viewModel = new MazeKZViewModel();
+            viewModel.Maze = MazeForWeb.Mazes();
+            viewModel.Table = ConsoleUiHelper.PlayWeb(MazeForWeb.Mazes(), "0");
+            return View(viewModel);
+        }
+        [HttpPost]
+        public IActionResult Maze(string action)
+        {
+
+            MazeKZViewModel viewModel = new MazeKZViewModel();
+            viewModel.Table = ConsoleUiHelper.PlayWeb(MazeForWeb.Mazes(), action);
+            viewModel.Maze = MazeForWeb.Mazes();
+            return View(viewModel);
         }
     }
 }
