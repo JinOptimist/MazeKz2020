@@ -327,3 +327,24 @@ body {
         background-color: green;
     }
 
+
+
+.games_name {
+    color: white;
+    font-size: 30px;
+    padding-top: 280px;
+}
+
+#genre {
+    padding-top: 0px;
+    font-size: 22px
+}
+
+.games_card {
+    max-width: 700px;
+    max-height: 400px;
+    margin-bottom: 50px;
+    background-repeat: no-repeat;
+    background-size: 100%, 250%;
+}
+
