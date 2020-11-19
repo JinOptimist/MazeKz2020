@@ -577,23 +577,6 @@ namespace WebMaze.Controllers
             return View(new MazeViewModel(maze));
 
         }
-        [HttpGet]
-        public IActionResult Maze()
-        {
-
-            MazeKZViewModel viewModel = new MazeKZViewModel();
-            viewModel.Maze = MazeForWeb.Mazes();
-            viewModel.Table = ConsoleUiHelper.PlayWeb(MazeForWeb.Mazes(), "0");
-            return View(viewModel);
-        }
-        [HttpPost]
-        public IActionResult Maze(string action)
-        {
-
-            MazeKZViewModel viewModel = new MazeKZViewModel();
-            viewModel.Table = ConsoleUiHelper.PlayWeb(MazeForWeb.Mazes(), action);
-            viewModel.Maze = MazeForWeb.Mazes();
-            return View(viewModel);
-        }
+       
     }
 }
