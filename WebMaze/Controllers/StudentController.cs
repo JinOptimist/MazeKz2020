@@ -105,21 +105,49 @@ namespace WebMaze.Controllers
       
         public IActionResult Rudich()
         {
-            var models = new List<CountryRudichViewModel>();
+            var models = new List<InteriorViewModel>();
 
-            var jordanViewModel = new CountryRudichViewModel();
-            jordanViewModel.Name = "Jordan";
-            jordanViewModel.Continent = "Asia";
-            jordanViewModel.Area = 92300;
-            jordanViewModel.Url = "https://i.pinimg.com/originals/a5/4c/73/a54c730efc294c758934033455b7eb9d.jpg";
-            models.Add(jordanViewModel);
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Kitchen",
+                Area = 18,
+                ImgUrl = "/image/Rudich/kitchen.jpg",
+            });
 
-            var indiaViewModel = new CountryRudichViewModel();
-            indiaViewModel.Name = "India";
-            indiaViewModel.Continent = "South Asia";
-            indiaViewModel.Area = 3287263;
-            indiaViewModel.Url = "https://www.africanjacana.com/wp-content/uploads/IND.jpg.image_.750.563.low_.jpg";
-            models.Add(indiaViewModel);
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Bathroom",
+                Area = 15,
+                ImgUrl = "/image/Rudich/bathroom.jpg",
+            });
+
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Bedroom",
+                Area = 22,
+                ImgUrl = "/image/Rudich/bedroom.jpg",
+            });
+
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Wardrobe",
+                Area = 13,
+                ImgUrl = "/image/Rudich/wardrobe.jpg",
+            });
+
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Living room",
+                Area = 22,
+                ImgUrl = "/image/Rudich/living-room.jpg",
+            });
+
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Home office",
+                Area = 13,
+                ImgUrl = "/image/Rudich/home-office.jpg",
+            });
 
             return View(models);
         }
