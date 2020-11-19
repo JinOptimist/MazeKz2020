@@ -2,7 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using MazeKz;
+using Microsoft.AspNetCore.Mvc;
+using WebMaze.DbStuff;
+using WebMaze.DbStuff.Model;
 using WebMaze.Models;
 
 
@@ -10,8 +17,15 @@ namespace WebMaze.Controllers
 {
     public class StudentController : Controller
     {
+        private WebMazeContext _webMazeContext;
+
         private const int MazeWidth = 25;
         private const int MazeHeight = 20;
+
+        public StudentController(WebMazeContext webMazeContext)
+        {
+            _webMazeContext = webMazeContext;
+        }
 
         public IActionResult Index()
         {
@@ -31,28 +45,36 @@ namespace WebMaze.Controllers
 
         public IActionResult Lvou()
         {
-            var models = new List<GirlViewModel>();
+            var viewModels = new List<GirlViewModel>();
 
-            var meiViewModel = new GirlViewModel();
-            meiViewModel.Name = "mei";
-            meiViewModel.Hegith = 150;
-            meiViewModel.Url = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Mei_Overwatch.png/220px-Mei_Overwatch.png";
-            models.Add(meiViewModel);
+            var dbCitizens = _webMazeContext.CitizenUser;
 
-            var ViewModel = new GirlViewModel();
-            ViewModel.Name = "diva";
-            ViewModel.Hegith = 150;
-            ViewModel.Url = "https://i.pinimg.com/originals/36/aa/aa/36aaaaeb580f226c5d1a48c2a8821dad.jpg";
-            models.Add(ViewModel);
+            foreach (var citizen in dbCitizens)
+            {
+                var meiViewModel = new GirlViewModel();
+                meiViewModel.Name = citizen.Name;
+                meiViewModel.Url = citizen.AvatarUrl;
+                viewModels.Add(meiViewModel);
+            }
 
-            var bastionViewModel = new GirlViewModel();
-            bastionViewModel.Name = "bastion";
-            bastionViewModel.Hegith = 200;
-            bastionViewModel.Url = "/image/Lvou/Bastion_portrait.png";
-            models.Add(bastionViewModel);
-
-            return View(models);
+            return View(viewModels);
         }
+
+        public IActionResult AddCitizen(string name, string url)
+        {
+            var dbModel = new CitizenUser()
+            {
+                Name = name,
+                AvatarUrl = url
+            };
+
+            _webMazeContext.CitizenUser.Add(dbModel);
+
+            _webMazeContext.SaveChanges();
+
+            return RedirectToAction("Lvou", "Student");
+        }
+
 
         public IActionResult Kenzhebayev()
         {
