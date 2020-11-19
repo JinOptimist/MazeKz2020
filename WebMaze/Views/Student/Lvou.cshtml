@@ -1,0 +1,57 @@
+﻿@model List<GirlViewModel>
+
+<div class="page-title">
+    Я молодец 3
+</div>
+
+
+<table>
+    <tr>
+        <td>
+            Name
+        </td>
+        <td>
+            Height
+        </td>
+        <td>
+            Url
+        </td>
+    </tr>
+    @foreach (var girl in Model)
+    {
+        <tr>
+            <td>
+                @girl.Name
+            </td>
+            <td>
+                @girl.Hegith
+            </td>
+            <td>
+                @girl.Url
+            </td>
+        </tr>
+    }
+</table>
+
+
+<div class="girls-container">
+    @for (int i = 0; i < 10; i++)
+    {
+        foreach (var girl in Model)
+        {
+            <div class="girl">
+                <div class="girl-name">
+                    @girl.Name (@girl.Hegith)
+                </div>
+                @if (girl.Url != null)
+                {
+                    <div class="image-container">
+                        <img src="@girl.Url" />
+                    </div>
+                }
+            </div>
+        }
+    }
+
+
+</div>
