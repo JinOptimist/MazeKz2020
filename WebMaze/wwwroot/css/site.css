@@ -4,7 +4,6 @@ for details on configuring this project to bundle and minify static web assets. 
 a.navbar-brand {
     white-space: normal;
     text-align: center;
-    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
@@ -315,7 +314,6 @@ body {
         background-color: green;
     }
 
-
 .interior-title {
     font-family: 'French Script MT';
     font-size: 65px;
@@ -373,4 +371,23 @@ body {
     font-size: 22px;
     text-align: end;
     box-shadow: 1px 1px 1px 1px #d0bdad;
+
+.games_name {
+    color: white;
+    font-size: 30px;
+    padding-top: 280px;
+}
+
+#genre {
+    padding-top: 0px;
+    font-size: 22px
+}
+
+.games_card {
+    max-width: 700px;
+    max-height: 400px;
+    margin-bottom: 50px;
+    background-repeat: no-repeat;
+    background-size: 100%, 250%;
+
 }
