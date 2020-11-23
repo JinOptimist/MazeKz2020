@@ -606,5 +606,38 @@ namespace WebMaze.Controllers
 
             return View(models);
         }
+
+        public IActionResult Samorukov()
+        {
+            var quoteModels = new List<SimpleLifeQuotesViewModel>();
+            var pigsViewModel = new SimpleLifeQuotesViewModel
+            {
+                CardName = "Свиньи",
+                CardText = "Не мечите бисер перед свиньями",
+                CardImgUrl = "https://i.pinimg.com/originals/4d/ae/71/4dae71ba812c20c0560360fe9e668b03.jpg",
+                AuthorOfQuote = "Библия"
+            };
+            quoteModels.Add(pigsViewModel);
+
+            var poisonViewModel = new SimpleLifeQuotesViewModel()
+            {
+                CardName = "Яд",
+                CardText = "Всё – яд, всё – лекарство. Решает доза.",
+                CardImgUrl = "https://arteymedicinalasseriesart.files.wordpress.com/2020/02/11-3.jpg?w=962",
+                AuthorOfQuote = "Парацельс"
+            };
+            quoteModels.Add(poisonViewModel);
+
+            var lieViewModel = new SimpleLifeQuotesViewModel()
+            {
+                CardName = "Ложь",
+                CardText = "Есть три вида лжи: ложь, наглая ложь и статистика.",
+                CardImgUrl = "https://i.pinimg.com/originals/73/1a/6d/731a6d7b6db4a972682fdddfb1930773.jpg",
+                AuthorOfQuote = "Марк Твен"
+            };
+            quoteModels.Add(lieViewModel);
+
+            return View(quoteModels);
+        }
     }
 }
