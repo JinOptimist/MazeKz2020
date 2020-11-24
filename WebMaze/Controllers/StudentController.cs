@@ -606,5 +606,30 @@ namespace WebMaze.Controllers
 
             return View(models);
         }
+
+        public IActionResult Saginbek()
+        {
+            var gameModels = new List<SaginbekViewModel>();
+
+            var cyberpunkModel = new SaginbekViewModel();
+            cyberpunkModel.GamePosterURL = "https://metro.co.uk/wp-content/uploads/2019/06/cyberpunk-2077-84e5.jpg?quality=90&strip=all";
+            cyberpunkModel.GameDescription = "Cyberpunk 2077 is an open-world, action-adventure story set in Night City.";
+            cyberpunkModel.GameSteamURL = "https://store.steampowered.com/app/1091500/Cyberpunk_2077/";
+            gameModels.Add(cyberpunkModel);
+
+            var sekiroModel = new SaginbekViewModel();
+            sekiroModel.GamePosterURL = "https://gamingbolt.com/wp-content/uploads/2019/03/sekiro-1280x720.jpg";
+            sekiroModel.GameDescription = "In Sekiro: Shadows Die Twice you are the 'one-armed wolf', a disgraced and disfigured warrior rescued from the brink of death.";
+            sekiroModel.GameSteamURL = "https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition/";
+            gameModels.Add(sekiroModel);
+
+            var mortalKombat = new SaginbekViewModel();
+            mortalKombat.GamePosterURL = "https://images.hdqwalls.com/download/mortal-kombat-11-81-1280x720.jpg";
+            mortalKombat.GameDescription = "Mortal Kombat is back and better than ever in the next evolution of the iconic franchise.";
+            mortalKombat.GameSteamURL = "https://store.steampowered.com/app/976310/Mortal_Kombat11/";
+            gameModels.Add(mortalKombat);
+
+            return View(gameModels);
+        }
     }
 }
