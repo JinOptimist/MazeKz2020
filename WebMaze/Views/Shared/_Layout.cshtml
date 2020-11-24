@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WebMaze</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/saginbekSite.css" />
     <link rel="stylesheet" href="~/css/site.css?t=@DateTime.Now.Ticks" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     @RenderSection("Scripts", required: false)
@@ -70,6 +72,9 @@
                         <li>
                             <a class="nav-link text-dark" href="/Student/Batyrov">Batyrov</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Student/Saginbek">Saginbek</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -86,6 +91,6 @@
             Этот сайт сделал я сам
         </div>
     </footer>
-
+    <script src="~/js/saginbekSite.js"></script>
 </body>
 </html>
