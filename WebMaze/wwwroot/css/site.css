@@ -314,6 +314,63 @@ body {
         background-color: green;
     }
 
+.interior-title {
+    font-family: 'French Script MT';
+    font-size: 65px;
+    color: white;
+    text-align: center;
+    background-color: #d0bdad;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.interior-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px #d0bdad solid;
+    width: 360px;
+    height: 380px;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.interior-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.interior-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+    .interior-container .interior-body img {
+        max-width: 350px;
+        max-height: 350px;
+    }
+
+.interior-description {
+    padding-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    font-family: 'Goudy Old Style';
+    font-size: 25px;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.interior-body {
+    display: flex;
+    font-family: 'Goudy Old Style';
+    font-size: 22px;
+    text-align: end;
+    box-shadow: 1px 1px 1px 1px #d0bdad;
 
 .games_name {
     color: white;
@@ -332,4 +389,5 @@ body {
     margin-bottom: 50px;
     background-repeat: no-repeat;
     background-size: 100%, 250%;
+
 }
