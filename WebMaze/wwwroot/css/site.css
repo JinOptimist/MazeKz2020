@@ -402,10 +402,35 @@ body {
     margin-bottom: 50px;
     background-repeat: no-repeat;
     background-size: 100%, 250%;
-
 }
 
+.shrek-container {
+    display: flex;
+    flex-wrap: wrap;
+}
 
+.shrek {
+    border: 5px green solid;
+    width: 200px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 10px;
+}
 
+.shrek-name {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
 
+.shrek-container .shrek img {
+    max-width: 150px;
+    max-height: 150px;
+}
 
+.shrek-page-title {
+    background: green;
+    font-size: 30px;
+}

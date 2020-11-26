@@ -665,6 +665,18 @@ namespace WebMaze.Controllers
             return View(models);
         }
 
+        public IActionResult Maralov()
+        {
+            var shrekCharacters = new List<ShrekViewModel>()
+            {
+                new ShrekViewModel { Name = "Shrek", Url = "/image/Maralov/shrek.jpg" },
+                new ShrekViewModel { Name = "Fiona", Url = "/image/Maralov/fiona.jpg" },
+                new ShrekViewModel { Name = "Donkey", Url = "/image/Maralov/donkey.jpg"}
+            };
+
+            return View(shrekCharacters);
+        }
+        
         public IActionResult Samorukov()
         {
             var quoteModels = new List<SimpleLifeQuotesViewModel>();

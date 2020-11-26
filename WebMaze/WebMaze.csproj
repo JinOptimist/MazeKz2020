@@ -18,4 +18,8 @@
     <ProjectReference Include="..\MazeKz2020\MazeKz2020.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\image\Maralov\" />
+  </ItemGroup>
+
 </Project>
