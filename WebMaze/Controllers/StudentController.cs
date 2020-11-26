@@ -1,11 +1,17 @@
-﻿using System;
+﻿using MazeKz;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using MazeKz;
 using Microsoft.AspNetCore.Mvc;
 using WebMaze.DbStuff;
 using WebMaze.DbStuff.Model;
 using WebMaze.Models;
+
 
 namespace WebMaze.Controllers
 {
@@ -84,7 +90,7 @@ namespace WebMaze.Controllers
                 "but her message will be heard loud and clear: fear the assassin with no master.",
                 CurrentUpdateStats = new ChampionViewModel.StatsViewModel()
                 {
-                    BaseHealth = 575, 
+                    BaseHealth = 575,
                     BaseMana = 200,
                     IsEnergy = true,
                     BaseDamage = 62.4,
@@ -116,24 +122,52 @@ namespace WebMaze.Controllers
 
             return View(championModels);
         }
-      
+
         public IActionResult Rudich()
         {
-            var models = new List<CountryRudichViewModel>();
+            var models = new List<InteriorViewModel>();
 
-            var jordanViewModel = new CountryRudichViewModel();
-            jordanViewModel.Name = "Jordan";
-            jordanViewModel.Continent = "Asia";
-            jordanViewModel.Area = 92300;
-            jordanViewModel.Url = "https://i.pinimg.com/originals/a5/4c/73/a54c730efc294c758934033455b7eb9d.jpg";
-            models.Add(jordanViewModel);
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Kitchen",
+                Area = 18,
+                ImgUrl = "/image/Rudich/kitchen.jpg",
+            });
 
-            var indiaViewModel = new CountryRudichViewModel();
-            indiaViewModel.Name = "India";
-            indiaViewModel.Continent = "South Asia";
-            indiaViewModel.Area = 3287263;
-            indiaViewModel.Url = "https://www.africanjacana.com/wp-content/uploads/IND.jpg.image_.750.563.low_.jpg";
-            models.Add(indiaViewModel);
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Bathroom",
+                Area = 15,
+                ImgUrl = "/image/Rudich/bathroom.jpg",
+            });
+
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Bedroom",
+                Area = 22,
+                ImgUrl = "/image/Rudich/bedroom.jpg",
+            });
+
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Wardrobe",
+                Area = 13,
+                ImgUrl = "/image/Rudich/wardrobe.jpg",
+            });
+
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Living room",
+                Area = 22,
+                ImgUrl = "/image/Rudich/living-room.jpg",
+            });
+
+            models.Add(new InteriorViewModel()
+            {
+                StyleName = "Home office",
+                Area = 13,
+                ImgUrl = "/image/Rudich/home-office.jpg",
+            });
 
             return View(models);
         }
@@ -296,7 +330,7 @@ namespace WebMaze.Controllers
                         },
                 },
             };
-                
+
             return View(beveragesViewModel);
         }
 
@@ -332,7 +366,7 @@ namespace WebMaze.Controllers
             models.Add(DandelionViewModel);
             return View(models);
         }
-        
+
         public IActionResult Srazhov()
         {
             var models = new List<AnimeGirlViewModel>();
@@ -444,7 +478,7 @@ namespace WebMaze.Controllers
 
             return View(countries);
         }
-        
+
         public IActionResult Karayev()
         {
             var models = new List<BucsTeamCaptainViewModel>();
@@ -562,12 +596,35 @@ namespace WebMaze.Controllers
             return View(buildings.OrderByDescending(building => building.Height).ToList());
         }
 
+        public IActionResult Shilnikov()
+        {
+            List<HeroViewModels> heroes = new List<HeroViewModels>
+            {
+                new HeroViewModels { Name="Blast", Number=1, Rang=HeroViewModels.Rangs.S, UrlPhoto="/image/Shilnikov/Blast.jpg" },
+                new HeroViewModels { Name="Tornado of Terror", Number=2, Rang=HeroViewModels.Rangs.S, UrlPhoto="/image/Shilnikov/Tatsumaki_Manga.webp" },
+                new HeroViewModels { Name="Silver Fang", Number=3, Rang=HeroViewModels.Rangs.S, UrlPhoto="/image/Shilnikov/Bang_Manga_Profile.webp" },
+                new HeroViewModels { Name="Secret Mask", Number=1, Rang=HeroViewModels.Rangs.A, UrlPhoto="/image/Shilnikov/SweetMaskProfile.webp" },
+                new HeroViewModels { Name="Iaian", Number=2, Rang=HeroViewModels.Rangs.A, UrlPhoto="/image/Shilnikov/Iaian_Anime_Profile.webp" },
+                new HeroViewModels { Name="Okamaitachi", Number=3, Rang=HeroViewModels.Rangs.A, UrlPhoto="/image/Shilnikov/Slicing_SheMan.webp" },
+                new HeroViewModels { Name="Fubuki", Number=1, Rang=HeroViewModels.Rangs.B, UrlPhoto="/image/Shilnikov/Fubuki_Manga.webp" },
+                new HeroViewModels { Name="Eyelashes", Number=2, Rang=HeroViewModels.Rangs.B, UrlPhoto="/image/Shilnikov/Eyelashes_Anime.webp" },
+                new HeroViewModels { Name="Saitama", Number=7, Rang=HeroViewModels.Rangs.B, UrlPhoto="/image/Shilnikov/Saitama_Manga.webp" },
+                new HeroViewModels { Name="Satoru", Number=1, Rang=HeroViewModels.Rangs.C, UrlPhoto="/image/Shilnikov/Mumen_Rider_Manga.webp" },
+                new HeroViewModels { Name="Monster Roper Shell", Number=3, Rang=HeroViewModels.Rangs.C, UrlPhoto="/image/Shilnikov/Monster_Roper_Shell.webp" },
+                new HeroViewModels { Name="Horse-Bone", Number=283, Rang=HeroViewModels.Rangs.C, UrlPhoto="/image/Shilnikov/HorseBoneAnime.webp" },
+            };
+
+            return View(heroes);
+        }
+
         public IActionResult Boris()
         {
             var mazeGenerator = new MazeGenerator();
             var maze = mazeGenerator.GenerateSmart(MazeWidth, MazeHeight);
             return View(new MazeViewModel(maze));
+
         }
+
 
         public IActionResult Batyrov()
         {
@@ -604,6 +661,7 @@ namespace WebMaze.Controllers
             models.Add(lol);
 
 
+
             return View(models);
         }
 
@@ -638,6 +696,31 @@ namespace WebMaze.Controllers
             quoteModels.Add(lieViewModel);
 
             return View(quoteModels);
+        }
+
+        public IActionResult Saginbek()
+        {
+            var gameModels = new List<SaginbekViewModel>();
+
+            var cyberpunkModel = new SaginbekViewModel();
+            cyberpunkModel.GamePosterURL = "https://metro.co.uk/wp-content/uploads/2019/06/cyberpunk-2077-84e5.jpg?quality=90&strip=all";
+            cyberpunkModel.GameDescription = "Cyberpunk 2077 is an open-world, action-adventure story set in Night City.";
+            cyberpunkModel.GameSteamURL = "https://store.steampowered.com/app/1091500/Cyberpunk_2077/";
+            gameModels.Add(cyberpunkModel);
+
+            var sekiroModel = new SaginbekViewModel();
+            sekiroModel.GamePosterURL = "https://gamingbolt.com/wp-content/uploads/2019/03/sekiro-1280x720.jpg";
+            sekiroModel.GameDescription = "In Sekiro: Shadows Die Twice you are the 'one-armed wolf', a disgraced and disfigured warrior rescued from the brink of death.";
+            sekiroModel.GameSteamURL = "https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition/";
+            gameModels.Add(sekiroModel);
+
+            var mortalKombat = new SaginbekViewModel();
+            mortalKombat.GamePosterURL = "https://images.hdqwalls.com/download/mortal-kombat-11-81-1280x720.jpg";
+            mortalKombat.GameDescription = "Mortal Kombat is back and better than ever in the next evolution of the iconic franchise.";
+            mortalKombat.GameSteamURL = "https://store.steampowered.com/app/976310/Mortal_Kombat11/";
+            gameModels.Add(mortalKombat);
+
+            return View(gameModels);
         }
     }
 }

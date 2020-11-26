@@ -42,5 +42,6 @@ namespace MazeKz
                 Console.WriteLine();
             }
         }
+        
     }
 }

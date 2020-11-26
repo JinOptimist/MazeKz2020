@@ -1,0 +1,19 @@
+﻿@model List<HeroViewModels>
+    <table >
+        <tr class="table-heroes">
+            <td class="table-heroes"><p class="text-heroes">Name</p></td>
+            <td class="table-heroes"><p class="text-heroes">Rang</p></td>
+            <td class="table-heroes"><p class="text-heroes">Number</p></td>
+            <td class="table-heroes"><p class="text-heroes">Picture</p></td>
+        </tr>
+        @foreach (var item in Model)
+	    {
+           <tr class="table-heroes">
+            <td class="table-heroes"><p class="text-heroes">@item.Name</p></td>
+            <td class="table-heroes"><p class="text-heroes">@item.Rang</p></td>
+            <td class="table-heroes"><p class="text-heroes">@item.Number</p></td>
+            <td class="table-heroes"><img class="image-heroes" src="@item.UrlPhoto"  /></td>
+           </tr>
+	    }
+        
+    </table>
