@@ -1,0 +1,28 @@
+﻿@model List<SimpleLifeQuotesViewModel>
+
+<head>
+    <link rel="stylesheet" href="~/css/styleSamorukov.css">
+</head>
+
+<body>
+    <div>
+        <h1 class="title">Несколько цитат!</h1>
+    </div>
+
+    @foreach (var quote in Model)
+    {
+        <div class="cardFrame" style="background-image: url(@quote.CardImgUrl);">
+            <div class="textFrame whiteText">
+                <h2 class="titleFont textCenter">
+                    @quote.CardName
+                </h2>
+                <p class="textFont textCenter">
+                    @quote.CardText
+                </p>
+                <p class="author textFont">
+                    © @quote.AuthorOfQuote
+                </p>
+            </div>
+        </div>
+    }
+</body>
