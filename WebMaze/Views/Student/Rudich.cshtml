@@ -1,21 +1,28 @@
-﻿@model List<CountryRudichViewModel>
-
-<div>
-    Countries to visit
+﻿@model List<InteriorViewModel>
+<div class="interior-title">
+    Trust professionals the comfort of your home
+</div>
+<div class="interior-description">
+    Modern style interior for 104 sq. m. flat
 </div>
 
-@foreach (var country in Model)
-{
-    <div>
-        @country.Name is located in @country.Continent
-    </div>
-    <div>
-        Area - @country.Area square km
-    </div>
-    @if (country.Url != null)
+<div class="interior-container">
+    @foreach (var interior in Model)
     {
-        <div>
-            <img src="@country.Url" />
+        <div class="interior-body">
+            <div class="interior-description">
+                @interior.StyleName
+            </div>
+            @if (interior.ImgUrl != null)
+            {
+                <div class="interior-image">
+                    <img src="@interior.ImgUrl" />
+                </div>
+            }
+            <div class="interior-area">
+                @interior.Area sq. m.
+            </div>
+
         </div>
     }
-}
+</div>
