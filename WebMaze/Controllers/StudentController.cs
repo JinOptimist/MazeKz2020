@@ -52,7 +52,7 @@ namespace WebMaze.Controllers
             foreach (var citizen in dbCitizens)
             {
                 var meiViewModel = new GirlViewModel();
-                meiViewModel.Name = citizen.Name;
+                meiViewModel.Name = citizen.Login;
                 meiViewModel.Url = citizen.AvatarUrl;
                 viewModels.Add(meiViewModel);
             }
@@ -64,7 +64,7 @@ namespace WebMaze.Controllers
         {
             var dbModel = new CitizenUser()
             {
-                Name = name,
+                Login = name,
                 AvatarUrl = url
             };
 
