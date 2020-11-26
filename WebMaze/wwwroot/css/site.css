@@ -264,6 +264,18 @@ body {
     border-radius: 0.25rem;
 }
 
+.table-heroes {
+    border: 3px black solid;
+    text-align-last: center;
+}
+.text-heroes {
+    font: italic bold ;
+    color: darkred;
+}
+.image-heroes {
+    max-width: 200px;
+    max-height: 200px;
+}
 
 .maze-row {
     display: flex;
@@ -372,6 +384,7 @@ body {
     text-align: end;
     box-shadow: 1px 1px 1px 1px #d0bdad;
 
+
 .games_name {
     color: white;
     font-size: 30px;
@@ -391,3 +404,8 @@ body {
     background-size: 100%, 250%;
 
 }
+
+
+
+
+

@@ -1,11 +1,17 @@
-﻿using System;
+﻿using MazeKz;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using MazeKz;
 using Microsoft.AspNetCore.Mvc;
 using WebMaze.DbStuff;
 using WebMaze.DbStuff.Model;
 using WebMaze.Models;
+
 
 namespace WebMaze.Controllers
 {
@@ -84,7 +90,7 @@ namespace WebMaze.Controllers
                 "but her message will be heard loud and clear: fear the assassin with no master.",
                 CurrentUpdateStats = new ChampionViewModel.StatsViewModel()
                 {
-                    BaseHealth = 575, 
+                    BaseHealth = 575,
                     BaseMana = 200,
                     IsEnergy = true,
                     BaseDamage = 62.4,
@@ -116,7 +122,7 @@ namespace WebMaze.Controllers
 
             return View(championModels);
         }
-      
+
         public IActionResult Rudich()
         {
             var models = new List<InteriorViewModel>();
@@ -324,7 +330,7 @@ namespace WebMaze.Controllers
                         },
                 },
             };
-                
+
             return View(beveragesViewModel);
         }
 
@@ -360,7 +366,7 @@ namespace WebMaze.Controllers
             models.Add(DandelionViewModel);
             return View(models);
         }
-        
+
         public IActionResult Srazhov()
         {
             var models = new List<AnimeGirlViewModel>();
@@ -472,7 +478,7 @@ namespace WebMaze.Controllers
 
             return View(countries);
         }
-        
+
         public IActionResult Karayev()
         {
             var models = new List<BucsTeamCaptainViewModel>();
@@ -590,12 +596,35 @@ namespace WebMaze.Controllers
             return View(buildings.OrderByDescending(building => building.Height).ToList());
         }
 
+        public IActionResult Shilnikov()
+        {
+            List<HeroViewModels> heroes = new List<HeroViewModels>
+            {
+                new HeroViewModels { Name="Blast", Number=1, Rang=HeroViewModels.Rangs.S, UrlPhoto="/image/Shilnikov/Blast.jpg" },
+                new HeroViewModels { Name="Tornado of Terror", Number=2, Rang=HeroViewModels.Rangs.S, UrlPhoto="/image/Shilnikov/Tatsumaki_Manga.webp" },
+                new HeroViewModels { Name="Silver Fang", Number=3, Rang=HeroViewModels.Rangs.S, UrlPhoto="/image/Shilnikov/Bang_Manga_Profile.webp" },
+                new HeroViewModels { Name="Secret Mask", Number=1, Rang=HeroViewModels.Rangs.A, UrlPhoto="/image/Shilnikov/SweetMaskProfile.webp" },
+                new HeroViewModels { Name="Iaian", Number=2, Rang=HeroViewModels.Rangs.A, UrlPhoto="/image/Shilnikov/Iaian_Anime_Profile.webp" },
+                new HeroViewModels { Name="Okamaitachi", Number=3, Rang=HeroViewModels.Rangs.A, UrlPhoto="/image/Shilnikov/Slicing_SheMan.webp" },
+                new HeroViewModels { Name="Fubuki", Number=1, Rang=HeroViewModels.Rangs.B, UrlPhoto="/image/Shilnikov/Fubuki_Manga.webp" },
+                new HeroViewModels { Name="Eyelashes", Number=2, Rang=HeroViewModels.Rangs.B, UrlPhoto="/image/Shilnikov/Eyelashes_Anime.webp" },
+                new HeroViewModels { Name="Saitama", Number=7, Rang=HeroViewModels.Rangs.B, UrlPhoto="/image/Shilnikov/Saitama_Manga.webp" },
+                new HeroViewModels { Name="Satoru", Number=1, Rang=HeroViewModels.Rangs.C, UrlPhoto="/image/Shilnikov/Mumen_Rider_Manga.webp" },
+                new HeroViewModels { Name="Monster Roper Shell", Number=3, Rang=HeroViewModels.Rangs.C, UrlPhoto="/image/Shilnikov/Monster_Roper_Shell.webp" },
+                new HeroViewModels { Name="Horse-Bone", Number=283, Rang=HeroViewModels.Rangs.C, UrlPhoto="/image/Shilnikov/HorseBoneAnime.webp" },
+            };
+
+            return View(heroes);
+        }
+
         public IActionResult Boris()
         {
             var mazeGenerator = new MazeGenerator();
             var maze = mazeGenerator.GenerateSmart(MazeWidth, MazeHeight);
             return View(new MazeViewModel(maze));
+
         }
+
 
         public IActionResult Batyrov()
         {
@@ -632,8 +661,11 @@ namespace WebMaze.Controllers
             models.Add(lol);
 
 
+
             return View(models);
         }
+
+
 
         public IActionResult Saginbek()
         {
@@ -659,5 +691,6 @@ namespace WebMaze.Controllers
 
             return View(gameModels);
         }
+
     }
 }
