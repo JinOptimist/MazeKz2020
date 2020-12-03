@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMaze.DbStuff;
@@ -41,11 +43,37 @@ namespace WebMaze.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Profile(long id)
         {
             var citizen = citizenUserRepository.Get(id);
             var viewModel = mapper.Map<ProfileViewModel>(citizen);
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Profile(ProfileViewModel profileViewModel)
+        {
+            var citizen = mapper.Map<CitizenUser>(profileViewModel);
+            citizenUserRepository.Save(citizen);
+            return View(profileViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateAvatar(ProfileViewModel viewModel)
+        {
+            var fileName = viewModel.Avatar.FileName;
+            var path = @$"D:\GitHub\MazeKz2020\WebMaze\wwwroot\image\avatar\{fileName}";
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                await viewModel.Avatar.CopyToAsync(fileStream);
+            }
+
+            var citizen = citizenUserRepository.Get(viewModel.Id);
+            citizen.AvatarUrl = $"/image/avatar/{fileName}";
+            citizenUserRepository.Save(citizen);
+
+            return RedirectToAction("Profile", new { id = viewModel.Id });
         }
     }
 }

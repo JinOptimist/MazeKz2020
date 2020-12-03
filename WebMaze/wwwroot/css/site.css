@@ -383,7 +383,7 @@ body {
     font-size: 22px;
     text-align: end;
     box-shadow: 1px 1px 1px 1px #d0bdad;
-
+}
 
 .games_name {
     color: white;
@@ -434,3 +434,30 @@ body {
     background: green;
     font-size: 30px;
 }
+
+.avatar img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

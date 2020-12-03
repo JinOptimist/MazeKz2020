@@ -28,9 +28,15 @@ namespace WebMaze.DbStuff.Repository
             return dbSet.ToList();
         }
 
-        public void Save(Model user)
+        public void Save(Model model)
         {
-            dbSet.Add(user);
+            if (model.Id > 0) {
+                dbSet.Update(model);
+                context.SaveChanges();
+                return;
+            }
+
+            dbSet.Add(model);
             context.SaveChanges();
         }
 
