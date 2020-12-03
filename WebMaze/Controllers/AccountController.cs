@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,12 +18,16 @@ namespace WebMaze.Controllers
     public class AccountController : Controller
     {
         private CitizenUserRepository citizenUserRepository;
+        private IWebHostEnvironment hostEnvironment;
         private IMapper mapper;
 
-        public AccountController(CitizenUserRepository citizenUserRepository, IMapper mapper)
+        public AccountController(CitizenUserRepository citizenUserRepository, 
+            IMapper mapper,
+            IWebHostEnvironment hostEnvironment)
         {
             this.citizenUserRepository = citizenUserRepository;
             this.mapper = mapper;
+            this.hostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -63,7 +69,8 @@ namespace WebMaze.Controllers
         public async Task<IActionResult> UpdateAvatar(ProfileViewModel viewModel)
         {
             var fileName = viewModel.Avatar.FileName;
-            var path = @$"D:\GitHub\MazeKz2020\WebMaze\wwwroot\image\avatar\{fileName}";
+            var wwwrootPath = hostEnvironment.WebRootPath;
+            var path = @$"{wwwrootPath}\image\avatar\{fileName}";
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 await viewModel.Avatar.CopyToAsync(fileStream);
