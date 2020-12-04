@@ -4,7 +4,6 @@ for details on configuring this project to bundle and minify static web assets. 
 a.navbar-brand {
     white-space: normal;
     text-align: center;
-    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
@@ -123,6 +122,36 @@ body {
     font-size: 30px;
 }
 
+.card-gwent {
+    background: url(https://legion.lenovo.com/assets/images/picture/XodPQ28fltOE5WLt.png) no-repeat;
+    float: left;
+    width: 45%;
+    height: 30%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    color: white;
+    font-family: GwentFont;
+}
+
+.leftimg {
+    float: left;
+    margin-bottom: 4%;
+    margin-left: 4%;
+    margin-right: 4%;
+    width: 180px;
+    height: 260px;
+}
+
+.innerCard {
+    margin-top: 4%;
+    margin-right: 4%;
+}
+
+@font-face {
+    font-family: 'GwentFont';
+    src: url(https://www.playgwent.com/fonts/hinted-GWENT-ExtraBold.ttf);
+}
+
 .centr {
     text-align: center;
 }
@@ -205,3 +234,230 @@ body {
     align-items: center;
     flex: 1;
 }
+.beverage-table-head {
+    text-align: center;
+    background-color: #ffc107;
+}
+
+.beverage-table-body {
+    vertical-align: top;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.beverage-table-price {
+    background-color: #dea80a;
+    text-align: right;
+}
+
+.bootstrap_card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+
+.table-heroes {
+    border: 3px black solid;
+    text-align-last: center;
+}
+.text-heroes {
+    font: italic bold ;
+    color: darkred;
+}
+.image-heroes {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.maze-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.maze {
+    margin: 50px;
+}
+
+.cell {
+    width: 25px;
+    height: 25px;
+}
+
+    .cell.coin {
+        background-color: lightcyan;
+        position: relative;
+    }
+
+        .cell.coin::after {
+            display: block;
+            position: absolute;
+            content: "";
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: gold;
+            transform: translate(-50%, -50%);
+        }
+
+        .cell.coin:hover::after {
+            transform: translate(-50%, -50%) rotateY(180deg);
+            transition: transform 200ms linear;
+        }
+
+    .cell.ground {
+        background-color: lightcyan;
+    }
+
+    .cell.wall {
+        background-color: blueviolet;
+    }
+
+    .cell.hero {
+        background-color: green;
+    }
+
+.interior-title {
+    font-family: 'French Script MT';
+    font-size: 65px;
+    color: white;
+    text-align: center;
+    background-color: #d0bdad;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.interior-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px #d0bdad solid;
+    width: 360px;
+    height: 380px;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.interior-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.interior-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+    .interior-container .interior-body img {
+        max-width: 350px;
+        max-height: 350px;
+    }
+
+.interior-description {
+    padding-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    font-family: 'Goudy Old Style';
+    font-size: 25px;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.interior-body {
+    display: flex;
+    font-family: 'Goudy Old Style';
+    font-size: 22px;
+    text-align: end;
+    box-shadow: 1px 1px 1px 1px #d0bdad;
+}
+
+.games_name {
+    color: white;
+    font-size: 30px;
+    padding-top: 280px;
+}
+
+#genre {
+    padding-top: 0px;
+    font-size: 22px
+}
+
+.games_card {
+    max-width: 700px;
+    max-height: 400px;
+    margin-bottom: 50px;
+    background-repeat: no-repeat;
+    background-size: 100%, 250%;
+}
+
+.shrek-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shrek {
+    border: 5px green solid;
+    width: 200px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 10px;
+}
+
+.shrek-name {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.shrek-container .shrek img {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.shrek-page-title {
+    background: green;
+    font-size: 30px;
+}
+
+.avatar img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

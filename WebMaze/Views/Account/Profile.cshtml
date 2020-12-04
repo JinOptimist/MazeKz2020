@@ -1,0 +1,33 @@
+﻿@using WebMaze.Models.Account
+@model ProfileViewModel
+
+<div>
+    <h2>Страница пользователя</h2>
+
+    <div class="avatar">
+        Avatar: <img src="@Model.AvatarUrl" />
+    </div>
+    <form action="@Url.Action("UpdateAvatar", "Account")" method="post" enctype="multipart/form-data">
+        @Html.HiddenFor(x => x.Id)
+        <div>
+            <input type="file" name="Avatar" />
+        </div>
+        <div>
+            <input type="submit" value="Обновить аватарку" />
+        </div>
+    </form>
+
+    <form action="@Url.Action("Profile", "Account")" method="post">
+        @Html.HiddenFor(x => x.Id)
+        @Html.HiddenFor(x => x.AvatarUrl)
+        <div>
+            Id: @Model.Id
+        </div>
+        <div>
+            Login: @Html.TextBoxFor(x => x.Login)
+        </div>
+        <div>
+            <input type="submit" value="Обновить" />
+        </div>
+    </form>
+</div>

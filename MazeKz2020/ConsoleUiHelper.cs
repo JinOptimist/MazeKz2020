@@ -6,6 +6,7 @@ namespace MazeKz
 {
     public class ConsoleUiHelper
     {
+        
         public void Play()
         {
             var mazeGenerator = new MazeGenerator();
