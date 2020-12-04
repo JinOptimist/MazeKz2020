@@ -4,6 +4,20 @@
     Я молодец 3
 </div>
 
+<form>
+    <div>
+        Имя: <input type="text" />
+    </div>
+    <div>
+        Возраст: <input type="number" />
+    </div>
+    <div>
+        День рождение: <input type="date" />
+    </div>
+    <div>
+        <input type="submit"/>
+    </div>
+</form>
 
 <table>
     <tr>
@@ -35,22 +49,19 @@
 
 
 <div class="girls-container">
-    @for (int i = 0; i < 10; i++)
+    @foreach (var girl in Model)
     {
-        foreach (var girl in Model)
-        {
-            <div class="girl">
-                <div class="girl-name">
-                    @girl.Name (@girl.Hegith)
-                </div>
-                @if (girl.Url != null)
-                {
-                    <div class="image-container">
-                        <img src="@girl.Url" />
-                    </div>
-                }
+        <div class="girl">
+            <div class="girl-name">
+                @girl.Name (@girl.Hegith)
             </div>
-        }
+            @if (girl.Url != null)
+            {
+                <div class="image-container">
+                    <img src="@girl.Url" />
+                </div>
+            }
+        </div>
     }
 
 
