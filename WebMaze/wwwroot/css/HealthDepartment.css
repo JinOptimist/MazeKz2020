@@ -1,0 +1,123 @@
+﻿body {
+
+}
+/*Head*/
+.section {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.block1 img{
+    margin: 10px;
+}
+
+.wrap-block {
+    display: table;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.button {
+    background-color: #39eb7e;
+    color: #ffffff;
+    border-radius: 8px;
+    text-transform: uppercase;
+    border: none;
+}
+
+.main-text {
+    justify-content: center;
+    padding: 40px;
+}
+
+
+/*Menu*/
+.head {
+    margin-bottom: 40px;
+}
+
+.dws-menu *{
+    margin: 0;
+    padding: 0;
+}
+
+.dws-menu li,
+.dws-menu ol{
+    list-style: none;
+}
+
+.dws-menu > ul{
+    display: flex;
+    justify-content: center;
+}
+
+.dws-menu > ul li a{
+    display: block;
+    background: #39eb7e;
+    padding: 1em;
+    color: black;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.dws-menu > ul li{
+    position: relative;
+    border-right: 1px solid #ffd800;
+}
+
+.dws-menu > ul li >a i.fa{
+    position:absolute;
+    top: 15px;
+    left: 12px;
+    
+}
+
+.dws-menu > ul li:first-child{
+    border-left: 1px solid #ffd800;
+}
+
+.dws-menu > ul li:last-child{
+    border-right: 1px solid #ffd800;
+}
+
+.dws-menu li a:hover{
+    background: #00ff21;
+    color: #ffff;
+    box-shadow: 1px 5px 10px -5px black;
+    transition: all 0.3s ease;
+}
+
+.dws-menu li ul{
+    position:absolute;
+    min-width: 150px;
+    display: none;
+}
+
+.dws-menu li > ul li{
+    border: 1px solid black;
+
+}
+
+.dws-menu li > ul li a{
+    padding: 10px;
+    text-transform: none;
+    background: #e9ea80;
+}
+
+.dws-menu li:hover > ul{
+    display:block;
+}
+
+
+.fotorama {
+    display: table;
+    margin: 0 auto;
+    padding-top: 3em;
+}
