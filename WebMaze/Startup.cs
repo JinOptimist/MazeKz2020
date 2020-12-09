@@ -65,6 +65,8 @@ namespace WebMaze
             });
 
             services.AddScoped(s => new AdressRepository(s.GetService<WebMazeContext>()));
+
+            services.AddScoped(s => new PolicemanRepository(s.GetService<WebMazeContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
