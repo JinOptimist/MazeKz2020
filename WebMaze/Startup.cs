@@ -16,6 +16,7 @@ using WebMaze.DbStuff.Model;
 using WebMaze.DbStuff.Repository;
 using WebMaze.Models.Account;
 using WebMaze.Models.Department;
+using WebMaze.Models.Bus;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace WebMaze
@@ -55,6 +56,18 @@ namespace WebMaze
             configurationExpression.CreateMap<HealthDepartment, HealthDepartmentViewModel>();
             configurationExpression.CreateMap<HealthDepartmentViewModel, HealthDepartment>();
 
+            configurationExpression.CreateMap<Bus, BusViewModel>();
+            configurationExpression.CreateMap<BusViewModel, Bus>();
+
+            configurationExpression.CreateMap<Bus, BusManageViewModel>();
+            configurationExpression.CreateMap<BusManageViewModel, Bus>();
+
+            configurationExpression.CreateMap<BusRoute, BusManageViewModel>();
+            configurationExpression.CreateMap<BusManageViewModel, BusRoute>();
+
+            configurationExpression.CreateMap<Bus, BusOrderViewModel>();
+            configurationExpression.CreateMap<BusOrderViewModel, Bus>();
+
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(s => mapper);
@@ -73,6 +86,10 @@ namespace WebMaze
             services.AddScoped(s => new PolicemanRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new HealthDepartmentRepository(s.GetService<WebMazeContext>()));
+
+            services.AddScoped(s => new BusRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new BusStopRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new BusRouteRepository(s.GetService<WebMazeContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
