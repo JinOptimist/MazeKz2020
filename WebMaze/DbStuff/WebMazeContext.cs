@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebMaze.DbStuff.Model;
 using WebMaze.DbStuff.Model.Police;
 
@@ -15,6 +11,8 @@ namespace WebMaze.DbStuff
         public DbSet<Adress> Adress { get; set; }
 
         public DbSet<Policeman> Policemen { get; set; }
+        public DbSet<Violation> Violations { get; set; }
+        public DbSet<ViolationType> TypesOfViolation { get; set; }
 
         public DbSet<Bus> Bus { get; set; }
 
