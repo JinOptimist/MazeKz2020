@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMaze.DbStuff;
 
 namespace WebMaze.Migrations
 {
     [DbContext(typeof(WebMazeContext))]
-    partial class WebMazeContextModelSnapshot : ModelSnapshot
+    [Migration("20201210023258_AddBusRoute")]
+    partial class AddBusRoute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,32 +41,6 @@ namespace WebMaze.Migrations
                     b.ToTable("Adress");
                 });
 
-            modelBuilder.Entity("WebMaze.DbStuff.Model.Bus", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<long>("BusRouteId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RegistrationPlate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("WorkerId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BusRouteId");
-
-                    b.ToTable("Bus");
-                });
-
             modelBuilder.Entity("WebMaze.DbStuff.Model.BusRoute", b =>
                 {
                     b.Property<long>("Id")
@@ -78,21 +54,6 @@ namespace WebMaze.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BusRoute");
-                });
-
-            modelBuilder.Entity("WebMaze.DbStuff.Model.BusStop", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BusStop");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.CitizenUser", b =>
@@ -114,17 +75,6 @@ namespace WebMaze.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CitizenUser");
-                });
-
-            modelBuilder.Entity("WebMaze.DbStuff.Model.Bus", b =>
-                {
-                    b.HasOne("WebMaze.DbStuff.Model.BusRoute", "BusRoute")
-                        .WithMany()
-                        .HasForeignKey("BusRouteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BusRoute");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,6 +13,12 @@ namespace WebMaze.DbStuff
 
         public DbSet<Adress> Adress { get; set; }
 
+        public DbSet<Bus> Bus { get; set; }
+
+        public DbSet<BusStop> BusStop { get; set; }
+
+        public DbSet<BusRoute> BusRoute { get; set; }
+
         public WebMazeContext(DbContextOptions dbContext) : base(dbContext) { }
     }
 }
