@@ -1,36 +1,30 @@
-﻿@model WebMaze.Models.Police.PolicemanViewModel
+﻿@model WebMaze.Models.Account.LoginViewModel
+@using WebMaze.Helpers.Police
+
 @{
-    ViewBag.Title = "Регистрация полицейского";
-}
-@if (Model.ProfileVM == null)
-{
-    <h2>Выберите пользователя, которому хотите присвоить статус полицейского: </h2>
-}
-else
-{
-    <h2>Выберите аккаунт для входа:</h2>
+    Layout = "_PoliceLayout.cshtml";
+    ViewBag.Title = "Вход в аккаунт";
 }
 
-<div class="container-fluid">
-    <table class="table table-condensed table-striped table-hover col-md-12">
-        <thead>
-            <tr class="d-flex">
-                <th class="col-8">Логин</th>
-                <th class="col-2">Фото</th>
-                <th class="col-2"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.CitizenUserProfiles)
-            {
-                <tr class="d-flex">
-                    <td class="col-8">@item.Login</td>
-                    <td class="col-2"><img src="@item.AvatarUrl" class="rounded img-fluid" /></td>
-                    <td class="col-2 text-md-right">
-                        <a asp-controller="Police" asp-action="RegisterPoliceman" asp-route-id="@item.Id">Выбрать</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+@section BreadLink {
+    @Html.BreadCrumb("Начало", "/", "Полиция", "/Police", "Login")
+}
+
+<form asp-controller="Police" asp-action="Login" method="post">
+    <h2>Вход в аккаунт</h2>
+    <hr />
+    <div asp-validation-summary="All"></div>
+    <div class="form-group col-md-5">
+        <label for="login">Логин:</label>
+        <input class="form-control" name="login" type="text" value="@Model.Login" required />
+        <span asp-validation-for="@Model.Login" />
+    </div>
+    <div class="form-group col-md-5">
+        <label for="password">Пароль:</label>
+        <input class="form-control" name="password" type="password" required />
+        <span asp-validation-for="@Model.Password" />
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </div>
+</form>

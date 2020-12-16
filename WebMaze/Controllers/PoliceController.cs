@@ -39,27 +39,34 @@ namespace WebMaze.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login(int login)
+        public IActionResult Login()
         {
-            if (login == 0)
+            return View(new LoginViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginViewModel user)
+        {
+            var userItem = cuRepo.FindExistingCitizenUser(user.Login);
+            if (userItem == null)
             {
-                var items = pmRepo.GetNotPolicemanUsers();
-                var results = mapper.Map<ProfileViewModel[]>(items);
-
-                var item = new PolicemanViewModel() { CitizenUserProfiles = results, ProfileVM = null };
-
-                return View(item);
+                ModelState.AddModelError("Login", "Данный логин не существует");
             }
-            else if (login == 1)
+            else if (userItem.Password != user.Password)
             {
-                var items = pmRepo.GetPolicemanUsers();
-                var results = mapper.Map<ProfileViewModel[]>(items);
-
-                var item = new PolicemanViewModel() { CitizenUserProfiles = results, ProfileVM = new ProfileViewModel() };
-                return View(item);
+                ModelState.AddModelError("Password", "Неправильный пароль");
+            }
+            else if (!pmRepo.IsUserPoliceman(userItem))
+            {
+                ModelState.AddModelError("", "Данный человек не является полицейским");
             }
 
-            return NotFound();
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            return RedirectToAction("Index", new { profileId = userItem.Id });
         }
 
         [HttpGet]
