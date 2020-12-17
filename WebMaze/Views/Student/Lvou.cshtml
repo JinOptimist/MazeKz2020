@@ -1,0 +1,68 @@
+﻿@model List<GirlViewModel>
+
+<div class="page-title">
+    Я молодец 3
+</div>
+
+<form>
+    <div>
+        Имя: <input type="text" />
+    </div>
+    <div>
+        Возраст: <input type="number" />
+    </div>
+    <div>
+        День рождение: <input type="date" />
+    </div>
+    <div>
+        <input type="submit"/>
+    </div>
+</form>
+
+<table>
+    <tr>
+        <td>
+            Name
+        </td>
+        <td>
+            Height
+        </td>
+        <td>
+            Url
+        </td>
+    </tr>
+    @foreach (var girl in Model)
+    {
+        <tr>
+            <td>
+                @girl.Name
+            </td>
+            <td>
+                @girl.Hegith
+            </td>
+            <td>
+                @girl.Url
+            </td>
+        </tr>
+    }
+</table>
+
+
+<div class="girls-container">
+    @foreach (var girl in Model)
+    {
+        <div class="girl">
+            <div class="girl-name">
+                @girl.Name (@girl.Hegith)
+            </div>
+            @if (girl.Url != null)
+            {
+                <div class="image-container">
+                    <img src="@girl.Url" />
+                </div>
+            }
+        </div>
+    }
+
+
+</div>

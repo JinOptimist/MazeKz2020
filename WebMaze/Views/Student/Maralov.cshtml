@@ -1,0 +1,27 @@
+﻿@model List<ShrekViewModel>
+
+<div class="shrek-page-title">
+    Мои любимые персонажи из фильма Шрек
+</div>
+
+<div class="shrek-container">
+    @for (int i = 0; i < 10; i++)
+    {
+        foreach (var character in Model)
+        {
+            <div class="shrek">
+                <div class="shrek-name">
+                    @character.Name
+                </div>
+                @if (character.Url != null)
+                {
+                    <div class="image-container">
+                        <img src="@character.Url" />
+                    </div>
+                }
+            </div>
+        }
+    }
+
+
+</div>
