@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebMaze.DbStuff.Model
+namespace WebMaze.Models.Account
 {
-    public class Adress : BaseModel
+    public class AdressViewModel
     {
         public string City { get; set; }
 
@@ -13,6 +13,6 @@ namespace WebMaze.DbStuff.Model
 
         public int HouseNumber { get; set; }
 
-        public virtual CitizenUser Owner { get; set; }
+        public long OwnerId { get; set; }
     }
 }
