@@ -22,7 +22,7 @@ namespace WebMaze.DbStuff.Repository
         public List<CitizenUser> GetNotPolicemanUsers()
         {
             var items = from u in context.CitizenUser
-                        where !dbSet.Select(p => p.User).Contains(u)
+                        where !dbSet.Where(p => p.Confirmed).Select(p => p.User).Contains(u)
                         select u;
             var test = items.ToList();
             return items.ToList();
