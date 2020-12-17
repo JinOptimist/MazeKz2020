@@ -69,22 +69,40 @@ namespace WebMaze.Controllers
             return RedirectToAction("Index", new { profileId = userItem.Id });
         }
 
+        [Route("[controller]/Signup")]
         [HttpGet]
-        public IActionResult RegisterPoliceman(int id)
+        public IActionResult Register()
         {
-            var citizenUser = cuRepo.Get(id);
+            return View(new LoginViewModel());
+        }
+
+        [Route("[controller]/Signup")]
+        [HttpPost]
+        public IActionResult Register(LoginViewModel user)
+        {
+            var citizenUser = cuRepo.FindExistingCitizenUser(user.Login);
             if (citizenUser == null)
             {
-                return NotFound();
+                ModelState.AddModelError("Login", "Данный логин не существует");
             }
-
-            if (!pmRepo.IsUserPoliceman(citizenUser))
+            else if (pmRepo.IsUserPoliceman(citizenUser))
             {
-                var man = new Policeman() { Confirmed = true, User = citizenUser };
+                ModelState.AddModelError("", 
+                    "Данный аккаунт уже является аккаунтом полицейского. " +
+                    "Пожалуйста, войдите в свой аккаунт через меню входа");
+            }
+            else
+            {
+                var man = new Policeman() { Confirmed = false, User = citizenUser };
                 pmRepo.Save(man);
             }
 
-            return RedirectToAction("Index", new { profileId = id });
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            return RedirectToAction("Index", new { profileId = citizenUser.Id });
         }
     }
 }
