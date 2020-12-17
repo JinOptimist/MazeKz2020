@@ -1,0 +1,22 @@
+﻿@using WebMaze.Models.Account
+@model AdressViewModel
+
+<div>
+    <h2>Страница добавления адреса</h2>
+
+    <form action="@Url.Action("AddAdress", "Account")" method="post">
+        @Html.HiddenFor(x => x.OwnerId)
+        <div>
+            City: @Html.TextBoxFor(x => x.City)
+        </div>
+        <div>
+            Street: @Html.TextBoxFor(x => x.Street)
+        </div>
+        <div>
+            HouseNumber: @Html.TextBoxFor(x => x.HouseNumber)
+        </div>
+        <div>
+            <input type="submit" value="Добавить адрес" />
+        </div>
+    </form>
+</div>

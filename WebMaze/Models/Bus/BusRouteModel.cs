@@ -6,18 +6,12 @@ using System.Threading.Tasks;
 
 namespace WebMaze.Models.Bus
 {
-    public class BusManageViewModel
-    {
+    public class BusRouteViewModel
+    {   
         public long Id { get; set; }
         public long BusRouteId { get; set; }
         public string RegistrationPlate { get; set; }
-        public long WorkerId { get; set; }
-        public int Capacity { get; set; }
-        public List<BusViewModel> buses { get; set; }
 
-        public BusManageViewModel() : base()
-        {
-            buses = new List<BusViewModel>();
-        }
+        public int Capacity { get; set; }
     }
 }

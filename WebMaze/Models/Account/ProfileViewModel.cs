@@ -11,6 +11,8 @@ namespace WebMaze.Models.Account
         public long Id { get; set; }
         public string Login { get; set; }
         public string AvatarUrl { get; set; }
+
+        public List<AdressViewModel> Adresses { get; set; }
         
         public IFormFile Avatar { get; set; }
     }
