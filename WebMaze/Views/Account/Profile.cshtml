@@ -7,6 +7,20 @@
     <div class="avatar">
         Avatar: <img src="@Model.AvatarUrl" />
     </div>
+    <div>
+        <a href="/Account/AddAdress?userId=@Model.Id">
+            Добавить адресс
+        </a>
+    </div>
+    <div>
+        Мои здания
+        @foreach (var adresses in Model.Adresses)
+        {
+            <div>
+                г. @adresses.City ул. @adresses.Street д. @adresses.HouseNumber
+            </div>
+        }
+    </div>
     <form action="@Url.Action("UpdateAvatar", "Account")" method="post" enctype="multipart/form-data">
         @Html.HiddenFor(x => x.Id)
         <div>

@@ -51,6 +51,9 @@ namespace WebMaze
             configurationExpression.CreateMap<CitizenUser, LoginViewModel>();
             configurationExpression.CreateMap<LoginViewModel, CitizenUser>();
 
+            configurationExpression.CreateMap<Adress, AdressViewModel>();
+            configurationExpression.CreateMap<AdressViewModel, Adress>();
+
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(s => mapper);
