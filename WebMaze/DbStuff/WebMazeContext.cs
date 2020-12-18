@@ -19,6 +19,13 @@ namespace WebMaze.DbStuff
         public DbSet<HealthDepartment> HealthDepartment { get; set; }
         public DbSet<RecordForm> RecordForms { get; set; }
 
+        public DbSet<Bus> Bus { get; set; }
+
+        public DbSet<BusStop> BusStop { get; set; }
+
+        public DbSet<BusRoute> BusRoute { get; set; }
+
+
         public WebMazeContext(DbContextOptions dbContext) : base(dbContext) { }
     }
 }
