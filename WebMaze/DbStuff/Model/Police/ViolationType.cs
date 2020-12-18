@@ -8,7 +8,7 @@ namespace WebMaze.DbStuff.Model.Police
 {
     public class ViolationType : BaseModel
     {
-        public List<Violation> Violations { get; set; }
+        public virtual List<Violation> Violations { get; set; }
 
         public string Article { get; set; }
 
@@ -18,10 +18,5 @@ namespace WebMaze.DbStuff.Model.Police
         
         [Column(TypeName = "money")]
         public decimal? Penalty { get; set; }
-
-        public ViolationType()
-        {
-            Violations = new List<Violation>();
-        }
     }
 }
