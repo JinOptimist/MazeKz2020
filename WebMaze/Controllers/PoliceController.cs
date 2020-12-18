@@ -30,9 +30,14 @@ namespace WebMaze.Controllers
             this.cuRepo = cuRepo;
         }
 
-        [Authorize]
         public IActionResult Index()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                var itemResult = new PolicemanViewModel() { CitizenUserProfiles = new ProfileViewModel[0], ProfileVM = new ProfileViewModel() };
+                return View(itemResult);
+            }
+
             var profile = mapper.Map<ProfileViewModel>(cuRepo.GetUserByName(User.Identity.Name));
 
             var userItems = pmRepo.GetNotPolicemanUsers();
