@@ -1,5 +1,6 @@
 ﻿@model WebMaze.Models.Police.PolicemanViewModel
 @{
+    Layout = "_PoliceLayout.cshtml";
     ViewBag.Title = "Полиция города";
 }
 <div class="current-user-container">
@@ -16,6 +17,11 @@
                 <div class="col-md-3">
                     @Model.ProfileVM.Login
                 </div>
+                <div class="col-md-3">
+                    <form asp-controller="Police" asp-action="Logout" method="post">
+                        <button type="submit">Выйти</button>
+                    </form>
+                </div>
             </div>
         </div>
     }
@@ -26,8 +32,7 @@
                 Внимание, вы не авторизовались. <br />
                 Для получения доступа, пожалуйста, войдите или создайте новый аккаунт:
             </p>
-            <a class="col-md-2" asp-controller="Police" asp-action="Login">Войти</a> |
-            <a class="col-md-2" asp-controller="Police" asp-action="Register">Создать аккаунт</a>
+            <a class="col-md-2" asp-controller="Police" asp-action="Login">Войти</a>
         </div>
     }
 </div>

@@ -19,6 +19,7 @@ using WebMaze.Models.Department;
 using WebMaze.Models.Bus;
 using WebMaze.Models.UserTasks;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebMaze
 {
@@ -36,6 +37,9 @@ namespace WebMaze
         {
             var connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=WebMazeKz;Trusted_Connection=True;";
             services.AddDbContext<WebMazeContext>(option => option.UseSqlServer(connectionString));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Police/Login"));
 
             RegistrationMapper(services);
 
@@ -119,6 +123,7 @@ namespace WebMaze
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

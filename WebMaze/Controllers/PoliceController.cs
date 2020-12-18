@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.DbStuff.Repository;
@@ -26,9 +30,10 @@ namespace WebMaze.Controllers
             this.cuRepo = cuRepo;
         }
 
-        public IActionResult Index(int profileId)
+        [Authorize]
+        public IActionResult Index()
         {
-            var profile = mapper.Map<ProfileViewModel>(cuRepo.Get(profileId));
+            var profile = mapper.Map<ProfileViewModel>(cuRepo.GetUserByName(User.Identity.Name));
 
             var userItems = pmRepo.GetNotPolicemanUsers();
             var users = mapper.Map<ProfileViewModel[]>(userItems);
@@ -45,7 +50,7 @@ namespace WebMaze.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel user)
+        public async Task<IActionResult> Login(LoginViewModel user)
         {
             var userItem = cuRepo.FindExistingCitizenUser(user.Login);
             if (userItem == null)
@@ -56,53 +61,33 @@ namespace WebMaze.Controllers
             {
                 ModelState.AddModelError("Password", "Неправильный пароль");
             }
-            else if (!pmRepo.IsUserPoliceman(userItem))
-            {
-                ModelState.AddModelError("", "Данный человек не является полицейским");
-            }
 
             if (!ModelState.IsValid)
             {
                 return View(user);
             }
 
-            return RedirectToAction("Index", new { profileId = userItem.Id });
+            await Authorize(user.Login);
+
+            return RedirectToAction("Index");
         }
 
-        [Route("[controller]/Signup")]
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View(new LoginViewModel());
-        }
-
-        [Route("[controller]/Signup")]
         [HttpPost]
-        public IActionResult Register(LoginViewModel user)
+        public async Task<IActionResult> Logout()
         {
-            var citizenUser = cuRepo.FindExistingCitizenUser(user.Login);
-            if (citizenUser == null)
-            {
-                ModelState.AddModelError("Login", "Данный логин не существует");
-            }
-            else if (pmRepo.IsUserPoliceman(citizenUser))
-            {
-                ModelState.AddModelError("", 
-                    "Данный аккаунт уже является аккаунтом полицейского. " +
-                    "Пожалуйста, войдите в свой аккаунт через меню входа");
-            }
-            else
-            {
-                var man = new Policeman() { Confirmed = false, User = citizenUser };
-                pmRepo.Save(man);
-            }
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index");
+        }
 
-            if (!ModelState.IsValid)
+        private async Task Authorize(string login)
+        {
+            var claims = new List<Claim>()
             {
-                return View(user);
-            }
+                new Claim(ClaimsIdentity.DefaultNameClaimType, login)
+            };
 
-            return RedirectToAction("Index", new { profileId = citizenUser.Id });
+            var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }
 }
