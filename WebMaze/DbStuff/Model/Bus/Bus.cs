@@ -8,7 +8,7 @@ namespace WebMaze.DbStuff.Model
     public class Bus : BaseModel
     {
         public long BusRouteId { get; set; }
-        public BusRoute BusRoute { get; set; }
+        public virtual BusRoute BusRoute { get; set; }
 
         public string RegistrationPlate { get; set; }
 
