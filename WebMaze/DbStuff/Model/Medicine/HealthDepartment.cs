@@ -9,5 +9,7 @@ namespace WebMaze.DbStuff.Model
     {
         public string Name { get; set; }
 
+        
+
     }
 }

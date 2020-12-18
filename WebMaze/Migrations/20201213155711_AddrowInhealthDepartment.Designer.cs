@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMaze.DbStuff;
 
 namespace WebMaze.Migrations
 {
     [DbContext(typeof(WebMazeContext))]
-    partial class WebMazeContextModelSnapshot : ModelSnapshot
+    [Migration("20201213155711_AddrowInhealthDepartment")]
+    partial class AddrowInhealthDepartment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +70,13 @@ namespace WebMaze.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -94,27 +102,6 @@ namespace WebMaze.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Policemen");
-                });
-
-            modelBuilder.Entity("WebMaze.DbStuff.Model.RecordForm", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RecordForms");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.Police.Policeman", b =>

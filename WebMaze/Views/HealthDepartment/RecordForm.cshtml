@@ -1,0 +1,27 @@
+﻿@using WebMaze.Models.HealthDepartment
+
+@model RecordFormViewModel
+
+<div class="popup-body">
+    <div class="popup-content">
+        <h1 class="popup-header">Запись на приём</h1>
+
+        <form action="@Url.Action("RecordForm", "HealthDepartment")" method="post">
+            <div class="popup-input">
+                Имя: @Html.TextBoxFor(n => n.Name)
+            </div>
+            <div class="popup-input">
+                Фамилия: @Html.TextBoxFor(n => n.LastName)
+            </div>
+            <div class="popup-input">
+                Номер телефона: @Html.TextBoxFor(n => n.PhoneNumber)
+            </div>
+            <div>
+                <button class="popup-button" type="submit">Записаться</button>
+                <input class="popup-button" type="reset" value="Сбросить">
+
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,26 @@
+﻿@using WebMaze.Models.HealthDepartment
+
+@model ListRecordFormViewModel
+
+<h1> Список всех заявок </h1>
+
+<div>
+        @Html.HiddenFor(x => x.Id)
+        @Html.HiddenFor(x => x.Name)
+        @Html.HiddenFor(x => x.LastName)
+        @Html.HiddenFor(x => x.PhoneNumber)
+        <div>
+            Id: @Model.Id
+        </div>
+        <div>
+            Name: @Model.Name
+        </div>
+        <div>
+            LastName: @Model.LastName
+        </div>
+        <div>
+            PhoneNumber: @Model.PhoneNumber
+        </div>
+        
+</div>
+

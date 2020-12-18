@@ -13,9 +13,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebMaze.DbStuff;
 using WebMaze.DbStuff.Model;
+using WebMaze.DbStuff.Model.Medicine;
 using WebMaze.DbStuff.Repository;
+using WebMaze.DbStuff.Repository.MedicineRepository;
 using WebMaze.Models.Account;
 using WebMaze.Models.Department;
+using WebMaze.Models.HealthDepartment;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace WebMaze
@@ -55,6 +58,13 @@ namespace WebMaze
             configurationExpression.CreateMap<HealthDepartment, HealthDepartmentViewModel>();
             configurationExpression.CreateMap<HealthDepartmentViewModel, HealthDepartment>();
 
+            configurationExpression.CreateMap<RecordForm, RecordFormViewModel>();
+            configurationExpression.CreateMap<RecordFormViewModel, RecordForm>();
+
+            configurationExpression.CreateMap<RecordForm, ListRecordFormViewModel>();
+            configurationExpression.CreateMap<ListRecordFormViewModel, RecordForm>();
+
+
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(s => mapper);
@@ -73,6 +83,8 @@ namespace WebMaze
             services.AddScoped(s => new PolicemanRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new HealthDepartmentRepository(s.GetService<WebMazeContext>()));
+
+            services.AddScoped(s => new RecordFormRepository(s.GetService<WebMazeContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

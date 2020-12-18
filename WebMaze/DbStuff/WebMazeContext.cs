@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMaze.DbStuff.Model;
+using WebMaze.DbStuff.Model.Medicine;
 using WebMaze.DbStuff.Model.Police;
 
 namespace WebMaze.DbStuff
@@ -16,6 +17,7 @@ namespace WebMaze.DbStuff
 
         public DbSet<Policeman> Policemen { get; set; }
         public DbSet<HealthDepartment> HealthDepartment { get; set; }
+        public DbSet<RecordForm> RecordForms { get; set; }
 
         public WebMazeContext(DbContextOptions dbContext) : base(dbContext) { }
     }

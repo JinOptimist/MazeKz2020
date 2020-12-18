@@ -1,26 +1,31 @@
-﻿body {
-
-}
-/*Head*/
-.section {
+﻿/*Head*/
+.head__row {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-around;
-    padding: 10px;
-}
-
-.block {
-    display: flex;
-    justify-content: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
-}
-.block1 img{
-    margin: 10px;
+    margin: 0px 0px 20px 0px;
 }
 
-.wrap-block {
-    display: table;
-    vertical-align: middle;
-    width: 100%;
+.head__column {
+    margin: 1rem;
+}
+
+.head__column a:hover {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.head__element {
+    padding: 0.5rem;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 33.333%;
+    flex: 0 1 33.333%;
 }
 
 .button {
@@ -29,95 +34,175 @@
     border-radius: 8px;
     text-transform: uppercase;
     border: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
 }
 
-.main-text {
-    justify-content: center;
-    padding: 40px;
+.button:focus {
+    outline: none;
 }
-
 
 /*Menu*/
-.head {
-    margin-bottom: 40px;
+.menu {
+    background-color: #39eb7e;
 }
 
-.dws-menu *{
+.dws-menu * {
     margin: 0;
     padding: 0;
 }
 
 .dws-menu li,
-.dws-menu ol{
+.dws-menu ul {
     list-style: none;
 }
 
-.dws-menu > ul{
+.dws-menu > ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
 }
 
-.dws-menu > ul li a{
+.dws-menu > ul li a {
     display: block;
     background: #39eb7e;
     padding: 1em;
     color: black;
     text-decoration: none;
     text-transform: uppercase;
+   -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
-.dws-menu > ul li{
+.dws-menu > ul li {
     position: relative;
     border-right: 1px solid #ffd800;
 }
 
-.dws-menu > ul li >a i.fa{
-    position:absolute;
+.dws-menu > ul li > a i.fa {
+    position: absolute;
     top: 15px;
     left: 12px;
-    
 }
 
-.dws-menu > ul li:first-child{
+.dws-menu > ul li:first-child {
     border-left: 1px solid #ffd800;
 }
 
-.dws-menu > ul li:last-child{
+.dws-menu > ul li:last-child {
     border-right: 1px solid #ffd800;
 }
 
-.dws-menu li a:hover{
+.dws-menu li a:hover {
     background: #00ff21;
     color: #ffff;
+    -webkit-box-shadow: 1px 5px 10px -5px black;
     box-shadow: 1px 5px 10px -5px black;
+    -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
-.dws-menu li ul{
-    position:absolute;
+.dws-menu li ul {
+    position: absolute;
     min-width: 150px;
     display: none;
 }
 
-.dws-menu li > ul li{
+.dws-menu li > ul li {
     border: 1px solid black;
-
 }
 
-.dws-menu li > ul li a{
+.dws-menu li > ul li a {
     padding: 10px;
     text-transform: none;
     background: #e9ea80;
 }
 
-.dws-menu li:hover > ul{
-    display:block;
+.dws-menu li:hover > ul {
+    display: block;
 }
 
+/*Galery*/
+.foto-block {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-top: 3rem;
+}
 
 .fotorama {
     display: table;
     margin: 0 auto;
     padding-top: 3em;
+}
+
+/*Style Contacts*/
+.block__row {
+    display: flex;
+    flex-direction: column;
+}
+
+/*Modal window*/
+.popup button:focus,
+.popup input:focus {
+    outline: none;
+}
+
+.popup a {
+    text-decoration: none;
+}
+
+.popup-body {
+    min-height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 30px 10px;
+}
+
+.popup-content {
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 10%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    padding: 1rem;
+    background-color: #51945a;
+}
+
+.form {
+    padding: 4rem 5rem;
+    text-align: center;
+}
+
+.popup-header {
+    margin: 1em;
+}
+
+.popup-input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+.popup-button {
+    background-color: #39eb7e;
+    color: #ffffff;
+    margin-top: 1rem;
+    border-radius: 8px;
+    text-transform: uppercase;
+    border: none;
 }
