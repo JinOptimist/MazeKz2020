@@ -56,6 +56,9 @@ namespace WebMaze
             configurationExpression.CreateMap<CitizenUser, LoginViewModel>();
             configurationExpression.CreateMap<LoginViewModel, CitizenUser>();
 
+            configurationExpression.CreateMap<Adress, AdressViewModel>();
+            configurationExpression.CreateMap<AdressViewModel, Adress>();
+
             configurationExpression.CreateMap<HealthDepartment, HealthDepartmentViewModel>();
             configurationExpression.CreateMap<HealthDepartmentViewModel, HealthDepartment>();
 

@@ -18,16 +18,18 @@ namespace WebMaze.Controllers
     public class AccountController : Controller
     {
         private CitizenUserRepository citizenUserRepository;
+        private AdressRepository adressRepository;
         private IWebHostEnvironment hostEnvironment;
         private IMapper mapper;
 
-        public AccountController(CitizenUserRepository citizenUserRepository, 
+        public AccountController(CitizenUserRepository citizenUserRepository,
             IMapper mapper,
-            IWebHostEnvironment hostEnvironment)
+            IWebHostEnvironment hostEnvironment, AdressRepository adressRepository)
         {
             this.citizenUserRepository = citizenUserRepository;
             this.mapper = mapper;
             this.hostEnvironment = hostEnvironment;
+            this.adressRepository = adressRepository;
         }
 
         [HttpGet]
@@ -81,6 +83,29 @@ namespace WebMaze.Controllers
             citizenUserRepository.Save(citizen);
 
             return RedirectToAction("Profile", new { id = viewModel.Id });
+        }
+    
+        [HttpGet]
+        public IActionResult AddAdress(long userId)
+        {
+            var viewModel = new AdressViewModel()
+            {
+                OwnerId = userId
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddAdress(AdressViewModel adressViewModel)
+        {
+            var adress = mapper.Map<Adress>(adressViewModel);
+            var user = citizenUserRepository.Get(adressViewModel.OwnerId);
+
+            adress.Owner = user;
+
+            adressRepository.Save(adress);
+
+            return RedirectToAction("Profile", new { id = adressViewModel.OwnerId });
         }
     }
 }

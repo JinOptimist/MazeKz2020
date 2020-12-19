@@ -32,10 +32,15 @@ namespace WebMaze.Migrations
                     b.Property<int>("HouseNumber")
                         .HasColumnType("int");
 
+                    b.Property<long?>("OwnerId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Adress");
                 });
@@ -115,6 +120,20 @@ namespace WebMaze.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CitizenUser");
+                });
+
+            modelBuilder.Entity("WebMaze.DbStuff.Model.Adress", b =>
+                {
+                    b.HasOne("WebMaze.DbStuff.Model.CitizenUser", "Owner")
+                        .WithMany("Adresses")
+                        .HasForeignKey("OwnerId");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("WebMaze.DbStuff.Model.CitizenUser", b =>
+                {
+                    b.Navigation("Adresses");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.HealthDepartment", b =>
