@@ -20,6 +20,8 @@ using WebMaze.Models.Bus;
 using WebMaze.Models.UserTasks;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using WebMaze.Models.Police;
+using WebMaze.DbStuff.Model.Police;
 
 namespace WebMaze
 {
@@ -78,6 +80,11 @@ namespace WebMaze
             
             configurationExpression.CreateMap<UserTask, UserTaskViewModel>();
             configurationExpression.CreateMap<UserTaskViewModel, UserTask>();
+
+            configurationExpression.CreateMap<Policeman, PolicemanViewModel>()
+                .ForMember("ProfileVM", opt => opt.MapFrom(p => p.User))
+                .ForMember("DateOfIssue", opt => opt.MapFrom(p => p.Certificate.DateOfIssue))
+                .ForMember("Validity", opt => opt.MapFrom(p => p.Certificate.Validity));
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);

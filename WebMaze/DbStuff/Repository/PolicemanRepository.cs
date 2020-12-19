@@ -11,18 +11,18 @@ namespace WebMaze.DbStuff.Repository
     {
         public PolicemanRepository(WebMazeContext context) : base(context) { }
 
-        public List<CitizenUser> GetPolicemanUsers()
+        public IEnumerable<CitizenUser> GetPolicemanUsers()
         {
             var items = from u in dbSet
                         select u.User;
 
-            return items.ToList();
+            return items;
         }
 
-        public bool IsUserPoliceman(CitizenUser user)
+        public bool IsUserPoliceman(CitizenUser user, out Policeman output)
         {
-            var item = dbSet.Where(p => p.User == user).SingleOrDefault();
-            return item != null;
+            output = dbSet.Where(p => p.User == user).SingleOrDefault();
+            return output != null;
         }
     }
 }

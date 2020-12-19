@@ -4,6 +4,10 @@
     ViewBag.Title = $"{Model.ProfileVM.Login}";
 }
 
+<h2>Тестовый личный кабинет пользователя @Model.ProfileVM.Login</h2>
 <div class="row">
-
+    <div class="col-md-3">Ваш ранг: @Model.Rank</div>
+    <div class="offset-6 col-md-3 align-self-end">
+        <img src="@Model.ProfileVM.AvatarUrl" class="rounded img-fluid" />
+    </div>
 </div>

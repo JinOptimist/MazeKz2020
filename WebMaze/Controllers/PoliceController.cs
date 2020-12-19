@@ -49,7 +49,7 @@ namespace WebMaze.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel user)
         {
-            var userItem = cuRepo.FindExistingCitizenUser(user.Login);
+            var userItem = cuRepo.GetUserByName(user.Login);
             if (userItem == null)
             {
                 ModelState.AddModelError("Login", "Данный логин не существует");
@@ -79,7 +79,22 @@ namespace WebMaze.Controllers
         [Authorize]
         public IActionResult Account()
         {
-            return View();
+            var userItem = cuRepo.GetUserByName(User.Identity.Name);
+            if (userItem == null)
+            {
+                throw new NotImplementedException();
+            }
+
+            if (!pmRepo.IsUserPoliceman(userItem, out Policeman policeItem))
+            {
+                userItem.AvatarUrl = ChangeNullPhotoToDefault(userItem.AvatarUrl);
+                return View(new PolicemanViewModel { ProfileVM = mapper.Map<ProfileViewModel>(userItem) });
+            }
+
+            var result = mapper.Map<PolicemanViewModel>(policeItem);
+            result.ProfileVM.AvatarUrl = ChangeNullPhotoToDefault(result.ProfileVM.AvatarUrl);
+
+            return View(result);
         }
 
         private async Task Authorize(string login)
@@ -91,6 +106,16 @@ namespace WebMaze.Controllers
 
             var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        }
+        private static string ChangeNullPhotoToDefault(string urlPathString)
+        {
+            const string defaultUserLogoPath = "/image/Police/police_default_user_logo.png";
+            if (string.IsNullOrEmpty(urlPathString))
+            {
+                urlPathString = defaultUserLogoPath;
+            }
+
+            return urlPathString;
         }
     }
 }
