@@ -1,29 +1,21 @@
-﻿@model WebMaze.Models.Police.PolicemanViewModel
-@{
+﻿@{
     Layout = "_PoliceLayout.cshtml";
     ViewBag.Title = "Полиция города";
 }
 
-<br />
-<h2>Текущие пользователи, не являющиеся полицейскими:</h2>
-<div class="users-container">
-    <div class="container-fluid">
-        <table class="table table-condensed table-striped table-hover col-md-12">
-            <thead>
-                <tr class="d-flex">
-                    <th class="col-10">Логин</th>
-                    <th class="col-2">Фото</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.CitizenUserProfiles)
-                {
-                    <tr class="d-flex">
-                        <td class="col-10">@item.Login</td>
-                        <td class="col-2"><img src="@item.AvatarUrl" class="rounded img-fluid" /></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<h2>Полиция города NN</h2>
+<div class="row mb-2">
+    <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">Внутри системы</strong>
+                <h3 class="mb-1">Получить сертификат полицейского</h3>
+                <p class="card-text mb-auto">
+                    У вас есть страсть бороться с преступностью? Тогда вам к нам.
+                    Отправьте заявку на получение сертификата не выходя из дома!
+                </p>
+                <a class="stretched-link" href="#">Получить сейчас</a>
+            </div>
+        </div>
     </div>
 </div>

@@ -6,7 +6,7 @@
     @RenderSection("Scripts", required: false)
 }
 
-<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark rounded">
     <div class="container">
         <a class="navbar-brand" asp-controller="Police" asp-action="Index">Police</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapsedContent" aria-controls="navbarCollapsedContent" aria-expanded="false">
@@ -29,7 +29,7 @@
                             @User.Identity.Name
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropDown">
-                            <a class="dropdown-item" href="#">Личный кабинет</a>
+                            <a class="dropdown-item" asp-controller="Police" asp-action="Account">Личный кабинет</a>
                             <div class="dropdown-divider"></div>
                             <div class="dropdown-item">
                                 <form asp-controller="Police" asp-action="Logout" method="post">
@@ -49,10 +49,7 @@
         </div>
     </div>
 </nav>
-
-<div class="breadcrumb-container">
-    @RenderSection("BreadLink", required: false)
-</div>
+<br />
 
 <div class="container">
     @RenderBody()

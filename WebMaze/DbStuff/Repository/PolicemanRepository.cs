@@ -19,15 +19,6 @@ namespace WebMaze.DbStuff.Repository
             return items.ToList();
         }
 
-        public List<CitizenUser> GetNotPolicemanUsers()
-        {
-            var items = from u in context.CitizenUser
-                        where !dbSet.Where(p => p.Confirmed).Select(p => p.User).Contains(u)
-                        select u;
-            var test = items.ToList();
-            return items.ToList();
-        }
-
         public bool IsUserPoliceman(CitizenUser user)
         {
             var item = dbSet.Where(p => p.User == user).SingleOrDefault();

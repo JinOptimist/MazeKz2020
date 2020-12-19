@@ -32,25 +32,17 @@ namespace WebMaze.Controllers
 
         public IActionResult Index()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                var itemResult = new PolicemanViewModel() { CitizenUserProfiles = new ProfileViewModel[0], ProfileVM = new ProfileViewModel() };
-                return View(itemResult);
-            }
-
-            var profile = mapper.Map<ProfileViewModel>(cuRepo.GetUserByName(User.Identity.Name));
-
-            var userItems = pmRepo.GetNotPolicemanUsers();
-            var users = mapper.Map<ProfileViewModel[]>(userItems);
-
-            var item = new PolicemanViewModel() { CitizenUserProfiles = users, ProfileVM = profile };
-
-            return View(item);
+            return View();
         }
 
         [HttpGet]
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+
             return View(new LoginViewModel());
         }
 
@@ -82,6 +74,12 @@ namespace WebMaze.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult Account()
+        {
+            return View();
         }
 
         private async Task Authorize(string login)
