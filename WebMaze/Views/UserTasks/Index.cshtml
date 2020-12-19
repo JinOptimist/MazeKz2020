@@ -1,0 +1,75 @@
+﻿@using WebMaze.Models.UserTasks
+@using WebMaze.DbStuff.Model
+@model List<UserTaskViewModel>
+
+<h2>Current Tasks</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Task name
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Description)
+        </th>
+        <th>
+            Start Date
+        </th>
+        <th>
+            End Date
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Priority)
+        </th>
+        <th>
+            Actions
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.StartDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EndDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        @switch (item.Priority)
+        {
+            case UserTask.TaskPriority.Low:
+                <span class="badge badge-primary">Low</span>
+                break;
+            case UserTask.TaskPriority.Medium:
+                <span class="badge badge-warning">Medium</span>
+                break;
+            case UserTask.TaskPriority.High:
+                <span class="badge badge-danger">High</span>
+                break;
+        }
+    </td>
+    <td>
+        <a href="@Url.Action("Edit", "UserTasks", new {item.Id})" class="btn btn-sm btn-warning btn-block">Edit</a>
+        <form action="@Url.Action("Delete", "UserTasks")" method="post">
+            <input type="hidden" name="id" value="@item.Id" />
+            <button type="submit" class="btn btn-danger btn-sm btn-block">Delete</button>
+        </form>
+    </td>
+</tr>
+    }
+</table>

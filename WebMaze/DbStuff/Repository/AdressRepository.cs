@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using WebMaze.DbStuff.Model;
 
@@ -10,9 +11,9 @@ namespace WebMaze.DbStuff.Repository
         {
         }
 
-        public List<Adress> GetAdressByCity(string city)
+        public IEnumerable<Adress> GetAdressByCity(string city)
         {
-            return dbSet.Where(x => x.City == city).ToList();
+            return dbSet.Where(x => x.City == city);
         }
     }
 }

@@ -24,7 +24,23 @@ namespace WebMaze.DbStuff
 
         public DbSet<BusRoute> BusRoute { get; set; }
 
+        public DbSet<UserTask> UserTasks { get; set; }
 
         public WebMazeContext(DbContextOptions dbContext) : base(dbContext) { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseLazyLoadingProxies();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CitizenUser>()
+                .HasMany(citizen => citizen.Adresses)
+                .WithOne(adress => adress.Owner);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

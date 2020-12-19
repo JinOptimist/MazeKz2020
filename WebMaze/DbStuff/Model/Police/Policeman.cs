@@ -2,7 +2,7 @@
 {
     public class Policeman : BaseModel
     {
-        public CitizenUser User { get; set; }
+        public virtual CitizenUser User { get; set; }
         public bool Confirmed { get; set; }
     }
 }
