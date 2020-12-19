@@ -3,7 +3,7 @@
     public class Policeman : BaseModel
     {
         public virtual CitizenUser User { get; set; }
-
+        
         public string Rank { get; set; }
 
         public virtual Certificate Certificate { get; set; }
