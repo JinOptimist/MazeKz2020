@@ -8,11 +8,11 @@ namespace WebMaze.DbStuff.Model.Medicine
 {
     public class RecordForm : BaseModel
     {
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public string LastName { get; set; }
+        public virtual string LastName { get; set; }
 
         [DataType(DataType.PhoneNumber)]
-        public string PhoneNumber { get; set; }
+        public virtual string PhoneNumber { get; set; }
     }
 }
