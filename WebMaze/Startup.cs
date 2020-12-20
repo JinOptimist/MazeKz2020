@@ -20,6 +20,7 @@ using WebMaze.Models.Account;
 using WebMaze.Models.Department;
 using WebMaze.Models.Bus;
 using WebMaze.Models.HealthDepartment;
+using WebMaze.Models.UserTasks;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace WebMaze
@@ -80,6 +81,9 @@ namespace WebMaze
             configurationExpression.CreateMap<RecordForm, ListRecordFormViewModel>();
             configurationExpression.CreateMap<ListRecordFormViewModel, RecordForm>();
 
+            
+            configurationExpression.CreateMap<UserTask, UserTaskViewModel>();
+            configurationExpression.CreateMap<UserTaskViewModel, UserTask>();
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
@@ -105,6 +109,8 @@ namespace WebMaze
             services.AddScoped(s => new BusRepository(s.GetService<WebMazeContext>()));
             services.AddScoped(s => new BusStopRepository(s.GetService<WebMazeContext>()));
             services.AddScoped(s => new BusRouteRepository(s.GetService<WebMazeContext>()));
+
+            services.AddScoped(s => new UserTaskRepository(s.GetService<WebMazeContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

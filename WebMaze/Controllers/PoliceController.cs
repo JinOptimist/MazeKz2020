@@ -39,45 +39,70 @@ namespace WebMaze.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login(int login)
+        public IActionResult Login()
         {
-            if (login == 0)
-            {
-                var items = pmRepo.GetNotPolicemanUsers();
-                var results = mapper.Map<ProfileViewModel[]>(items);
-
-                var item = new PolicemanViewModel() { CitizenUserProfiles = results, ProfileVM = null };
-
-                return View(item);
-            }
-            else if (login == 1)
-            {
-                var items = pmRepo.GetPolicemanUsers();
-                var results = mapper.Map<ProfileViewModel[]>(items);
-
-                var item = new PolicemanViewModel() { CitizenUserProfiles = results, ProfileVM = new ProfileViewModel() };
-                return View(item);
-            }
-
-            return NotFound();
+            return View(new LoginViewModel());
         }
 
-        [HttpGet]
-        public IActionResult RegisterPoliceman(int id)
+        [HttpPost]
+        public IActionResult Login(LoginViewModel user)
         {
-            var citizenUser = cuRepo.Get(id);
-            if (citizenUser == null)
+            var userItem = cuRepo.FindExistingCitizenUser(user.Login);
+            if (userItem == null)
             {
-                return NotFound();
+                ModelState.AddModelError("Login", "Данный логин не существует");
+            }
+            else if (userItem.Password != user.Password)
+            {
+                ModelState.AddModelError("Password", "Неправильный пароль");
+            }
+            else if (!pmRepo.IsUserPoliceman(userItem))
+            {
+                ModelState.AddModelError("", "Данный человек не является полицейским");
             }
 
-            if (!pmRepo.IsUserPoliceman(citizenUser))
+            if (!ModelState.IsValid)
             {
-                var man = new Policeman() { Confirmed = true, User = citizenUser };
+                return View(user);
+            }
+
+            return RedirectToAction("Index", new { profileId = userItem.Id });
+        }
+
+        [Route("[controller]/Signup")]
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new LoginViewModel());
+        }
+
+        [Route("[controller]/Signup")]
+        [HttpPost]
+        public IActionResult Register(LoginViewModel user)
+        {
+            var citizenUser = cuRepo.FindExistingCitizenUser(user.Login);
+            if (citizenUser == null)
+            {
+                ModelState.AddModelError("Login", "Данный логин не существует");
+            }
+            else if (pmRepo.IsUserPoliceman(citizenUser))
+            {
+                ModelState.AddModelError("", 
+                    "Данный аккаунт уже является аккаунтом полицейского. " +
+                    "Пожалуйста, войдите в свой аккаунт через меню входа");
+            }
+            else
+            {
+                var man = new Policeman() { Confirmed = false, User = citizenUser };
                 pmRepo.Save(man);
             }
 
-            return RedirectToAction("Index", new { profileId = id });
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            return RedirectToAction("Index", new { profileId = citizenUser.Id });
         }
     }
 }

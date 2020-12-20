@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@section Scripts{
+    @RenderSection("Scripts", required: false)
+}
+
+<div class="breadcrumb-container">
+    @RenderSection("BreadLink", required: true)
+</div>
+
+@RenderBody()

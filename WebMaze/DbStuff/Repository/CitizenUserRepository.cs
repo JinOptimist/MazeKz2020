@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +10,11 @@ namespace WebMaze.DbStuff.Repository
     {
         public CitizenUserRepository(WebMazeContext context) : base(context) { }
 
+        public CitizenUser FindExistingCitizenUser(string login)
+        {
+            return dbSet.SingleOrDefault(x => x.Login == login);
+        }
+        
         public IEnumerable<CitizenUser> GetUserWithHome()
         {
             return dbSet.Where(x => x.Adresses.Count() > 0);
