@@ -40,7 +40,7 @@ namespace WebMaze.Controllers
         [HttpGet]
         public IActionResult RecordForm()
         {
-            return View();
+            return PartialView("RecordForm");
         }
 
 
@@ -55,10 +55,10 @@ namespace WebMaze.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllForm(long id)
+        public IActionResult GetAllForm()
         {
-            var record = recordFormRepository.Get(id);
-            var viewModel = mapper.Map<ListRecordFormViewModel>(record);
+            var record = recordFormRepository.GetAll();
+            var viewModel = mapper.Map<List<ListRecordFormViewModel>>(record);
             
 
             return View(viewModel);
@@ -100,5 +100,6 @@ namespace WebMaze.Controllers
             return View();
         }
         
+       
     }
 }

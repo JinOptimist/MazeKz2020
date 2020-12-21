@@ -97,7 +97,7 @@
 }
 
 .dws-menu li a:hover {
-    background: #00ff21;
+    background: #207dff;
     color: #ffff;
     -webkit-box-shadow: 1px 5px 10px -5px black;
     box-shadow: 1px 5px 10px -5px black;
@@ -125,6 +125,85 @@
     display: block;
 }
 
+/*Section under menu*/
+.section__wrap {
+    width: 1110px;
+    height: 450px;
+    color: #fff;
+    background: #207dff;
+    display: flex;
+}
+
+.section__img{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url('../image/Mochalkin/Foto of doctors/Under_menu.jpg');
+}
+
+.section__row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section__title {
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #207dff;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/*Record form*/
+.partial__row {
+    display: flex;
+    justify-content: space-between;
+    height: 500px;
+}
+
+
+.partial__column-1 {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left;
+    background-image: url('../image/Mochalkin/Foto of doctors/Form.jpg');
+    width: 100%;
+    display: block;
+}
+
+.partial__column-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.partial__header {
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #0079c8;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.partial__input{
+    margin: 20px;
+}
+
+.text__form {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #0079c8;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+
 /*Galery*/
 .foto-block {
     display: -webkit-box;
@@ -134,6 +213,16 @@
     -ms-flex-pack: center;
     justify-content: center;
     padding-top: 3rem;
+}
+
+.foto-block__content {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #0079c8;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: 600;
 }
 
 .fotorama {

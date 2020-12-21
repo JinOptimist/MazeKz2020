@@ -27,12 +27,12 @@
                 </div>
                 <div class="head__column head__column-2">
                     <div class="head__element">
-                        <h1>Департамент здравоохранения</h1>
+                        <h1 class="section__title">Департамент здравоохранения</h1>
                     </div>
                 </div>
                 <div class="head__column head__column-3">
                     <div class="head__element">
-                        <a href="/HealthDepartment/RecordForm" class="button btn-lg active" role="button" aria-pressed="true">Запись на приём</a>
+                        <a href="/HealthDepartment/RecordForm" class="button btn-lg active" role="button" aria-pressed="true">Вход</a>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,25 @@
             </ul>
         </naw>
     </div>
-    
+
+    <!--Section under menu-->
+    <div class="section__wrap section__img">
+        <div class="section__row">
+            <div class="section__column section__column-1">
+                <div class="section__element">
+                    <div class="section__content">
+                        <h1 class="section__title">Ваше здоровье наша главная цель</h1>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!--Record Form-->
+    <partial>
+        @{await Html.RenderPartialAsync("RecordForm");}
+    </partial>
 
 
     <!--Галерея-->
@@ -105,7 +123,7 @@
 
 
 
-   
+
 
 </body>
 
