@@ -440,8 +440,15 @@ body {
     max-height: 200px;
 }
 
+.font-underline {
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 700!important;
+}
 
-
+.bg-darker {
+    background-color: #212529;
+}
 
 
 

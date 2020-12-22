@@ -21,7 +21,7 @@ namespace WebMaze.DbStuff.Repository
 
         public bool IsUserPoliceman(CitizenUser user, out Policeman output)
         {
-            output = dbSet.Where(p => p.User == user).SingleOrDefault();
+            output = dbSet.Where(p => p.User.Login == user.Login).SingleOrDefault();
             return output != null;
         }
     }

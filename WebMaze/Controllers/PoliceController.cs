@@ -32,7 +32,22 @@ namespace WebMaze.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var card = new CardViewModel
+            {
+                SubTitle = "Внутри системы",
+                Title = "Получить сертификат полицейского",
+                Description = "У вас есть страсть бороться с преступностью? Тогда вам к нам."
+                    + "Отправьте заявку на получение сертификата не выходя из дома!",
+                Link = "#",
+                LinkText = "Получить сейчас"
+            };
+
+            var result = new MainIndexInfoViewModel()
+            {
+                Cards = new List<CardViewModel> { card }
+            };
+
+            return View(result);
         }
 
         [HttpGet]
