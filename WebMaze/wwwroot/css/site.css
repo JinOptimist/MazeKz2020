@@ -166,6 +166,11 @@ body {
     object-fit: cover;
 }
 
+/*  Был удален М. Сражовым 
+    Потому что портил другой, дефолтный .card.
+    Просьба, не использовать дефолтные имена для стилей
+    Ну или переместить их в свой файл
+
 .card {
     display: inline-block;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -173,7 +178,7 @@ body {
     margin: auto;
     text-align: center;
     font-family: arial;
-}
+}*/
 
 .price {
     color: grey;

@@ -24,5 +24,11 @@ namespace WebMaze.DbStuff.Repository
             output = dbSet.Where(p => p.User.Login == user.Login).SingleOrDefault();
             return output != null;
         }
+
+        public void MakePolicemanFromUser(CitizenUser user)
+        {
+            var policeman = new Policeman() { User = user, Certificate = null, Rank = "Не имеет сертификат" };
+            Save(policeman);
+        }
     }
 }

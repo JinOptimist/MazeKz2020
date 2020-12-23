@@ -79,12 +79,29 @@ namespace WebMaze.Controllers
                 return View(user);
             }
 
-            await Authorize(user.Login);
+            await AuthorizeUser(user.Login);
 
             return RedirectToAction("Index");
         }
 
+        // Authorize methods ------------------------------------------------
+
         [HttpPost]
+        [Authorize]
+        public IActionResult RegisterPoliceman()
+        {
+            var userItem = cuRepo.GetUserByName(User.Identity.Name);
+            if (userItem == null || pmRepo.IsUserPoliceman(userItem, out _))
+            {
+                throw new NotImplementedException();
+            }
+
+            pmRepo.MakePolicemanFromUser(userItem);
+            return RedirectToAction("Account");
+        }
+
+        [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -112,7 +129,9 @@ namespace WebMaze.Controllers
             return View(result);
         }
 
-        private async Task Authorize(string login)
+        // Private methods ----------------------------------------------------
+
+        private async Task AuthorizeUser(string login)
         {
             var claims = new List<Claim>()
             {

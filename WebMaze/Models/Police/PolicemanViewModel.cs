@@ -7,6 +7,10 @@ namespace WebMaze.Models.Police
     {
         public ProfileViewModel ProfileVM { get; set; }
 
+        public bool IsVerified => !string.IsNullOrEmpty(Rank);
+
+        public bool HasValidCertificate => DateOfIssue.HasValue;
+
         public string Rank { get; set; }
 
         public DateTime? DateOfIssue { get; set; }
