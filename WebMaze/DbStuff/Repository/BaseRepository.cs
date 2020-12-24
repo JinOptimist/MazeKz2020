@@ -44,6 +44,7 @@ namespace WebMaze.DbStuff.Repository
         {
             var model = Get(id);
             dbSet.Remove(model);
+            context.SaveChanges();
         }
     }
 }
