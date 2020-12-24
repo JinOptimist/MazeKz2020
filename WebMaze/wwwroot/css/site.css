@@ -440,7 +440,14 @@ body {
     max-height: 200px;
 }
 
+.input-validation-error {
+    border-color: red;
+}
 
+.field-validation-error{
+    font-size: 50px;
+    color: #1acd88;
+}
 
 
 
