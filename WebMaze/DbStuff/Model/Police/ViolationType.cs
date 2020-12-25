@@ -8,7 +8,7 @@ namespace WebMaze.DbStuff.Model.Police
 {
     public class ViolationType : BaseModel
     {
-        public List<Violation> Violations { get; set; }
+        public virtual List<Violation> Violations { get; set; }
 
         public string Article { get; set; }
 
