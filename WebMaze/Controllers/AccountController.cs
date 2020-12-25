@@ -46,6 +46,11 @@ namespace WebMaze.Controllers
         [HttpPost]
         public IActionResult Registration(LoginViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             var user = mapper.Map<CitizenUser>(viewModel);
             citizenUserRepository.Save(user);
             return View();
