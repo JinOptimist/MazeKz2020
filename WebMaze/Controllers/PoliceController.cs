@@ -58,11 +58,11 @@ namespace WebMaze.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(new LoginViewModel());
+            return View(new PoliceLoginViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel user)
+        public async Task<IActionResult> Login(PoliceLoginViewModel user)
         {
             var userItem = cuRepo.GetUserByName(user.Login);
             if (userItem == null)
@@ -127,6 +127,18 @@ namespace WebMaze.Controllers
             result.ProfileVM.AvatarUrl = ChangeNullPhotoToDefault(result.ProfileVM.AvatarUrl);
 
             return View(result);
+        }
+
+        [Authorize]
+        public IActionResult SignUp()
+        {
+            var userItem = cuRepo.GetUserByName(User.Identity.Name);
+            if (pmRepo.IsUserPoliceman(userItem, out _))
+            {
+                return RedirectToAction("Account");
+            }
+
+            return View();
         }
 
         // Private methods ----------------------------------------------------

@@ -9,7 +9,7 @@
         SubTitle = "Карьера",
         Title = "Станьте полицейским",
         Description = "Подайте заявку на получение статуса полицейского",
-        Link = "#",
+        Link = Url.Action("SignUp", "Police"),
         LinkText = "Перейти"
     };
 
@@ -55,16 +55,6 @@
                         <h5 class="card-title">@infoCard.Title</h5>
                         <p class="card-text">@infoCard.Description</p>
                         <a class="btn btn-primary" href="@infoCard.Link">@infoCard.LinkText</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Сертификаты</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Получить сертификат</h5>
-                        <p class="card-text">Перейдите на сайт градоуправления, дабы получить сертифкат полицейского</p>
-                        <a class="btn btn-primary" href="#">Перейти</a>
                     </div>
                 </div>
             </div>
