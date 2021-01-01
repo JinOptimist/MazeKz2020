@@ -141,6 +141,16 @@ namespace WebMaze.Controllers
             return View();
         }
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult SignUpPoliceman(bool includecertificate)
+        {
+            var userItem = cuRepo.GetUserByName(User.Identity.Name);
+            pmRepo.MakePolicemanFromUser(userItem);
+
+            return RedirectToAction("Account");
+        }
+
         // Private methods ----------------------------------------------------
 
         private async Task AuthorizeUser(string login)

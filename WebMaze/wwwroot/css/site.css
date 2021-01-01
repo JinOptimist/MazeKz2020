@@ -184,6 +184,7 @@ body {
     color: grey;
     font-size: 22px;
 }
+/*
 
 .card button {
     border: none;
@@ -195,7 +196,7 @@ body {
     cursor: pointer;
     width: 100%;
     font-size: 18px;
-}
+}*/
 
 .alert {
     padding: 20px;
@@ -453,6 +454,11 @@ body {
 
 .bg-darker {
     background-color: #212529;
+}
+
+.invalid-validation .field-validation-error {
+    font-size: inherit!important;
+    color: inherit!important;
 }
 
 .input-validation-error {

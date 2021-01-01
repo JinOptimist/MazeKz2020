@@ -5,6 +5,84 @@
     ViewBag.Title = "Регистрация ";
 }
 
-<div>
-    Test
+@section Scripts{
+    <script src="~/js/site.js"></script>
+}
+
+<div class="mx-auto px-3 py-3 pt-md-5 text-center">
+    <h1 class="display-4">Как стать служителем закона</h1>
+    <p class="lead">
+        Сегодня мир настолько безопасный, что вам не нужно быть каким то особенным, чтобы стать полицейским. <br />
+        Нужны лишь ваши деньги и желание
+    </p>
+</div>
+
+<div class="row text-center justify-content-center mt-3 mb-3">
+    <div class="col-md-6 col-lg-4">
+        <div class="card border-success mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="text-success">Начальный</h4>
+            </div>
+            <div class="card-body">
+                <div class="text-muted card-subtitle">Всего за</div>
+                <h1 class="card-title">
+                    10$
+                    <small class="text-muted">/ в месяц</small>
+                </h1>
+                <p class="card-text mt-3">Вы получите возможность:</p>
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item">Арестовывать и блокировать аккаунты любого пользователя</li>
+                    <li class="list-group-item">Выписывать административный штраф</li>
+                    <li class="list-group-item">Просматривать список нарушителей</li>
+                </ul>
+                <a href="#signingup" class="w-100 stretched-link btn btn-outline-primary">Получить</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="card border-info mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="text-info">В разработке</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title mt-3">
+                    Это еще не все!
+                </h1>
+                <p class="card-text mt-3 mb-4">
+                    В будущем вы получите куда больше возможностей чем когда-либо, поэтому оставайтесь на связи, чтобы не пропустить информацию о новых пакетах
+                </p>
+                <hr />
+                <button type="button" class="w-100 btn btn-outline-primary">
+                    Подписаться
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+
+<div class="row mt-3 mb-3">
+    <h2 class="col-md-12 text-center">Регистрация полицейского</h2>
+    <div class="col-md-6 order-last order-md-1">
+        <form asp-controller="Police" asp-action="SignUpPoliceman" method="post" class="needs-validation" novalidate>
+            <div class="form-group">
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" id="includecertificate" />
+                    <label class="form-check-label" for="includecertificate">Добавить сертификат при регистрации</label>
+                </div>
+                <div class="form-check mt-3 mb-3">
+                    <input class="form-check-input" type="checkbox" id="agreed" required />
+                    <label class="form-check-label" for="agreed">Я принимаю условия и обязанности полицейского*</label>
+                    <div class="invalid-feedback">Примите соглашение</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Стать полицейским</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 order-1 order-md-last">
+        <h1 class="text-center">Test</h1>
+        <div class="text-center">
+            Test of the tests
+        </div>
+    </div>
 </div>
