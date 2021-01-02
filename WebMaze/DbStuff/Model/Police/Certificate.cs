@@ -11,6 +11,8 @@ namespace WebMaze.DbStuff.Model.Police
         
         public DateTime DateOfIssue { get; set; }
 
-        public DateTime Validity { get; set; }
+        public DateTime? Validity { get; set; }
+
+        public virtual List<CitizenUser> User { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace WebMaze.DbStuff.Repository
 
         public void MakePolicemanFromUser(CitizenUser user)
         {
-            var policeman = new Policeman() { User = user, Certificate = null, Rank = "Не имеет сертификат" };
+            var policeman = new Policeman() { User = user, Rank = "Не имеет сертификат" };
             Save(policeman);
         }
     }

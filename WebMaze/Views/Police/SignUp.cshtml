@@ -2,10 +2,10 @@
 @model PolicemanViewModel
 @{
     Layout = "_PoliceLayout.cshtml";
-    ViewBag.Title = "Регистрация ";
+    ViewBag.Title = "Как стать полицейским";
 }
 
-@section Scripts{
+@section Scripts {
     <script src="~/js/site.js"></script>
 }
 
@@ -35,7 +35,7 @@
                     <li class="list-group-item">Выписывать административный штраф</li>
                     <li class="list-group-item">Просматривать список нарушителей</li>
                 </ul>
-                <a href="#signingup" class="w-100 stretched-link btn btn-outline-primary">Получить</a>
+                <a asp-controller="Police" asp-action="Certificate" asp-route-id="1" class="w-100 stretched-link btn btn-outline-primary">Получить</a>
             </div>
         </div>
     </div>
@@ -61,28 +61,4 @@
 </div>
 <hr />
 
-<div class="row mt-3 mb-3">
-    <h2 class="col-md-12 text-center">Регистрация полицейского</h2>
-    <div class="col-md-6 order-last order-md-1">
-        <form asp-controller="Police" asp-action="SignUpPoliceman" method="post" class="needs-validation" novalidate>
-            <div class="form-group">
-                <div class="form-check mt-3">
-                    <input class="form-check-input" type="checkbox" id="includecertificate" />
-                    <label class="form-check-label" for="includecertificate">Добавить сертификат при регистрации</label>
-                </div>
-                <div class="form-check mt-3 mb-3">
-                    <input class="form-check-input" type="checkbox" id="agreed" required />
-                    <label class="form-check-label" for="agreed">Я принимаю условия и обязанности полицейского*</label>
-                    <div class="invalid-feedback">Примите соглашение</div>
-                </div>
-                <button type="submit" class="btn btn-primary">Стать полицейским</button>
-            </div>
-        </form>
-    </div>
-    <div class="col-md-6 order-1 order-md-last">
-        <h1 class="text-center">Test</h1>
-        <div class="text-center">
-            Test of the tests
-        </div>
-    </div>
-</div>
+

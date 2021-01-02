@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.DbStuff.Repository;
 using WebMaze.Models.Account;
+using WebMaze.Models.Certificate;
 using WebMaze.Models.Police;
 
 namespace WebMaze.Controllers
@@ -20,14 +21,16 @@ namespace WebMaze.Controllers
         private readonly IMapper mapper;
         private readonly PolicemanRepository pmRepo;
         private readonly CitizenUserRepository cuRepo;
+        private readonly CertificateRepository certRepo;
 
         public PoliceController(IMapper mapper,
             PolicemanRepository pmRepo,
-            CitizenUserRepository cuRepo)
+            CitizenUserRepository cuRepo, CertificateRepository certRepo)
         {
             this.mapper = mapper;
             this.pmRepo = pmRepo;
             this.cuRepo = cuRepo;
+            this.certRepo = certRepo;
         }
 
         public IActionResult Index()
@@ -126,29 +129,52 @@ namespace WebMaze.Controllers
             var result = mapper.Map<PolicemanViewModel>(policeItem);
             result.ProfileVM.AvatarUrl = ChangeNullPhotoToDefault(result.ProfileVM.AvatarUrl);
 
+            if (certRepo.HasValidCertificate(User.Identity.Name, "Police", out var certificate))
+            {
+                result.Validity = certificate.Validity;
+                result.DateOfIssue = certificate.DateOfIssue;
+            }
+
             return View(result);
         }
 
         [Authorize]
         public IActionResult SignUp()
         {
-            var userItem = cuRepo.GetUserByName(User.Identity.Name);
-            if (pmRepo.IsUserPoliceman(userItem, out _))
-            {
-                return RedirectToAction("Account");
-            }
-
             return View();
         }
 
-        [HttpPost]
         [Authorize]
-        public IActionResult SignUpPoliceman(bool includecertificate)
+        public IActionResult Certificate()
         {
-            var userItem = cuRepo.GetUserByName(User.Identity.Name);
-            pmRepo.MakePolicemanFromUser(userItem);
+            var user = cuRepo.GetUserByName(User.Identity.Name);
+            if (!pmRepo.IsUserPoliceman(user, out _))
+            {
+                pmRepo.MakePolicemanFromUser(user);
+            }
 
-            return RedirectToAction("Account");
+            var addmonths = 1;
+            var item = new CertificateViewModel()
+            {
+                Speciality = "Police",
+                Expires = DateTime.Today.AddMonths(addmonths),
+                RedirectToController = "Police",
+                RedirectToAction = "Account",
+                Price = 10
+            };
+
+            if(certRepo.HasValidCertificate(User.Identity.Name, "Police", out var certificate))
+            {
+                if(certificate.Validity == null)
+                {
+                    return RedirectToAction("Account");
+                }
+
+                item.Starts = certificate.Validity.GetValueOrDefault();
+                item.Expires = item.Starts.AddMonths(addmonths);
+            }
+
+            return RedirectToAction("Index", "Certificate", item);
         }
 
         // Private methods ----------------------------------------------------

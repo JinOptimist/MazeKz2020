@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using WebMaze.DbStuff.Model.Police;
 
 namespace WebMaze.DbStuff.Model
 {
@@ -38,5 +39,6 @@ namespace WebMaze.DbStuff.Model
         public virtual DateTime BirthDate { get; set; }
 
         public virtual List<Adress> Adresses { get; set; }
+        public virtual List<Certificate> Certificates { get; set; }
     }
 }

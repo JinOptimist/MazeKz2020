@@ -82,9 +82,7 @@ namespace WebMaze
             configurationExpression.CreateMap<UserTaskViewModel, UserTask>();
 
             configurationExpression.CreateMap<Policeman, PolicemanViewModel>()
-                .ForMember("ProfileVM", opt => opt.MapFrom(p => p.User))
-                .ForMember("DateOfIssue", opt => opt.MapFrom(p => p.Certificate.DateOfIssue))
-                .ForMember("Validity", opt => opt.MapFrom(p => p.Certificate.Validity));
+                .ForMember("ProfileVM", opt => opt.MapFrom(p => p.User));
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
@@ -102,6 +100,7 @@ namespace WebMaze
             services.AddScoped(s => new AdressRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new PolicemanRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new CertificateRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new HealthDepartmentRepository(s.GetService<WebMazeContext>()));
 
