@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,18 @@ using WebMaze.Models.Certificate;
 
 namespace WebMaze.Controllers
 {
+    [Authorize]
     public class CertificateController : Controller
     {
+        private readonly IMapper mapper;
         private readonly CertificateRepository certRepos;
 
-        public CertificateController(CertificateRepository certRepos)
+        public CertificateController(CertificateRepository certRepos, IMapper mapper)
         {
             this.certRepos = certRepos;
+            this.mapper = mapper;
         }
 
-        [Authorize]
         public IActionResult Index(CertificateViewModel certificate)
         {
             if (string.IsNullOrEmpty(certificate.Speciality))
@@ -32,7 +35,6 @@ namespace WebMaze.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        [Authorize]
         public IActionResult MakeCertificate(CertificateViewModel certificate)
         {
             var certItem = new Certificate
@@ -47,9 +49,8 @@ namespace WebMaze.Controllers
                 if (certificate1 != null)
                 {
                     certificate1.Validity = certItem.Validity;
+                    certRepos.Save(certificate1);
                 }
-
-                certRepos.Save(certificate1);
             }
             else
             {
@@ -58,5 +59,26 @@ namespace WebMaze.Controllers
 
             return RedirectToAction(certificate.RedirectToAction, certificate.RedirectToController);
         }
+
+        public IActionResult Items()
+        {
+            var items = mapper.Map<CertificateItemViewModel[]>(certRepos.GetCertificates(User.Identity.Name));
+            return View(items);
+        }
+
+        public IActionResult History(string speciality)
+        {
+            CertificateItemViewModel[] items;
+            if (!string.IsNullOrEmpty(speciality))
+            {
+                items = mapper.Map<CertificateItemViewModel[]>(certRepos.GetCertificates(User.Identity.Name, speciality));
+            }
+            else
+            {
+                items = mapper.Map<CertificateItemViewModel[]>(certRepos.GetCertificates(User.Identity.Name));
+            }
+
+            return View("Items", items);
+        }   
     }
 }

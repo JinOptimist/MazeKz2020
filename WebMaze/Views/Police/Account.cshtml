@@ -3,42 +3,23 @@
 @{
     Layout = "_PoliceLayout";
     ViewBag.Title = $"{Model.ProfileVM.Login}";
-    var status = "Гражданский";
+    var status = "Полицейский";
     var infoCard = new CardViewModel
     {
-        SubTitle = "Карьера",
-        Title = "Станьте полицейским",
-        Description = "Подайте заявку на получение статуса полицейского",
-        Link = Url.Action("SignUp", "Police"),
+        SubTitle = "Сертификаты",
+        Title = "Управление сертификатами",
+        Description = "Управляйте своими сертификатами",
+        Link = Url.Action("History", "Certificate", new { speciality = "Police" }),
         LinkText = "Перейти"
     };
 
-    if (Model.IsVerified)
+    if (!Model.HasValidCertificate)
     {
-        status = "Полицейский";
-        if (!Model.HasValidCertificate)
-        {
-            infoCard = new CardViewModel
-            {
-                SubTitle = "Сертификаты",
-                Title = "Получить сертификат",
-                Description = "Внимание, у вас в данный момент нет действующего сертификата. " +
-                "Чтобы получить его, вам необходимо перейти в сайт Градоуправления, и подтвердить там ваш сертификат",
-                Link = Url.Action("Certificate", "Police"),
-                LinkText = "Перейти"
-            };
-        }
-        else
-        {
-            infoCard = new CardViewModel
-            {
-                SubTitle = "Сертификаты",
-                Title = "Управление сертификатами",
-                Description = "Управляйте своими сертификатами",
-                Link = "#",
-                LinkText = "Перейти"
-            };
-        }
+        status = "Не имеет сертификат";
+        infoCard.Title = "Получить сертификат";
+        infoCard.Description = "Внимание, у вас в данный момент нет действующего сертификата. " +
+            "Чтобы получить его, вам необходимо перейти в сайт Градоуправления, и подтвердить там ваш сертификат";
+        infoCard.Link = Url.Action("SignUp", "Police");
     }
 }
 

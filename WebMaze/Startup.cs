@@ -22,6 +22,7 @@ using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WebMaze.Models.Police;
 using WebMaze.DbStuff.Model.Police;
+using WebMaze.Models.Certificate;
 
 namespace WebMaze
 {
@@ -83,6 +84,8 @@ namespace WebMaze
 
             configurationExpression.CreateMap<Policeman, PolicemanViewModel>()
                 .ForMember("ProfileVM", opt => opt.MapFrom(p => p.User));
+
+            configurationExpression.CreateMap<Certificate, CertificateItemViewModel>();
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
