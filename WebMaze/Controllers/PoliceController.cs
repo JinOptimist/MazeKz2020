@@ -163,15 +163,18 @@ namespace WebMaze.Controllers
                 Price = 10
             };
 
-            if(certRepo.HasValidCertificate(User.Identity.Name, "Police", out var certificate))
+            if (certRepo.HasValidCertificate(User.Identity.Name, "Police", out var certificate))
             {
-                if(certificate.Validity == null)
+                if (certificate.Validity == null)
                 {
                     return RedirectToAction("Account");
                 }
 
                 item.Starts = certificate.Validity.GetValueOrDefault();
-                item.Expires = item.Starts.AddMonths(addmonths);
+                if (item.Expires != null)
+                {
+                    item.Expires = item.Starts.AddMonths(addmonths);
+                }
             }
 
             return RedirectToAction("Index", "Certificate", item);

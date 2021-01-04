@@ -29,8 +29,8 @@ namespace WebMaze.DbStuff.Repository
         public IEnumerable<Certificate> GetCertificates(string userOwnerLogin, string speciality)
         {
             return (from user in context.CitizenUser
-                   where user.Login == userOwnerLogin
-                   select user)
+                    where user.Login == userOwnerLogin
+                    select user)
                    .SingleOrDefault()?.Certificates.Where(cert => cert.Speciality == speciality);
         }
 
@@ -40,6 +40,34 @@ namespace WebMaze.DbStuff.Repository
                     where user.Login == userOwnerLogin
                     select user)
                    .SingleOrDefault()?.Certificates;
+        }
+
+        public IEnumerable<Certificate> GetAllValidCertificates(string userOwnerLogin)
+        {
+            var user = (from u in context.CitizenUser
+                        where u.Login == userOwnerLogin
+                        select u)
+                    .SingleOrDefault();
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var result = new List<Certificate>();
+
+            var specialties = user.Certificates.GroupBy(c => c.Speciality);
+            foreach (var spec in specialties)
+            {
+                result.Add(new Certificate()
+                {
+                    Speciality = spec.Key,
+                    DateOfIssue = spec.Min(s => s.DateOfIssue),
+                    Validity = spec.Max(s => s.Validity)
+                });
+            }
+
+            return result;
         }
     }
 }

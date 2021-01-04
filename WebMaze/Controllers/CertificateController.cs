@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebMaze.DbStuff.Model;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.DbStuff.Repository;
 using WebMaze.Models.Certificate;
@@ -35,6 +30,7 @@ namespace WebMaze.Controllers
         }
 
         [ValidateAntiForgeryToken]
+        [HttpPost]
         public IActionResult MakeCertificate(CertificateViewModel certificate)
         {
             var certItem = new Certificate
@@ -44,25 +40,14 @@ namespace WebMaze.Controllers
                 Validity = certificate.Expires
             };
 
-            if (certRepos.HasValidCertificate(User.Identity.Name, certificate.Speciality, out var certificate1))
-            {
-                if (certificate1 != null)
-                {
-                    certificate1.Validity = certItem.Validity;
-                    certRepos.Save(certificate1);
-                }
-            }
-            else
-            {
-                certRepos.MakeCertificate(certItem, User.Identity.Name);
-            }
+            certRepos.MakeCertificate(certItem, User.Identity.Name);
 
             return RedirectToAction(certificate.RedirectToAction, certificate.RedirectToController);
         }
 
         public IActionResult Items()
         {
-            var items = mapper.Map<CertificateItemViewModel[]>(certRepos.GetCertificates(User.Identity.Name));
+            var items = mapper.Map<CertificateItemViewModel[]>(certRepos.GetAllValidCertificates(User.Identity.Name));
             return View(items);
         }
 
@@ -79,6 +64,6 @@ namespace WebMaze.Controllers
             }
 
             return View("Items", items);
-        }   
+        }
     }
 }

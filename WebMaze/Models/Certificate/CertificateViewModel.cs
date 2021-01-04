@@ -30,12 +30,6 @@ namespace WebMaze.Models.Certificate
         public decimal Price { get; set; }
         
         /// <summary>
-        /// Старая цена. Отображается в виде зачеркнутого текста. Если NULL, то не отображается.
-        /// Используется чтобы создать эффект "скидки"
-        /// </summary>
-        public decimal? OldPrice { get; set; }
-
-        /// <summary>
         /// Название Контроллера, на который будет перенаправление
         /// </summary>
         public string RedirectToController { get; set; }
