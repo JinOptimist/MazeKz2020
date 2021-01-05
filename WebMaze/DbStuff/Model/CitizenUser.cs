@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebMaze.DbStuff.Model.Medicine;
 using WebMaze.DbStuff.Model.Police;
+using WebMaze.DbStuff.Model.UserAccount;
 
 namespace WebMaze.DbStuff.Model
 {
@@ -48,6 +49,8 @@ namespace WebMaze.DbStuff.Model
         public virtual List<Adress> Adresses { get; set; }
 
         public virtual List<PoliceCertificate> PoliceCertificates { get; set; }
+
+        public virtual List<Certificate> Certificates { get; set; }
 
         public virtual MedicalInsurance MedicalInsurance { get; set; }
         public virtual List<RecordForm> RecordForms { get; set; }

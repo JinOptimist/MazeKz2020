@@ -2,6 +2,7 @@
 using WebMaze.DbStuff.Model;
 using WebMaze.DbStuff.Model.Medicine;
 using WebMaze.DbStuff.Model.Police;
+using WebMaze.DbStuff.Model.UserAccount;
 
 namespace WebMaze.DbStuff
 {
@@ -35,6 +36,8 @@ namespace WebMaze.DbStuff
         public DbSet<BusRouteTime> BusRouteTime { get; set; }
 
         public DbSet<UserTask> UserTasks { get; set; }
+
+        public DbSet<Certificate> Certificates { get; set; }
 
         public DbSet<MedicalInsurance> MedicalInsurances { get; set; }
         public DbSet<MedicineCertificate> MedicineCertificates { get; set; }
@@ -70,6 +73,10 @@ namespace WebMaze.DbStuff
             modelBuilder.Entity<CitizenUser>()
                 .HasOne(p => p.MedicineCertificate)
                 .WithOne(o => o.User);
+
+            modelBuilder.Entity<CitizenUser>()
+                .HasMany(citizen => citizen.Certificates)
+                .WithOne(certificate => certificate.Owner);
 
             base.OnModelCreating(modelBuilder);
         }

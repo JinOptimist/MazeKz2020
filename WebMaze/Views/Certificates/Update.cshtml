@@ -1,0 +1,43 @@
+﻿@using WebMaze.DbStuff.Model.UserAccount
+@model WebMaze.Models.Certificates.CertificateViewModel
+
+<h2>Update certificate <a asp-action="Index" class="btn btn-sm btn-secondary">Back</a></h2>
+
+<form asp-action="Update" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl"></label>
+        <input asp-for="ImageUrl" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ExpiryDate"></label>
+        <input asp-for="ExpiryDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="IssueDate"></label>
+        <input asp-for="IssueDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="IssuedBy"></label>
+        <input asp-for="IssuedBy" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Status"></label>
+        <select asp-for="Status" asp-items="Html.GetEnumSelectList<CertificateStatus>()">123</select>
+    </div>
+    <div class="form-group">
+        <label asp-for="OwnerLogin"></label>
+        <input asp-for="OwnerLogin" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+    </div>
+</form>
