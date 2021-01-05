@@ -1,56 +1,34 @@
-﻿@model WebMaze.Models.Police.PolicemanViewModel
+﻿@model WebMaze.Models.Police.MainIndexInfoViewModel
 @{
+    Layout = "_PoliceLayout.cshtml";
     ViewBag.Title = "Полиция города";
 }
-<div class="current-user-container">
-    @if (Model.ProfileVM != null)
-    {
-        <div class="text-md-right">
-            <p class="font-weight-bold">
-                Здравствуйте, вы авторизованы как:
-            </p>
-            <div class="d-flex flex-row-reverse">
-                <div class="col-md-2">
-                    <img src="@Model.ProfileVM.AvatarUrl" class="rounded img-fluid">
-                </div>
-                <div class="col-md-3">
-                    @Model.ProfileVM.Login
+
+<div class="p-md-5 p-4 mb-4 text-white bg-darker rounded">
+    <div class="col-md-10 px-0">
+        <h1 class="display-4 font-italic">Важность роли полицейского в современном мире</h1>
+        <p class="lead my-3">
+            Полиция каждый день защищает и спасает сотни людей по всему городу.
+            Узнайте, что творится внутри этой масшатбной системы, и попробуйте себя в роли полицейского
+        </p>
+        <p class="lead">
+            <a href="#" class="text-white font-underline">Читать дальше</a>
+        </p>
+    </div>
+</div>
+
+@foreach (var card in Model.Cards)
+{
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">@card.SubTitle</strong>
+                    <h3 class="mb-1">@card.Title</h3>
+                    <p class="card-text mb-auto">@card.Description</p>
+                    <a class="stretched-link" href="@card.Link">@card.LinkText</a>
                 </div>
             </div>
         </div>
-    }
-    else
-    {
-        <div class="text-md-right">
-            <p class="text-danger">
-                Внимание, вы не авторизовались. <br />
-                Для получения доступа, пожалуйста, войдите или создайте новый аккаунт:
-            </p>
-            <a class="col-md-2" asp-controller="Police" asp-action="Login">Войти</a> |
-            <a class="col-md-2" asp-controller="Police" asp-action="Register">Создать аккаунт</a>
-        </div>
-    }
-</div>
-<br />
-<h2>Текущие пользователи, не являющиеся полицейскими:</h2>
-<div class="users-container">
-    <div class="container-fluid">
-        <table class="table table-condensed table-striped table-hover col-md-12">
-            <thead>
-                <tr class="d-flex">
-                    <th class="col-10">Логин</th>
-                    <th class="col-2">Фото</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.CitizenUserProfiles)
-                {
-                    <tr class="d-flex">
-                        <td class="col-10">@item.Login</td>
-                        <td class="col-2"><img src="@item.AvatarUrl" class="rounded img-fluid" /></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
     </div>
-</div>
+}

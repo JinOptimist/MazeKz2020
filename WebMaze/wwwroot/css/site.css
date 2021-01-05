@@ -166,6 +166,11 @@ body {
     object-fit: cover;
 }
 
+/*  Был удален М. Сражовым 
+    Потому что портил другой, дефолтный .card.
+    Просьба, не использовать дефолтные имена для стилей
+    Ну или переместить их в свой файл
+
 .card {
     display: inline-block;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -173,12 +178,13 @@ body {
     margin: auto;
     text-align: center;
     font-family: arial;
-}
+}*/
 
 .price {
     color: grey;
     font-size: 22px;
 }
+/*
 
 .card button {
     border: none;
@@ -190,7 +196,7 @@ body {
     cursor: pointer;
     width: 100%;
     font-size: 18px;
-}
+}*/
 
 .alert {
     padding: 20px;
@@ -440,6 +446,21 @@ body {
     max-height: 200px;
 }
 
+.font-underline {
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 700!important;
+}
+
+.bg-darker {
+    background-color: #212529;
+}
+
+.invalid-validation .field-validation-error {
+    font-size: inherit!important;
+    color: inherit!important;
+}
+
 .input-validation-error {
     border-color: red;
 }
@@ -448,7 +469,6 @@ body {
     font-size: 50px;
     color: #1acd88;
 }
-
 
 
 
