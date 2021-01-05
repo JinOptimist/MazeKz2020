@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.DbStuff.Repository;
 using WebMaze.Models.Account;
-using WebMaze.Models.Certificate;
+using WebMaze.Models.PoliceCertificate;
 using WebMaze.Models.Police;
 
 namespace WebMaze.Controllers
@@ -21,11 +21,11 @@ namespace WebMaze.Controllers
         private readonly IMapper mapper;
         private readonly PolicemanRepository pmRepo;
         private readonly CitizenUserRepository cuRepo;
-        private readonly CertificateRepository certRepo;
+        private readonly PoliceCertificateRepository certRepo;
 
         public PoliceController(IMapper mapper,
             PolicemanRepository pmRepo,
-            CitizenUserRepository cuRepo, CertificateRepository certRepo)
+            CitizenUserRepository cuRepo, PoliceCertificateRepository certRepo)
         {
             this.mapper = mapper;
             this.pmRepo = pmRepo;
@@ -154,7 +154,7 @@ namespace WebMaze.Controllers
             }
 
             var addmonths = 1;
-            var item = new CertificateViewModel()
+            var item = new PoliceCertificateViewModel()
             {
                 Speciality = "Police",
                 Expires = DateTime.Today.AddMonths(addmonths),
@@ -177,7 +177,7 @@ namespace WebMaze.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Certificate", item);
+            return RedirectToAction("Index", "PoliceCertificate", item);
         }
 
         // Private methods ----------------------------------------------------

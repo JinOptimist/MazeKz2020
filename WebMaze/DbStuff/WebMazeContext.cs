@@ -16,7 +16,7 @@ namespace WebMaze.DbStuff
         
         public DbSet<ViolationType> TypesOfViolation { get; set; }
 
-        public DbSet<Certificate> Certificates { get; set; }
+        public DbSet<PoliceCertificate> PoliceCertificates { get; set; }
 
         public DbSet<HealthDepartment> HealthDepartment { get; set; }
 

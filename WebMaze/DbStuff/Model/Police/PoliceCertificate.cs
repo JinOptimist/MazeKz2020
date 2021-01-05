@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebMaze.DbStuff.Model.Police
 {
-    public class Certificate : BaseModel
+    public class PoliceCertificate : BaseModel
     {
         public string Speciality { get; set; }
         
