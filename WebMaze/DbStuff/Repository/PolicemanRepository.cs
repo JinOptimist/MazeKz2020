@@ -11,27 +11,24 @@ namespace WebMaze.DbStuff.Repository
     {
         public PolicemanRepository(WebMazeContext context) : base(context) { }
 
-        public List<CitizenUser> GetPolicemanUsers()
+        public IEnumerable<CitizenUser> GetPolicemanUsers()
         {
             var items = from u in dbSet
                         select u.User;
 
-            return items.ToList();
+            return items;
         }
 
-        public List<CitizenUser> GetNotPolicemanUsers()
+        public bool IsUserPoliceman(CitizenUser user, out Policeman output)
         {
-            var items = from u in context.CitizenUser
-                        where !dbSet.Where(p => p.Confirmed).Select(p => p.User).Contains(u)
-                        select u;
-            var test = items.ToList();
-            return items.ToList();
+            output = dbSet.Where(p => p.User.Login == user.Login).SingleOrDefault();
+            return output != null;
         }
 
-        public bool IsUserPoliceman(CitizenUser user)
+        public void MakePolicemanFromUser(CitizenUser user)
         {
-            var item = dbSet.Where(p => p.User == user).SingleOrDefault();
-            return item != null;
+            var policeman = new Policeman() { User = user, Rank = "Не имеет сертификат" };
+            Save(policeman);
         }
     }
 }

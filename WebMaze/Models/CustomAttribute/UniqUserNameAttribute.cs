@@ -26,7 +26,7 @@ namespace WebMaze.Models.CustomAttribute
 
             var userRepository = validationContext.GetService(typeof(CitizenUserRepository)) 
                 as CitizenUserRepository;
-            var existingUser = userRepository.FindExistingCitizenUser(login);
+            var existingUser = userRepository.GetUserByName(login);
             if (existingUser != null)
             {
                 return new ValidationResult($"{login} is not uniq. There is user with the same name");

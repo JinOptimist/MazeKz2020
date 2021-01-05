@@ -3,36 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMaze.DbStuff;
 
 namespace WebMaze.Migrations
 {
     [DbContext(typeof(WebMazeContext))]
-    partial class WebMazeContextModelSnapshot : ModelSnapshot
+    [Migration("20201219065301_AddedCertificate")]
+    partial class AddedCertificate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
-
-            modelBuilder.Entity("CitizenUserPoliceCertificate", b =>
-                {
-                    b.Property<long>("PoliceCertificatesId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("PoliceCertificatesId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CitizenUserPoliceCertificate");
-                });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.Adress", b =>
                 {
@@ -126,44 +113,11 @@ namespace WebMaze.Migrations
                     b.Property<string>("AvatarUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsBlocked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDead")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastLoginDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Login")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RegistrationDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -185,7 +139,7 @@ namespace WebMaze.Migrations
                     b.ToTable("HealthDepartment");
                 });
 
-            modelBuilder.Entity("WebMaze.DbStuff.Model.Police.PoliceCertificate", b =>
+            modelBuilder.Entity("WebMaze.DbStuff.Model.Police.Certificate", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -198,12 +152,12 @@ namespace WebMaze.Migrations
                     b.Property<string>("Speciality")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Validity")
+                    b.Property<DateTime>("Validity")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoliceCertificates");
+                    b.ToTable("Certificate");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.Police.Policeman", b =>
@@ -213,6 +167,9 @@ namespace WebMaze.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
+                    b.Property<long?>("CertificateId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Rank")
                         .HasColumnType("nvarchar(max)");
 
@@ -220,6 +177,8 @@ namespace WebMaze.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CertificateId");
 
                     b.HasIndex("UserId");
 
@@ -310,21 +269,6 @@ namespace WebMaze.Migrations
                     b.ToTable("UserTasks");
                 });
 
-            modelBuilder.Entity("CitizenUserPoliceCertificate", b =>
-                {
-                    b.HasOne("WebMaze.DbStuff.Model.Police.PoliceCertificate", null)
-                        .WithMany()
-                        .HasForeignKey("PoliceCertificatesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebMaze.DbStuff.Model.CitizenUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebMaze.DbStuff.Model.Adress", b =>
                 {
                     b.HasOne("WebMaze.DbStuff.Model.CitizenUser", "Owner")
@@ -347,9 +291,15 @@ namespace WebMaze.Migrations
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.Police.Policeman", b =>
                 {
+                    b.HasOne("WebMaze.DbStuff.Model.Police.Certificate", "Certificate")
+                        .WithMany()
+                        .HasForeignKey("CertificateId");
+
                     b.HasOne("WebMaze.DbStuff.Model.CitizenUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Certificate");
 
                     b.Navigation("User");
                 });

@@ -19,6 +19,10 @@ using WebMaze.Models.Department;
 using WebMaze.Models.Bus;
 using WebMaze.Models.UserTasks;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using WebMaze.Models.Police;
+using WebMaze.DbStuff.Model.Police;
+using WebMaze.Models.PoliceCertificate;
 
 namespace WebMaze
 {
@@ -36,6 +40,9 @@ namespace WebMaze
         {
             var connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=WebMazeKz;Trusted_Connection=True;";
             services.AddDbContext<WebMazeContext>(option => option.UseSqlServer(connectionString));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Police/Login"));
 
             RegistrationMapper(services);
 
@@ -75,6 +82,11 @@ namespace WebMaze
             configurationExpression.CreateMap<UserTask, UserTaskViewModel>();
             configurationExpression.CreateMap<UserTaskViewModel, UserTask>();
 
+            configurationExpression.CreateMap<Policeman, PolicemanViewModel>()
+                .ForMember("ProfileVM", opt => opt.MapFrom(p => p.User));
+
+            configurationExpression.CreateMap<PoliceCertificate, PoliceCertificateItemViewModel>();
+
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(s => mapper);
@@ -91,6 +103,7 @@ namespace WebMaze
             services.AddScoped(s => new AdressRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new PolicemanRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new PoliceCertificateRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new HealthDepartmentRepository(s.GetService<WebMazeContext>()));
 
@@ -119,6 +132,7 @@ namespace WebMaze
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

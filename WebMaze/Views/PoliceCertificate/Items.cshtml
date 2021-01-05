@@ -1,0 +1,29 @@
+﻿@model WebMaze.Models.PoliceCertificate.PoliceCertificateItemViewModel[]
+
+<h2 class="mb-4">Сертификаты пользователя</h2>
+<div class="mb-3">
+    <p class="lead"><a asp-controller="PoliceCertificate" asp-action="History">Посмотреть историю всех транзакции</a></p>
+</div>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="d-flex">
+            <th class="col-2">Назначение</th>
+            <th class="col-4">Дата получения</th>
+            <th class="col-4">Дата окончания</th>
+            <th class="col-2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="d-flex">
+                <td class="col-2">@item.Speciality</td>
+                <td class="col-4">@item.DateOfIssue.ToString("dd MMM yyyy")</td>
+                <td class="col-4">@item.Validity?.ToString("dd MMM yyyy")</td>
+                <td class="col-2">
+                    <a asp-controller="PoliceCertificate" asp-action="History" asp-route-speciality="@item.Speciality">Посмотреть историю</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

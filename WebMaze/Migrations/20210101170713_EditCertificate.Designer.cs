@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMaze.DbStuff;
 
 namespace WebMaze.Migrations
 {
     [DbContext(typeof(WebMazeContext))]
-    partial class WebMazeContextModelSnapshot : ModelSnapshot
+    [Migration("20210101170713_EditCertificate")]
+    partial class EditCertificate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,19 +21,19 @@ namespace WebMaze.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("CitizenUserPoliceCertificate", b =>
+            modelBuilder.Entity("CertificateCitizenUser", b =>
                 {
-                    b.Property<long>("PoliceCertificatesId")
+                    b.Property<long>("CertificatesId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("PoliceCertificatesId", "UserId");
+                    b.HasKey("CertificatesId", "UserId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CitizenUserPoliceCertificate");
+                    b.ToTable("CertificateCitizenUser");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.Adress", b =>
@@ -185,7 +187,7 @@ namespace WebMaze.Migrations
                     b.ToTable("HealthDepartment");
                 });
 
-            modelBuilder.Entity("WebMaze.DbStuff.Model.Police.PoliceCertificate", b =>
+            modelBuilder.Entity("WebMaze.DbStuff.Model.Police.Certificate", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -203,7 +205,7 @@ namespace WebMaze.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoliceCertificates");
+                    b.ToTable("Certificates");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.Police.Policeman", b =>
@@ -310,11 +312,11 @@ namespace WebMaze.Migrations
                     b.ToTable("UserTasks");
                 });
 
-            modelBuilder.Entity("CitizenUserPoliceCertificate", b =>
+            modelBuilder.Entity("CertificateCitizenUser", b =>
                 {
-                    b.HasOne("WebMaze.DbStuff.Model.Police.PoliceCertificate", null)
+                    b.HasOne("WebMaze.DbStuff.Model.Police.Certificate", null)
                         .WithMany()
-                        .HasForeignKey("PoliceCertificatesId")
+                        .HasForeignKey("CertificatesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

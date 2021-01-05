@@ -18,10 +18,5 @@ namespace WebMaze.DbStuff.Model.Police
         
         [Column(TypeName = "money")]
         public decimal? Penalty { get; set; }
-
-        public ViolationType()
-        {
-            Violations = new List<Violation>();
-        }
     }
 }
