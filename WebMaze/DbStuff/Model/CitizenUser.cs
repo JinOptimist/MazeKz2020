@@ -39,6 +39,6 @@ namespace WebMaze.DbStuff.Model
         public virtual DateTime BirthDate { get; set; }
 
         public virtual List<Adress> Adresses { get; set; }
-        public virtual List<Certificate> Certificates { get; set; }
+        public virtual List<PoliceCertificate> PoliceCertificates { get; set; }
     }
 }

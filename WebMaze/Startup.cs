@@ -22,7 +22,7 @@ using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WebMaze.Models.Police;
 using WebMaze.DbStuff.Model.Police;
-using WebMaze.Models.Certificate;
+using WebMaze.Models.PoliceCertificate;
 
 namespace WebMaze
 {
@@ -85,7 +85,7 @@ namespace WebMaze
             configurationExpression.CreateMap<Policeman, PolicemanViewModel>()
                 .ForMember("ProfileVM", opt => opt.MapFrom(p => p.User));
 
-            configurationExpression.CreateMap<Certificate, CertificateItemViewModel>();
+            configurationExpression.CreateMap<PoliceCertificate, PoliceCertificateItemViewModel>();
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
@@ -103,7 +103,7 @@ namespace WebMaze
             services.AddScoped(s => new AdressRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new PolicemanRepository(s.GetService<WebMazeContext>()));
-            services.AddScoped(s => new CertificateRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new PoliceCertificateRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new HealthDepartmentRepository(s.GetService<WebMazeContext>()));
 

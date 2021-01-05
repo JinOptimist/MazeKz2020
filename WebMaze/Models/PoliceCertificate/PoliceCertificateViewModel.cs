@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebMaze.Models.Certificate
+namespace WebMaze.Models.PoliceCertificate
 {
-    public class CertificateViewModel
+    public class PoliceCertificateViewModel
     {
         private DateTime? starts;
 
