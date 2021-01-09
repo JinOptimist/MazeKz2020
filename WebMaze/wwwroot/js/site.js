@@ -18,3 +18,42 @@
         });
     }, false);
 })();
+
+$(document).ready(
+    async function () {
+        let item = $(".violations-list-container .violation-list-item");
+        if (item != null) {
+            const respone = await fetch("/api/violation",
+                {
+                    method: "GET",
+                    headers: { "Accept": "application/json" }
+                });
+
+            if (respone.ok === true) {
+                const viols = await respone.json();
+
+                let sample = item.clone();
+                let parent = $(".violations-list-container");
+
+                for (const viol of viols) {
+                    let clone = sample.clone().appendTo(parent);
+                    AddViolationItem(viol, clone);
+                };
+
+                item.remove();
+            }
+        }
+    });
+
+function AddViolationItem(item, sample) {
+    fillElement(".violation-user-field", item.userName);
+    fillElement(".violation-policeman-field", item.policemanName);
+    fillElement(".violation-date-field", new Date(item.date).toLocaleDateString());
+
+    function fillElement(name, data) {
+        let reqItem = sample.find(name);
+        if (reqItem.length > 0) {
+            reqItem.text(data);
+        }
+    };
+};
