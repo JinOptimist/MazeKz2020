@@ -16,6 +16,7 @@ using WebMaze.Models.Police;
 
 namespace WebMaze.Controllers
 {
+    [Authorize]
     public class PoliceController : Controller
     {
         private readonly IMapper mapper;
@@ -33,64 +34,7 @@ namespace WebMaze.Controllers
             this.certRepo = certRepo;
         }
 
-        public IActionResult Index()
-        {
-            var card = new CardViewModel
-            {
-                SubTitle = "Внутри системы",
-                Title = "Получить сертификат полицейского",
-                Description = "У вас есть страсть бороться с преступностью? Тогда вам к нам."
-                    + "Отправьте заявку на получение сертификата не выходя из дома!",
-                Link = "#",
-                LinkText = "Получить сейчас"
-            };
-
-            var result = new MainIndexInfoViewModel()
-            {
-                Cards = new List<CardViewModel> { card }
-            };
-
-            return View(result);
-        }
-
-        [HttpGet]
-        public IActionResult Login()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index");
-            }
-
-            return View(new PoliceLoginViewModel());
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Login(PoliceLoginViewModel user)
-        {
-            var userItem = cuRepo.GetUserByName(user.Login);
-            if (userItem == null)
-            {
-                ModelState.AddModelError("Login", "Данный логин не существует");
-            }
-            else if (userItem.Password != user.Password)
-            {
-                ModelState.AddModelError("Password", "Неправильный пароль");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View(user);
-            }
-
-            await AuthorizeUser(user.Login);
-
-            return RedirectToAction("Index");
-        }
-
-        // Authorize methods ------------------------------------------------
-
-        [HttpPost]
-        [Authorize]
         public IActionResult RegisterPoliceman()
         {
             var userItem = cuRepo.GetUserByName(User.Identity.Name);
@@ -104,14 +48,12 @@ namespace WebMaze.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index");
         }
 
-        [Authorize]
         public IActionResult Account()
         {
             var userItem = cuRepo.GetUserByName(User.Identity.Name);
@@ -138,13 +80,11 @@ namespace WebMaze.Controllers
             return View(result);
         }
 
-        [Authorize]
         public IActionResult SignUp()
         {
             return View();
         }
 
-        [Authorize]
         public IActionResult Certificate()
         {
             var user = cuRepo.GetUserByName(User.Identity.Name);
@@ -179,6 +119,71 @@ namespace WebMaze.Controllers
 
             return RedirectToAction("Index", "PoliceCertificate", item);
         }
+
+        public IActionResult ListOfCriminals()
+        {
+            return View();
+        }
+
+        // Anonymous methods ------------------------------------------------
+
+        [AllowAnonymous]
+        public IActionResult Index()
+        {
+            var card = new CardViewModel
+            {
+                SubTitle = "Внутри системы",
+                Title = "Получить сертификат полицейского",
+                Description = "У вас есть страсть бороться с преступностью? Тогда вам к нам."
+                    + "Отправьте заявку на получение сертификата не выходя из дома!",
+                Link = "#",
+                LinkText = "Получить сейчас"
+            };
+
+            var result = new MainIndexInfoViewModel()
+            {
+                Cards = new List<CardViewModel> { card }
+            };
+
+            return View(result);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Login()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(new PoliceLoginViewModel());
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Login(PoliceLoginViewModel user)
+        {
+            var userItem = cuRepo.GetUserByName(user.Login);
+            if (userItem == null)
+            {
+                ModelState.AddModelError("Login", "Данный логин не существует");
+            }
+            else if (userItem.Password != user.Password)
+            {
+                ModelState.AddModelError("Password", "Неправильный пароль");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            await AuthorizeUser(user.Login);
+
+            return RedirectToAction("Index");
+        }
+
 
         // Private methods ----------------------------------------------------
 

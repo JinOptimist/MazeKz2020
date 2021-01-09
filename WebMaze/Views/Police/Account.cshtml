@@ -39,20 +39,25 @@
         </div>
     </div>
     <div class="col-md-9">
-        @if (infoCard != null)
-        {
-            <div class="row">
-                <div class="mb-4 col-md-12">
-                    <div class="card">
-                        <div class="card-header">@infoCard.SubTitle</div>
-                        <div class="card-body">
-                            <h5 class="card-title">@infoCard.Title</h5>
-                            <p class="card-text">@infoCard.Description</p>
-                            <a class="btn btn-primary" href="@infoCard.Link">@infoCard.LinkText</a>
-                        </div>
+        <div class="row">
+            <div class="mb-4 col-12">
+                <div class="card">
+                    <div class="card-header">@infoCard.SubTitle</div>
+                    <div class="card-body">
+                        <h5 class="card-title">@infoCard.Title</h5>
+                        <p class="card-text">@infoCard.Description</p>
+                        <a class="btn btn-primary" href="@infoCard.Link">@infoCard.LinkText</a>
                     </div>
                 </div>
             </div>
-        }
+            <div class="mb-4 col-12">
+                <div class="card">
+                    <div class="card-header">Преступления</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Последние преступления в городе</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
