@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace WebMaze.Models.Bus
 {
-    public class BusViewModel
+    public class BusRouteTimeViewModel
     {   
         public long Id { get; set; }
-        public string RegistrationPlate { get; set; }
-        public int Capacity { get; set; }
-        public string BusModel { get; set; }
-        public long WorkerID { get; set; }
         public long BusRouteId { get; set; }
+        public string RegistrationPlate { get; set; }
+
+        public int Capacity { get; set; }
     }
 }

@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace WebMaze.DbStuff.Model
 {
-    public class BusRoute : BaseModel
+    public class BusWorker : BaseModel
     {
-        public string Route { get; set; }
-
-        public virtual List<Bus> Buses { get; set; }
+        public string License { get; set; }
+        public virtual Bus Bus { get; set; }
 
     }
 }

@@ -26,6 +26,10 @@ namespace WebMaze.DbStuff
 
         public DbSet<BusRoute> BusRoute { get; set; }
 
+        public DbSet<BusOrder> BusOrder { get; set; }
+
+        public DbSet<BusWorker> BusWorker { get; set; }
+
         public DbSet<UserTask> UserTasks { get; set; }
 
         public WebMazeContext(DbContextOptions dbContext) : base(dbContext) { }

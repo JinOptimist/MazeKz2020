@@ -80,9 +80,45 @@ namespace WebMaze.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult CreateRoute()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateRoute(BusOrderViewModel viewModel)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ManageWorker()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ManageWorker(BusOrderViewModel viewModel)
+        {
+            return View();
+        }
+
         public IActionResult BusPartial()
         {
             return PartialView();
+        }
+
+        [HttpGet]
+        public IActionResult ManageRouteTime()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ManageRouteTime(BusOrderViewModel viewModel)
+        {
+            return View();
         }
     }
 }

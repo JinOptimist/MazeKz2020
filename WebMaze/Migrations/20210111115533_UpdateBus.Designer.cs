@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMaze.DbStuff;
 
 namespace WebMaze.Migrations
 {
     [DbContext(typeof(WebMazeContext))]
-    partial class WebMazeContextModelSnapshot : ModelSnapshot
+    [Migration("20210111115533_UpdateBus")]
+    partial class UpdateBus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,16 +81,9 @@ namespace WebMaze.Migrations
                     b.Property<string>("RegistrationPlate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("WorkerId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BusRouteId");
-
-                    b.HasIndex("WorkerId")
-                        .IsUnique()
-                        .HasFilter("[WorkerId] IS NOT NULL");
 
                     b.ToTable("Bus");
                 });
@@ -154,10 +149,16 @@ namespace WebMaze.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
+                    b.Property<long>("BusId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("License")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BusId")
+                        .IsUnique();
 
                     b.ToTable("BusWorker");
                 });
@@ -386,13 +387,18 @@ namespace WebMaze.Migrations
                         .WithMany("Buses")
                         .HasForeignKey("BusRouteId");
 
-                    b.HasOne("WebMaze.DbStuff.Model.BusWorker", "Worker")
-                        .WithOne("Bus")
-                        .HasForeignKey("WebMaze.DbStuff.Model.Bus", "WorkerId");
-
                     b.Navigation("BusRoute");
+                });
 
-                    b.Navigation("Worker");
+            modelBuilder.Entity("WebMaze.DbStuff.Model.BusWorker", b =>
+                {
+                    b.HasOne("WebMaze.DbStuff.Model.Bus", "Bus")
+                        .WithOne("Worker")
+                        .HasForeignKey("WebMaze.DbStuff.Model.BusWorker", "BusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bus");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.Police.Policeman", b =>
@@ -425,14 +431,14 @@ namespace WebMaze.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("WebMaze.DbStuff.Model.Bus", b =>
+                {
+                    b.Navigation("Worker");
+                });
+
             modelBuilder.Entity("WebMaze.DbStuff.Model.BusRoute", b =>
                 {
                     b.Navigation("Buses");
-                });
-
-            modelBuilder.Entity("WebMaze.DbStuff.Model.BusWorker", b =>
-                {
-                    b.Navigation("Bus");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.CitizenUser", b =>
