@@ -12,7 +12,7 @@ namespace WebMaze.Models.Bus
         public string RegistrationPlate { get; set; }
         public int Capacity { get; set; }
         public string BusModel { get; set; }
-        public long WorkerID { get; set; }
+        public long WorkerId { get; set; }
         public long BusRouteId { get; set; }
     }
 }

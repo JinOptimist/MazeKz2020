@@ -70,15 +70,18 @@ namespace WebMaze
             configurationExpression.CreateMap<Bus, BusViewModel>();
             configurationExpression.CreateMap<BusViewModel, Bus>();
 
-            configurationExpression.CreateMap<Bus, BusManageViewModel>();
-            configurationExpression.CreateMap<BusManageViewModel, Bus>();
+            configurationExpression.CreateMap<BusRoute, CreateBusRouteViewModel>();
+            configurationExpression.CreateMap<CreateBusRouteViewModel, BusRoute>();
 
-            configurationExpression.CreateMap<BusRoute, BusManageViewModel>();
-            configurationExpression.CreateMap<BusManageViewModel, BusRoute>();
+            configurationExpression.CreateMap<BusWorker, ManageBusWorkerViewModel>();
+            configurationExpression.CreateMap<ManageBusWorkerViewModel, BusWorker>();
 
-            configurationExpression.CreateMap<Bus, BusOrderViewModel>();
-            configurationExpression.CreateMap<BusOrderViewModel, Bus>();
-            
+            configurationExpression.CreateMap<BusOrder, BusOrderViewModel>();
+            configurationExpression.CreateMap<BusOrderViewModel, BusOrder>();
+
+            configurationExpression.CreateMap<BusRouteTime, BusRouteTimeViewModel>();
+            configurationExpression.CreateMap<BusRouteTimeViewModel, BusRouteTime>();
+
             configurationExpression.CreateMap<UserTask, UserTaskViewModel>();
             configurationExpression.CreateMap<UserTaskViewModel, UserTask>();
 
@@ -110,6 +113,8 @@ namespace WebMaze
             services.AddScoped(s => new BusRepository(s.GetService<WebMazeContext>()));
             services.AddScoped(s => new BusStopRepository(s.GetService<WebMazeContext>()));
             services.AddScoped(s => new BusRouteRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new BusOrderRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new BusWorkerRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new UserTaskRepository(s.GetService<WebMazeContext>()));
         }

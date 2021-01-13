@@ -8,16 +8,12 @@ namespace WebMaze.Models.Bus
 {
     public class BusManageViewModel
     {
-        public long Id { get; set; }
-        public long BusRouteId { get; set; }
-        public string RegistrationPlate { get; set; }
-        public long WorkerId { get; set; }
-        public int Capacity { get; set; }
-        public List<BusViewModel> buses { get; set; }
+        public BusViewModel Bus { get; set; }
+        public List<BusViewModel> Buses { get; set; }
 
         public BusManageViewModel() : base()
         {
-            buses = new List<BusViewModel>();
+            Buses = new List<BusViewModel>();
         }
     }
 }
