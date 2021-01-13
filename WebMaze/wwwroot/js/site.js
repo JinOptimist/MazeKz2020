@@ -46,14 +46,11 @@ $(document).ready(
     });
 
 function AddViolationItem(item, sample) {
-    fillElement(".violation-user-field", item.userName);
-    fillElement(".violation-policeman-field", item.policemanName);
-    fillElement(".violation-date-field", new Date(item.date).toLocaleDateString());
-
-    function fillElement(name, data) {
-        let reqItem = sample.find(name);
-        if (reqItem.length > 0) {
-            reqItem.text(data);
-        }
-    };
+    sample.find(".violation-user-field").text(item.userName);
+    sample.find(".violation-policeman-field").text(item.policemanName);
+    sample.find(".violation-date-field").text(new Date(item.date).toLocaleDateString());
+    sample.find(".violation-link").attr("href", "/Police/Criminal/" + item.id);
+    $('.violation-clickable').toggleClass('violation-clickable').click(function () {
+        window.location = '/Police/Criminal/' + item.id;
+    });
 };

@@ -1,0 +1,68 @@
+﻿@using WebMaze.Models.Police
+@{
+    Layout = "_PoliceLayout";
+}
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+}
+
+<form method="post">
+    <div class="form-group row mb-3">
+        <div class="col-12">
+            <input name="violation-search" type="text" class="form-control" placeholder="Поиск" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group row mb-md-0">
+                <label class="col-auto">Сортировка: </label>
+                <div class="col-8">
+                    <select class="form-control">
+                        <option selected>Сначала последние</option>
+                        <option>Сначала ранние</option>
+                        <option>По алфавитному порядку Гр.</option>
+                        <option>По алфавитному порядку Пол.</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group row mb-0">
+                <div class="col-md-4 col-6">
+                    <label class="mr-3">От:</label>
+                    <input type="date" />
+                </div>
+                <div class="col-md-4 col-6">
+                    <label class="mr-3">До:</label>
+                    <input type="date" />
+                </div>
+                <small class="col-12">Выбрать период </small>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <small class="text-muted">Найдено результатов: 2 (2 на этой странице)</small>
+    </div>
+</form>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="d-flex">
+            <th class="col-md-4">Гражданин</th>
+            <th class="col-md-4">Полицейский</th>
+            <th class="col-md-2 col-4">Дата</th>
+            <th class="col-md-2 d-none d-md-block"></th>
+        </tr>
+    </thead>
+    <tbody class="violations-list-container">
+        <tr class="d-flex violation-list-item violation-clickable">
+            <td class="col-md-4 violation-user-field"></td>
+            <td class="col-md-4 violation-policeman-field"></td>
+            <td class="col-md-2 col-4 violation-date-field"></td>
+            <td class="col-md-2 d-none d-md-block">
+                <a class="violation-link">Перейти</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

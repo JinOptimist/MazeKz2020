@@ -120,9 +120,15 @@ namespace WebMaze.Controllers
             return RedirectToAction("Index", "PoliceCertificate", item);
         }
 
-        public IActionResult ListOfCriminals()
+        [Route("[controller]/[action]/{id?}")]
+        public IActionResult Criminal(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return View();
+            }
+
+            return RedirectToAction("Account");
         }
 
         // Anonymous methods ------------------------------------------------
