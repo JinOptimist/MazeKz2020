@@ -7,13 +7,12 @@ namespace WebMaze.DbStuff.Model
 {
     public class Bus : BaseModel
     {
-        public long BusRouteId { get; set; }
         public virtual BusRoute BusRoute { get; set; }
-
+        public long? BusRouteId { get; set; }
         public string RegistrationPlate { get; set; }
-
-        public long WorkerId { get; set; }
-
+        public virtual BusWorker Worker { get; set; }
+        public long? WorkerId { get; set; }
+        public string BusModel { get; set; }
         public int Capacity { get; set; }
 
     }

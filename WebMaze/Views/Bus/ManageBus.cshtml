@@ -2,29 +2,40 @@
 @model BusManageViewModel
 
 <div>
-    @Html.Partial("BusPartial")
+    @Html.Partial("BusAdminPartial")
 </div>
 
-<div>@foreach (var bus in Model.buses)
-{
-    <div>@bus.BusRouteId;@bus.Capacity;@bus.Id;@bus.RegistrationPlate;</div>
-}</div>
+
 <div>
-    <form action="@Url.Action("ManageBus", "Bus")" method="post">
-        <div>
-            Registration plate: @Html.TextBoxFor(x=>x.RegistrationPlate)
-        </div>
-        <div>
-            Capacity: @Html.TextBoxFor(x => x.Capacity)
-        </div>
-        <div>
-            Number of route:@Html.TextBoxFor(x=>x.BusRouteId)
-        </div>
-        <div>
-            Worker ID: @Html.TextBoxFor(x=>x.WorkerId)
-        </div>
-        <div>
-            <input type="submit" value="Add bus" />
-        </div>
-    </form>
+    <table>
+        @foreach (var bus in Model.Buses)
+        {
+            <tr>
+                <td>@bus.BusRouteId;</td>
+                <td>@bus.Capacity;</td>
+                <td>@bus.Capacity;</td>
+                <td>@bus.RegistrationPlate;</td>
+            </tr>
+          }
+    </table>
 </div>
+
+        <div>
+            <form action="@Url.Action("ManageBus", "Bus")" method="post">
+                <div>
+                    Registration plate: @Html.TextBoxFor(x => x.Bus.RegistrationPlate)
+                </div>
+                <div>
+                    Capacity: @Html.TextBoxFor(x => x.Bus.Capacity)
+                </div>
+                <div>
+                    Number of route:@Html.TextBoxFor(x => x.Bus.BusRouteId)
+                </div>
+                <div>
+                    Worker ID: @Html.TextBoxFor(x => x.Bus.WorkerId)
+                </div>
+                <div>
+                    <input type="submit" value="Add bus" />
+                </div>
+            </form>
+        </div>
