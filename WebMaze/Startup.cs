@@ -19,11 +19,15 @@ using WebMaze.Models.Department;
 using WebMaze.Models.Bus;
 using WebMaze.Models.UserTasks;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using WebMaze.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace WebMaze
 {
     public class Startup
     {
+        public const string AuthMethod = "CoockieAuth";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,9 +41,22 @@ namespace WebMaze
             var connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=WebMazeKz;Trusted_Connection=True;";
             services.AddDbContext<WebMazeContext>(option => option.UseSqlServer(connectionString));
 
+            services.AddAuthentication(AuthMethod)
+                .AddCookie(AuthMethod, config =>
+                {
+                    config.Cookie.Name = "User.Auth";
+                    config.LoginPath = "/Account/Login";
+                    config.AccessDeniedPath = "/Account/AccessDenied";
+                });
+
             RegistrationMapper(services);
 
             RegistrationRepository(services);
+
+            services.AddScoped(s => new UserService(s.GetService<CitizenUserRepository>(),
+                s.GetService<IHttpContextAccessor>()));
+
+            services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
         }
@@ -51,8 +68,8 @@ namespace WebMaze
             configurationExpression.CreateMap<CitizenUser, ProfileViewModel>();
             configurationExpression.CreateMap<ProfileViewModel, CitizenUser>();
 
-            configurationExpression.CreateMap<CitizenUser, LoginViewModel>();
-            configurationExpression.CreateMap<LoginViewModel, CitizenUser>();
+            configurationExpression.CreateMap<CitizenUser, RegistrationViewModel>();
+            configurationExpression.CreateMap<RegistrationViewModel, CitizenUser>();
 
             configurationExpression.CreateMap<Adress, AdressViewModel>();
             configurationExpression.CreateMap<AdressViewModel, Adress>();
@@ -119,6 +136,10 @@ namespace WebMaze
 
             app.UseRouting();
 
+            //  то ты?
+            app.UseAuthentication();
+
+            //  уда у теб€ есть доступ?
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

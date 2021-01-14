@@ -24,5 +24,10 @@ namespace WebMaze.DbStuff.Repository
         {
             return dbSet.FirstOrDefault(x => x.Login == userName);
         }
+
+        public CitizenUser GetUserByNameAndPassword(string userName, string password)
+        {
+            return dbSet.SingleOrDefault(x => x.Login == userName && x.Password == password);
+        }
     }
 }

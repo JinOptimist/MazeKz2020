@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using WebMaze.Controllers.CustomAttribute;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.DbStuff.Repository;
 using WebMaze.Models.Account;
@@ -41,11 +42,11 @@ namespace WebMaze.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View(new LoginViewModel());
+            return View(new RegistrationViewModel());
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel user)
+        public IActionResult Login(RegistrationViewModel user)
         {
             var userItem = cuRepo.FindExistingCitizenUser(user.Login);
             if (userItem == null)
@@ -73,12 +74,12 @@ namespace WebMaze.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return View(new LoginViewModel());
+            return View(new RegistrationViewModel());
         }
 
         [Route("[controller]/Signup")]
         [HttpPost]
-        public IActionResult Register(LoginViewModel user)
+        public IActionResult Register(RegistrationViewModel user)
         {
             var citizenUser = cuRepo.FindExistingCitizenUser(user.Login);
             if (citizenUser == null)
