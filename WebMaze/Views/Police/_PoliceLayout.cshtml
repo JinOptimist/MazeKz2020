@@ -6,8 +6,52 @@
     @RenderSection("Scripts", required: false)
 }
 
-<div class="breadcrumb-container">
-    @RenderSection("BreadLink", required: true)
-</div>
+<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark rounded">
+    <div class="container">
+        <a class="navbar-brand" asp-controller="Police" asp-action="Index">Police</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapsedContent" aria-controls="navbarCollapsedContent" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-@RenderBody()
+        <div class="collapse navbar-collapse w-100 order-1 order-md-0" id="navbarCollapsedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse w-100 order-3" id="navbarCollapsedContent">
+            <ul class="navbar-nav ml-auto">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item active dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @User.Identity.Name
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropDown">
+                            <a class="dropdown-item" asp-controller="Police" asp-action="Account">Личный кабинет</a>
+                            <a class="dropdown-item" asp-controller="PoliceCertificate" asp-action="Items">Сертификаты</a>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item">
+                                <form asp-controller="Police" asp-action="Logout" method="post">
+                                    <button class="btn btn-outline-dark align-self-start" type="submit">Выйти</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Police" asp-action="Login">Войти</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
+<br />
+
+<div class="container">
+    @RenderBody()
+</div>

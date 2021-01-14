@@ -17,6 +17,8 @@ namespace WebMaze.DbStuff
         
         public DbSet<ViolationType> TypesOfViolation { get; set; }
 
+        public DbSet<PoliceCertificate> PoliceCertificates { get; set; }
+
         public DbSet<HealthDepartment> HealthDepartment { get; set; }
         public DbSet<RecordForm> RecordForms { get; set; }
 
@@ -25,6 +27,12 @@ namespace WebMaze.DbStuff
         public DbSet<BusStop> BusStop { get; set; }
 
         public DbSet<BusRoute> BusRoute { get; set; }
+
+        public DbSet<BusOrder> BusOrder { get; set; }
+
+        public DbSet<BusWorker> BusWorker { get; set; }
+
+        public DbSet<BusRouteTime> BusRouteTime { get; set; }
 
         public DbSet<UserTask> UserTasks { get; set; }
 

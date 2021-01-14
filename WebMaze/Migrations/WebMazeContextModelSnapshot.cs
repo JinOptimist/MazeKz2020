@@ -19,6 +19,21 @@ namespace WebMaze.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
+            modelBuilder.Entity("CitizenUserPoliceCertificate", b =>
+                {
+                    b.Property<long>("PoliceCertificatesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("PoliceCertificatesId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CitizenUserPoliceCertificate");
+                });
+
             modelBuilder.Entity("WebMaze.DbStuff.Model.Adress", b =>
                 {
                     b.Property<long>("Id")
@@ -52,38 +67,20 @@ namespace WebMaze.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<long>("BusRouteId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("EndingPoint")
+                        .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Minutes")
+                        .HasColumnType("int");
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.Property<string>("RegistrationPlate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("WorkerId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BusRouteId");
-
-                    b.ToTable("Bus");
-                });
-
-            modelBuilder.Entity("WebMaze.DbStuff.Model.BusRoute", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Route")
+                    b.Property<string>("StartingPoint")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("BusRoute");
+                    b.ToTable("BusRouteTime");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.BusStop", b =>
@@ -99,6 +96,75 @@ namespace WebMaze.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BusStop");
+                });
+
+            modelBuilder.Entity("WebMaze.DbStuff.Model.BusWorker", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("License")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BusWorker");
+                });
+
+            modelBuilder.Entity("WebMaze.DbStuff.Model.CitizenUser", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("AvatarUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDead")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastLoginDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CitizenUser");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.CitizenUser", b =>
@@ -137,25 +203,25 @@ namespace WebMaze.Migrations
                     b.ToTable("HealthDepartment");
                 });
 
-            modelBuilder.Entity("WebMaze.DbStuff.Model.Medicine.RecordForm", b =>
+            modelBuilder.Entity("WebMaze.DbStuff.Model.Police.PoliceCertificate", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<string>("LastName")
+                    b.Property<DateTime>("DateOfIssue")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Speciality")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("Validity")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("RecordForms");
+                    b.ToTable("PoliceCertificates");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.Police.Policeman", b =>
@@ -165,8 +231,8 @@ namespace WebMaze.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<bool>("Confirmed")
-                        .HasColumnType("bit");
+                    b.Property<string>("Rank")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("UserId")
                         .HasColumnType("bigint");
@@ -262,6 +328,21 @@ namespace WebMaze.Migrations
                     b.ToTable("UserTasks");
                 });
 
+            modelBuilder.Entity("CitizenUserPoliceCertificate", b =>
+                {
+                    b.HasOne("WebMaze.DbStuff.Model.Police.PoliceCertificate", null)
+                        .WithMany()
+                        .HasForeignKey("PoliceCertificatesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebMaze.DbStuff.Model.CitizenUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("WebMaze.DbStuff.Model.Adress", b =>
                 {
                     b.HasOne("WebMaze.DbStuff.Model.CitizenUser", "Owner")
@@ -274,12 +355,16 @@ namespace WebMaze.Migrations
             modelBuilder.Entity("WebMaze.DbStuff.Model.Bus", b =>
                 {
                     b.HasOne("WebMaze.DbStuff.Model.BusRoute", "BusRoute")
-                        .WithMany()
-                        .HasForeignKey("BusRouteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Buses")
+                        .HasForeignKey("BusRouteId");
+
+                    b.HasOne("WebMaze.DbStuff.Model.BusWorker", "Worker")
+                        .WithOne("Bus")
+                        .HasForeignKey("WebMaze.DbStuff.Model.Bus", "WorkerId");
 
                     b.Navigation("BusRoute");
+
+                    b.Navigation("Worker");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.Police.Policeman", b =>
@@ -310,6 +395,16 @@ namespace WebMaze.Migrations
                     b.Navigation("TypeOfViolation");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebMaze.DbStuff.Model.BusRoute", b =>
+                {
+                    b.Navigation("Buses");
+                });
+
+            modelBuilder.Entity("WebMaze.DbStuff.Model.BusWorker", b =>
+                {
+                    b.Navigation("Bus");
                 });
 
             modelBuilder.Entity("WebMaze.DbStuff.Model.CitizenUser", b =>

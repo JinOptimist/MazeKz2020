@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\NewFolder\" />
     <Folder Include="wwwroot\image\Maralov\" />
     <Folder Include="wwwroot\image\avatar\" />
   </ItemGroup>
