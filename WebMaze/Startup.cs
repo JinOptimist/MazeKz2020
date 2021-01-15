@@ -13,16 +13,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebMaze.DbStuff;
 using WebMaze.DbStuff.Model;
+using WebMaze.DbStuff.Model.Medicine;
 using WebMaze.DbStuff.Repository;
+using WebMaze.DbStuff.Repository.MedicineRepository;
 using WebMaze.Models.Account;
 using WebMaze.Models.Department;
 using WebMaze.Models.Bus;
+using WebMaze.Models.HealthDepartment;
 using WebMaze.Models.UserTasks;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WebMaze.Models.Police;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.Models.PoliceCertificate;
+using WebMaze.DbStuff.Repository.MedicineRepo;
 
 namespace WebMaze
 {
@@ -82,6 +86,16 @@ namespace WebMaze
             configurationExpression.CreateMap<BusRouteTime, BusRouteTimeViewModel>();
             configurationExpression.CreateMap<BusRouteTimeViewModel, BusRouteTime>();
 
+            configurationExpression.CreateMap<Bus, BusOrderViewModel>();
+            configurationExpression.CreateMap<BusOrderViewModel, Bus>();
+
+            configurationExpression.CreateMap<RecordForm, RecordFormViewModel>();
+            configurationExpression.CreateMap<RecordFormViewModel, RecordForm>();
+
+            configurationExpression.CreateMap<RecordForm, ListRecordFormViewModel>();
+            configurationExpression.CreateMap<ListRecordFormViewModel, RecordForm>();
+
+            
             configurationExpression.CreateMap<UserTask, UserTaskViewModel>();
             configurationExpression.CreateMap<UserTaskViewModel, UserTask>();
 
@@ -89,6 +103,13 @@ namespace WebMaze
                 .ForMember("ProfileVM", opt => opt.MapFrom(p => p.User));
 
             configurationExpression.CreateMap<PoliceCertificate, PoliceCertificateItemViewModel>();
+
+            configurationExpression.CreateMap<MedicalInsurance, MedicalInsuranceViewModel>();
+            configurationExpression.CreateMap<MedicalInsuranceViewModel, MedicalInsurance>();
+
+            configurationExpression.CreateMap<CitizenUser, ForDHLoginViewModel>();
+            configurationExpression.CreateMap<ForDHLoginViewModel, CitizenUser>();
+
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
@@ -110,6 +131,8 @@ namespace WebMaze
 
             services.AddScoped(s => new HealthDepartmentRepository(s.GetService<WebMazeContext>()));
 
+            services.AddScoped(s => new RecordFormRepository(s.GetService<WebMazeContext>()));
+
             services.AddScoped(s => new BusRepository(s.GetService<WebMazeContext>()));
             services.AddScoped(s => new BusStopRepository(s.GetService<WebMazeContext>()));
             services.AddScoped(s => new BusRouteRepository(s.GetService<WebMazeContext>()));
@@ -117,6 +140,8 @@ namespace WebMaze
             services.AddScoped(s => new BusWorkerRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new UserTaskRepository(s.GetService<WebMazeContext>()));
+
+            services.AddScoped(s => new MedicalInsuranceRepository(s.GetService<WebMazeContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
