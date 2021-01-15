@@ -1,0 +1,59 @@
+﻿@model WebMaze.Models.HealthDepartment.ForDHLoginViewModel
+
+<div>
+    Страница регистрации
+
+    <form action="@Url.Action("MyCitizenTest", "HealthDepartment")" method="post">
+        <div>
+            @Html.DisplayNameFor(x => x.FirstName):
+            @Html.TextBoxFor(x => x.FirstName)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.LastName):
+            @Html.TextBoxFor(x => x.LastName)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.Gender):
+            @Html.TextBoxFor(x => x.Gender)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.Email):
+            @Html.TextBoxFor(x => x.Email)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.PhoneNumber):
+            @Html.TextBoxFor(x => x.PhoneNumber)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.IsDead):
+            @Html.TextBoxFor(x => x.IsDead)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.Marriage):
+            @Html.TextBoxFor(x => x.Marriage)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.HaveChildren):
+            @Html.TextBoxFor(x => x.HaveChildren)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.Balance):
+            @Html.TextBoxFor(x => x.Balance)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.BirthDate):
+            @Html.TextBoxFor(x => x.BirthDate)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.Login):
+            @Html.TextBoxFor(x => x.Login)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.Password):
+            @Html.TextBoxFor(x => x.Password)
+        </div>
+        <div>
+            <input type="submit" value="Создать пользователя" />
+        </div>
+    </form>
+</div>

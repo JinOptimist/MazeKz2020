@@ -36,6 +36,8 @@ namespace WebMaze.DbStuff
 
         public DbSet<UserTask> UserTasks { get; set; }
 
+        public DbSet<MedicalInsurance> MedicalInsurances { get; set; }
+
         public WebMazeContext(DbContextOptions dbContext) : base(dbContext) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -49,6 +51,11 @@ namespace WebMaze.DbStuff
             modelBuilder.Entity<CitizenUser>()
                 .HasMany(citizen => citizen.Adresses)
                 .WithOne(adress => adress.Owner);
+
+            modelBuilder.Entity<CitizenUser>()
+                .HasOne(c => c.MedicalInsurance)
+                .WithOne(m => m.Owner);
+
 
             base.OnModelCreating(modelBuilder);
         }

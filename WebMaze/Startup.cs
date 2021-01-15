@@ -26,6 +26,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using WebMaze.Models.Police;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.Models.PoliceCertificate;
+using WebMaze.DbStuff.Repository.MedicineRepo;
 
 namespace WebMaze
 {
@@ -103,6 +104,13 @@ namespace WebMaze
 
             configurationExpression.CreateMap<PoliceCertificate, PoliceCertificateItemViewModel>();
 
+            configurationExpression.CreateMap<MedicalInsurance, MedicalInsuranceViewModel>();
+            configurationExpression.CreateMap<MedicalInsuranceViewModel, MedicalInsurance>();
+
+            configurationExpression.CreateMap<CitizenUser, ForDHLoginViewModel>();
+            configurationExpression.CreateMap<ForDHLoginViewModel, CitizenUser>();
+
+
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(s => mapper);
@@ -132,6 +140,8 @@ namespace WebMaze
             services.AddScoped(s => new BusWorkerRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new UserTaskRepository(s.GetService<WebMazeContext>()));
+
+            services.AddScoped(s => new MedicalInsuranceRepository(s.GetService<WebMazeContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
