@@ -22,19 +22,19 @@ namespace WebMaze.Controllers
         private RecordFormRepository recordFormRepository;
         private IMapper mapper;
         private CitizenUserRepository citizenRepository;
-        private MedicalInsuranceRepository medInsurRepository;
+        private MedicalInsuranceRepository insuranceRepository;
 
 
 
         public HealthDepartmentController(HealthDepartmentRepository departmentRepository, RecordFormRepository recordFormRepository,
                                           IMapper mapper, CitizenUserRepository citizenRepository,
-                                          MedicalInsuranceRepository medInsurRepository)
+                                          MedicalInsuranceRepository insuranceRepository)
         {
             this.mapper = mapper;
             this.departmentRepository = departmentRepository;
             this.recordFormRepository = recordFormRepository;
             this.citizenRepository = citizenRepository;
-            this.medInsurRepository = medInsurRepository;
+            this.insuranceRepository = insuranceRepository;
         }
 
 
@@ -100,7 +100,7 @@ namespace WebMaze.Controllers
             if (solvency >= 0)
             {
                 var user = mapper.Map<MedicalInsurance>(viewModel);
-                medInsurRepository.Save(user);
+                insuranceRepository.Save(user);
             }
 
             return View();
@@ -181,42 +181,6 @@ namespace WebMaze.Controllers
 
         }
 
-        public IActionResult CheckAmountEmployee()
-        {
-            //Проверка количества сотрудников и запрос новых(окончивших) из школы
-            return View();
-        }
-
-        public IActionResult CheckSertificateDoctor()
-        {
-            //Проверка квалификации врача
-            return View();
-        }
-
-        public IActionResult RedirectPatients()
-        {
-            //Перенаправление в поликлинику или морг
-            return View();
-        }
-
-        public IActionResult CreateHospital()
-        {
-            //Создание поликлиники при необходимости
-            return View();
-        }
-
-        public IActionResult CheckVaccinationCitizens()
-        {
-            //Проверка вакцинации
-            return View();
-        }
-
-        public IActionResult GrantApplication()
-        {
-            //Прием заявок на грант и одобрение или отказ
-            return View();
-        }
-
         [HttpGet]
         public IActionResult MyCitizenTest()
         {
@@ -295,8 +259,16 @@ namespace WebMaze.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult UserPage(long id)
+        {
+            var citizen = insuranceRepository.Get(id);
+            var model = mapper.Map<UserPageViewModel>(citizen);
 
+            return View(model);
+        }
 
-
+        
+        
     }
 }

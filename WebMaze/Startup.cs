@@ -110,6 +110,10 @@ namespace WebMaze
             configurationExpression.CreateMap<CitizenUser, ForDHLoginViewModel>();
             configurationExpression.CreateMap<ForDHLoginViewModel, CitizenUser>();
 
+            configurationExpression.CreateMap<MedicalInsurance, UserPageViewModel>();
+            configurationExpression.CreateMap<UserPageViewModel, MedicalInsurance>();
+
+            
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);

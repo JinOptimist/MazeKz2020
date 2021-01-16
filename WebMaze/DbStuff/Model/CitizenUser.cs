@@ -45,5 +45,6 @@ namespace WebMaze.DbStuff.Model
         public virtual List<Adress> Adresses { get; set; }
         public virtual List<PoliceCertificate> PoliceCertificates { get; set; }
         public virtual MedicalInsurance MedicalInsurance { get; set; }
+        public virtual List<RecordForm> RecordForms { get; set; }
     }
 }

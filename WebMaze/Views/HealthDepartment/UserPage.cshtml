@@ -1,0 +1,30 @@
+﻿@model WebMaze.Models.HealthDepartment.UserPageViewModel
+
+<body>
+    <div>
+        <h1>User page</h1>
+
+        <div>
+            <p>
+
+                Номер страхового полиса: @Html.DisplayFor(x => x.Id)
+            </p>
+            <p>
+                Ваш Id №: @Html.DisplayFor(x => x.OwnerId)
+            </p>
+            <p>
+                Дата выдачи страховки: @Html.DisplayFor(x => x.StartPeriod)
+            </p>
+            <p>
+                Дата окончания страховки: @Html.DisplayFor(x => x.EndPeriod)
+            </p>
+            <p>
+                Тип страховки: @Html.DisplayFor(x => x.Type)
+            </p>
+        </div>
+        <br />
+        <div>
+            
+        </div>
+    </div>
+</body>

@@ -56,6 +56,10 @@ namespace WebMaze.DbStuff
                 .HasOne(c => c.MedicalInsurance)
                 .WithOne(m => m.Owner);
 
+            modelBuilder.Entity<CitizenUser>()
+                .HasMany(citizen => citizen.RecordForms)
+                .WithOne(records => records.CitizenId);
+
 
             base.OnModelCreating(modelBuilder);
         }
