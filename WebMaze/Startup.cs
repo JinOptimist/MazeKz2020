@@ -35,6 +35,7 @@ namespace WebMaze
     public class Startup
     {
         public const string AuthMethod = "CoockieAuth";
+        public const string PoliceAuthMethod = "PoliceAuth";
 
         public Startup(IConfiguration configuration)
         {
@@ -55,6 +56,11 @@ namespace WebMaze
                     config.Cookie.Name = "User.Auth";
                     config.LoginPath = "/Account/Login";
                     config.AccessDeniedPath = "/Account/AccessDenied";
+                })
+                .AddCookie(PoliceAuthMethod, config => 
+                {
+                    config.Cookie.Name = "PUser";
+                    config.LoginPath = "/Police/Login";
                 });
 
             RegistrationMapper(services);

@@ -16,7 +16,7 @@ using WebMaze.Models.Police;
 
 namespace WebMaze.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = Startup.PoliceAuthMethod)]
     public class PoliceController : Controller
     {
         private readonly IMapper mapper;
@@ -50,7 +50,7 @@ namespace WebMaze.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(Startup.PoliceAuthMethod);
             return RedirectToAction("Index");
         }
 
@@ -156,19 +156,19 @@ namespace WebMaze.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index");
             }
 
-            return View(new PoliceLoginViewModel());
+            return View(new LoginViewModel() { ReturnUrl = returnUrl });
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(PoliceLoginViewModel user)
+        public async Task<IActionResult> Login(LoginViewModel user)
         {
             var userItem = cuRepo.GetUserByName(user.Login);
             if (userItem == null)
@@ -185,23 +185,30 @@ namespace WebMaze.Controllers
                 return View(user);
             }
 
-            await AuthorizeUser(user.Login);
+            await AuthorizeUser(userItem.Id, user.Login);
 
-            return RedirectToAction("Index");
+            if (string.IsNullOrEmpty(user.ReturnUrl))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return Redirect(user.ReturnUrl);
         }
 
 
         // Private methods ----------------------------------------------------
 
-        private async Task AuthorizeUser(string login)
+        private async Task AuthorizeUser(long userId, string login)
         {
             var claims = new List<Claim>()
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, login)
+                new Claim("Id", userId.ToString()),
+                new Claim(ClaimTypes.AuthenticationMethod, Startup.PoliceAuthMethod),
+                new Claim(ClaimTypes.Name, login)
             };
 
-            var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            var id = new ClaimsIdentity(claims, Startup.PoliceAuthMethod);
+            await HttpContext.SignInAsync(Startup.PoliceAuthMethod, new ClaimsPrincipal(id));
         }
         private static string ChangeNullPhotoToDefault(string urlPathString)
         {

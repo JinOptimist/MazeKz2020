@@ -7,7 +7,7 @@ using WebMaze.Models.PoliceCertificate;
 
 namespace WebMaze.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = Startup.PoliceAuthMethod)]
     public class PoliceCertificateController : Controller
     {
         private readonly IMapper mapper;
