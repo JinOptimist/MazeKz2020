@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,11 +9,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebMaze.DbStuff;
 using WebMaze.DbStuff.Model;
 using WebMaze.DbStuff.Repository;
 using WebMaze.Models.Account;
+using WebMaze.Services;
 
 namespace WebMaze.Controllers
 {
@@ -21,21 +25,71 @@ namespace WebMaze.Controllers
         private AdressRepository adressRepository;
         private IWebHostEnvironment hostEnvironment;
         private IMapper mapper;
+        private UserService userService;
 
         public AccountController(CitizenUserRepository citizenUserRepository,
             IMapper mapper,
-            IWebHostEnvironment hostEnvironment, AdressRepository adressRepository)
+            IWebHostEnvironment hostEnvironment, AdressRepository adressRepository, UserService userService)
         {
             this.citizenUserRepository = citizenUserRepository;
             this.mapper = mapper;
             this.hostEnvironment = hostEnvironment;
             this.adressRepository = adressRepository;
+            this.userService = userService;
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            var viewModel = new LoginViewModel();
+
+            viewModel.ReturnUrl = Request.Query["ReturnUrl"];
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        {
+            var user = citizenUserRepository
+                .GetUserByNameAndPassword(loginViewModel.Login, loginViewModel.Password);
+            if (user == null)
+            {
+                return View(loginViewModel);
+            }
+
+            //Строки в документе
+            var recordId = new Claim("Id", user.Id.ToString());
+            var recordName = new Claim(ClaimTypes.Name, user.Login);
+            var recordAuthMethod = new Claim(ClaimTypes.AuthenticationMethod, Startup.AuthMethod);
+
+            //Страница в документе
+            var page = new List<Claim>() { recordId, recordName, recordAuthMethod };
+
+            //Документ
+            var claimsIdentity = new ClaimsIdentity(page, Startup.AuthMethod);
+
+            //Пользователь с точки зрения .net
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+            await HttpContext.SignInAsync(claimsPrincipal);
+
+            if (string.IsNullOrEmpty(loginViewModel.ReturnUrl))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return Redirect(loginViewModel.ReturnUrl);
+            }
+
+            
         }
 
         [HttpGet]
         public IActionResult Registration()
         {
-            var viewModel = new LoginViewModel()
+            var viewModel = new RegistrationViewModel()
             {
                 Login = "Test",
                 Password = "Test"
@@ -44,7 +98,7 @@ namespace WebMaze.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(LoginViewModel viewModel)
+        public IActionResult Registration(RegistrationViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -57,11 +111,18 @@ namespace WebMaze.Controllers
         }
 
         [HttpGet]
-        public IActionResult Profile(long id)
+        [Authorize]
+        public IActionResult Profile()
         {
-            var citizen = citizenUserRepository.Get(id);
-            var viewModel = mapper.Map<ProfileViewModel>(citizen);
+            var user = userService.GetCurrentUser();
+            var viewModel = mapper.Map<ProfileViewModel>(user);
             return View(viewModel);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index","Home");
         }
 
         [HttpPost]
