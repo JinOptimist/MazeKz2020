@@ -1,0 +1,23 @@
+﻿@using WebMaze.Models.Account
+@model LoginViewModel
+
+<div>
+    Страница логина
+
+    <form action="@Url.Action("Login", "Account")" method="post">
+        @Html.HiddenFor(x => x.ReturnUrl)
+        <div>
+            @Html.DisplayNameFor(x => x.Login):
+            @Html.TextBoxFor(x => x.Login)
+            @Html.ValidationMessageFor(x => x.Login)
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.Password):
+            @Html.TextBoxFor(x => x.Password, new { @type = "password" })
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+        <div>
+            <input type="submit" value="Войти" />
+        </div>
+    </form>
+</div>

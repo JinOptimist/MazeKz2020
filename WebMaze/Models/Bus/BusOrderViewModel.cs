@@ -9,9 +9,9 @@ namespace WebMaze.Models.Bus
     public class BusOrderViewModel
     {
         public long Id { get; set; }
-        public string Route { get; set; }
-        public string RegistrationPlate { get; set; }
-
+        public DateTime OrderDate { get; set; }
+        public DateTime TargetedDate { get; set; }
+        public string OrderDescription { get; set; }
 
     }
 }

@@ -1,0 +1,50 @@
+﻿@using WebMaze.Models.HealthDepartment
+
+@model RecordFormViewModel
+
+<div class="partial">
+    <div class="partial__row">
+        <div class="partial__column partial__column-1 col-md-6">
+            <div class="partial__element">
+                <div class="partial__content">
+
+                </div>
+            </div>
+        </div>
+        <div class="partial__column partial__column-2 col-md-6">
+            <div class="partial__element">
+                <div class="partial__content">
+                    <div class="form">
+                        <h1 class="partial__header">Запись на приём в департамент</h1>
+
+                        <form action="@Url.Action("RecordForm", "HealthDepartment")" method="post">
+                            <div class="partial__input">
+                                <label class="text__form">Имя</label>
+                                <div class="form__input">
+                                    @Html.TextBoxFor(n => n.Name)
+                                </div>
+                            </div>
+                            <div class="partial__input">
+                                <label class="text__form">Фамилия</label>
+                                <div class="form__input">
+                                    @Html.TextBoxFor(n => n.LastName)
+                                </div>
+                            </div>
+                            <div class="partial__input">
+                                <label class="text__form">Номер телефона</label>
+                                <div class="form__input">
+                                    @Html.TextBoxFor(n => n.PhoneNumber)
+                                </div>
+                            </div>
+                            <div>
+                                <button class="button" type="submit">Записаться</button>
+                                <button class="button" type="reset">Сбросить</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

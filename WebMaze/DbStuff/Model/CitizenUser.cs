@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using WebMaze.DbStuff.Model.Medicine;
 using WebMaze.DbStuff.Model.Police;
 
 namespace WebMaze.DbStuff.Model
@@ -37,8 +38,12 @@ namespace WebMaze.DbStuff.Model
         public virtual bool IsDead { get; set; }
 
         public virtual DateTime BirthDate { get; set; }
+        public virtual bool Marriage { get; set; }
+        public virtual bool HaveChildren { get; set; }
+
 
         public virtual List<Adress> Adresses { get; set; }
         public virtual List<PoliceCertificate> PoliceCertificates { get; set; }
+        public virtual MedicalInsurance MedicalInsurance { get; set; }
     }
 }
