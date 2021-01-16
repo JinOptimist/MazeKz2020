@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebMaze.Controllers.CustomAttribute;
 using WebMaze.DbStuff;
 using WebMaze.DbStuff.Model;
 using WebMaze.Models;
@@ -38,6 +39,7 @@ namespace WebMaze.Controllers
             return View(models);
         }
 
+        [IsAdmin]
         public IActionResult Lvou()
         {
             var viewModels = new List<GirlViewModel>();

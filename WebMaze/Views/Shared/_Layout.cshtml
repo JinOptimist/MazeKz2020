@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using WebMaze.Services
+@inject UserService userService
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,12 +29,24 @@
                         <li>
                             <a class="nav-link text-dark" href="/Home/Index">Home</a>
                         </li>
-                        <li>
-                            <a class="nav-link text-dark" href="/Account/Profile?id=1">Profile</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" href="/Account/Registration">Registration</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <a class="nav-link text-dark" href="/Account/Profile?id=1">Profile @userService.GetCurrentUser().Login</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" href="/Account/Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a class="nav-link text-dark" href="/Account/Login">Login</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" href="/Account/Registration">Registration</a>
+                            </li>
+                        }
                         <li>
                             <a class="nav-link text-dark" href="/Student/Index">Students page</a>
                         </li>

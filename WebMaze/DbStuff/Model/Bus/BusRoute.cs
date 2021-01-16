@@ -9,5 +9,7 @@ namespace WebMaze.DbStuff.Model
     {
         public string Route { get; set; }
 
+        public virtual List<Bus> Buses { get; set; }
+
     }
 }

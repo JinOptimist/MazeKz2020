@@ -13,21 +13,29 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebMaze.DbStuff;
 using WebMaze.DbStuff.Model;
+using WebMaze.DbStuff.Model.Medicine;
 using WebMaze.DbStuff.Repository;
+using WebMaze.DbStuff.Repository.MedicineRepository;
 using WebMaze.Models.Account;
 using WebMaze.Models.Department;
 using WebMaze.Models.Bus;
+using WebMaze.Models.HealthDepartment;
 using WebMaze.Models.UserTasks;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using WebMaze.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WebMaze.Models.Police;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.Models.PoliceCertificate;
+using WebMaze.DbStuff.Repository.MedicineRepo;
 
 namespace WebMaze
 {
     public class Startup
     {
+        public const string AuthMethod = "CoockieAuth";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -41,12 +49,22 @@ namespace WebMaze
             var connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=WebMazeKz;Trusted_Connection=True;";
             services.AddDbContext<WebMazeContext>(option => option.UseSqlServer(connectionString));
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options => options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Police/Login"));
+            services.AddAuthentication(AuthMethod)
+                .AddCookie(AuthMethod, config =>
+                {
+                    config.Cookie.Name = "User.Auth";
+                    config.LoginPath = "/Account/Login";
+                    config.AccessDeniedPath = "/Account/AccessDenied";
+                });
 
             RegistrationMapper(services);
 
             RegistrationRepository(services);
+
+            services.AddScoped(s => new UserService(s.GetService<CitizenUserRepository>(),
+                s.GetService<IHttpContextAccessor>()));
+
+            services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
         }
@@ -58,8 +76,8 @@ namespace WebMaze
             configurationExpression.CreateMap<CitizenUser, ProfileViewModel>();
             configurationExpression.CreateMap<ProfileViewModel, CitizenUser>();
 
-            configurationExpression.CreateMap<CitizenUser, LoginViewModel>();
-            configurationExpression.CreateMap<LoginViewModel, CitizenUser>();
+            configurationExpression.CreateMap<CitizenUser, RegistrationViewModel>();
+            configurationExpression.CreateMap<RegistrationViewModel, CitizenUser>();
 
             configurationExpression.CreateMap<Adress, AdressViewModel>();
             configurationExpression.CreateMap<AdressViewModel, Adress>();
@@ -70,14 +88,27 @@ namespace WebMaze
             configurationExpression.CreateMap<Bus, BusViewModel>();
             configurationExpression.CreateMap<BusViewModel, Bus>();
 
-            configurationExpression.CreateMap<Bus, BusManageViewModel>();
-            configurationExpression.CreateMap<BusManageViewModel, Bus>();
+            configurationExpression.CreateMap<BusRoute, CreateBusRouteViewModel>();
+            configurationExpression.CreateMap<CreateBusRouteViewModel, BusRoute>();
 
-            configurationExpression.CreateMap<BusRoute, BusManageViewModel>();
-            configurationExpression.CreateMap<BusManageViewModel, BusRoute>();
+            configurationExpression.CreateMap<BusWorker, ManageBusWorkerViewModel>();
+            configurationExpression.CreateMap<ManageBusWorkerViewModel, BusWorker>();
+
+            configurationExpression.CreateMap<BusOrder, BusOrderViewModel>();
+            configurationExpression.CreateMap<BusOrderViewModel, BusOrder>();
+
+            configurationExpression.CreateMap<BusRouteTime, BusRouteTimeViewModel>();
+            configurationExpression.CreateMap<BusRouteTimeViewModel, BusRouteTime>();
 
             configurationExpression.CreateMap<Bus, BusOrderViewModel>();
             configurationExpression.CreateMap<BusOrderViewModel, Bus>();
+
+            configurationExpression.CreateMap<RecordForm, RecordFormViewModel>();
+            configurationExpression.CreateMap<RecordFormViewModel, RecordForm>();
+
+            configurationExpression.CreateMap<RecordForm, ListRecordFormViewModel>();
+            configurationExpression.CreateMap<ListRecordFormViewModel, RecordForm>();
+
             
             configurationExpression.CreateMap<UserTask, UserTaskViewModel>();
             configurationExpression.CreateMap<UserTaskViewModel, UserTask>();
@@ -86,6 +117,13 @@ namespace WebMaze
                 .ForMember("ProfileVM", opt => opt.MapFrom(p => p.User));
 
             configurationExpression.CreateMap<PoliceCertificate, PoliceCertificateItemViewModel>();
+
+            configurationExpression.CreateMap<MedicalInsurance, MedicalInsuranceViewModel>();
+            configurationExpression.CreateMap<MedicalInsuranceViewModel, MedicalInsurance>();
+
+            configurationExpression.CreateMap<CitizenUser, ForDHLoginViewModel>();
+            configurationExpression.CreateMap<ForDHLoginViewModel, CitizenUser>();
+
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
@@ -107,11 +145,17 @@ namespace WebMaze
 
             services.AddScoped(s => new HealthDepartmentRepository(s.GetService<WebMazeContext>()));
 
+            services.AddScoped(s => new RecordFormRepository(s.GetService<WebMazeContext>()));
+
             services.AddScoped(s => new BusRepository(s.GetService<WebMazeContext>()));
             services.AddScoped(s => new BusStopRepository(s.GetService<WebMazeContext>()));
             services.AddScoped(s => new BusRouteRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new BusOrderRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new BusWorkerRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new UserTaskRepository(s.GetService<WebMazeContext>()));
+
+            services.AddScoped(s => new MedicalInsuranceRepository(s.GetService<WebMazeContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -132,7 +176,10 @@ namespace WebMaze
 
             app.UseRouting();
 
+            //  то ты?
             app.UseAuthentication();
+
+            //  уда у теб€ есть доступ?
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -2,132 +2,134 @@
 
 @model HealthDepartmentViewModel
 
+
 <head>
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <!--Fotorama-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    
 </head>
 
+
 <body class="health-department">
-    
-    <main>
-        <div class="section">
-            <div class="block">
-                <div class="logo">
-                    <p><a href="/HealthDepartment/HealthDepartment"><img src="~/image/Mochalkin/Logo.jpg" /></a></p>
+
+    <!--Header-->
+    <div class="wrap-head">
+        <div class="head">
+            <div class="head__row">
+                <div class="head__column head__column-1">
+                    <div class="head__element">
+                        <p><a href="/HealthDepartment/HealthDepartment"><img src="~/image/Mochalkin/Logo.jpg" /></a></p>
+                        <p><a href="/HDManager/ManagerPage"><img src="~/image/Mochalkin/Logo.jpg" /></a></p>
+
+                    </div>
                 </div>
-            </div>
-            <div class="block">
-                <h1 class="main-text">
-                    Министерство здравоохранения
-                </h1>
-            </div>
-            <div class="block">
-                <div class="wrap-block">
-                    <button class="button my-header-btn">
-                        Запись на приём
-                    </button>
+                <div class="head__column head__column-2">
+                    <div class="head__element">
+                        <h1 class="section__title">Департамент здравоохранения</h1>
+                    </div>
+                </div>
+                <div class="head__column head__column-3">
+                    <div class="head__element">
+                        <a href="/HealthDepartment/Login" class="button btn-lg active" role="button" aria-pressed="true">Вход</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <div class="head">
+    <!--Меню-->
+    <div class="menu">
         <naw class="dws-menu">
             <ul>
                 <li>
-                    <a href="#"><i class="fa fa-"></i>Горячая линия</a>
-                    <ul>
-                        <li>
-                            <a href="#">Горячая линия</a>
-                        </li>
-                    </ul>
+                    <a href="/HealthDepartment/HotLine"><i class="fa fa-"></i>Горячая линия</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-"></i>Новости</a>
-                    <ul>
-                        <li>
-                            <a href="#">Новости здравоохранения</a>
-                        </li>
-                    </ul>
+                    <a href="/HealthDepartment/MedicineNews"><i class="fa fa-"></i>Новости</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-"></i>Организации</a>
                     <ul>
                         <li>
-                            <a href="#">Поликлиники</a>
+                            <a href="/HealthDepartment/GetListHospital">Поликлиники</a>
                         </li>
                         <li>
-                            <a href="#">Образование</a>
+                            <a href="/HealthDepartment/GetListSchool">Образование</a>
                         </li>
                         <li>
-                            <a href="#">Морги</a>
+                            <a href="/HealthDepartment/GetListMorgue">Морги</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-"></i>Общественная приёмная</a>
-                    <ul>
-                        <li>
-                            <a href="#">Справочная система</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-"></i>Мероприятия</a>
-                    <ul>
-                        <li>
-                            <a href="#">Все мероприятия</a>
-                        </li>
-                        <li>
-                            <a href="#">Предстоящие мероприятия</a>
-                        </li>
-                        <li>
-                            <a href="#">Прошедшие мероприятия</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-"></i>Контакты</a>
-                    <ul>
-                        <li>
-                            <a href="#">Справочные телефоны</a>
-                        </li>
-                        <li>
-                            <a href="#">Контакты для СМИ</a>
-                        </li>
-                        <li>
-                            <a href="#">Контакты по вопросам замещения вакантных должностей</a>
-                        </li>
-                    </ul>
+                    <a href="/HealthDepartment/Contacts"><i class="fa fa-"></i>Контакты</a>
                 </li>
             </ul>
         </naw>
     </div>
-    <p>
-        Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit,
-        vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-        Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit,
-        vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-        Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit,
-        vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-        Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit,
-        vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-        Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit,
-        vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-        Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit,
-        vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-        Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit,
-        vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-        Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit,
-        vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
 
-    </p>
+    <!--Section under menu-->
+    <div class="section__wrap section__img">
+        <div class="section__row">
+            <div class="section__column section__column-1">
+                <div class="section__element">
+                    <div class="section__content">
+                        <h1 class="section__title">Ваше здоровье наша главная цель</h1>
+                    </div>
+                </div>
+            </div>
 
-    <div class="foto">
-        <div class="mainText">
-            <h1>Галерея</h1>
         </div>
-        <div class="fotorama" data-nav="thumbs" data-transition="crossfade" data-autoplay="true" data-width="100%" data-ratio="500/300">
+    </div>
+
+    <!--Record Form-->
+    <partial>
+        @{await Html.RenderPartialAsync("RecordForm");}
+    </partial>
+
+    <!--Section incurance form-->
+    <div class="section__mi section__mi__img">
+        <div class="section__mi__row">
+            <div class="section__mi__element mi__column-1 text__form">
+                <div class="section__mi__content">
+                    <h2>Пришло время защитить себя и свою семью<br />Программа медицинского страхования</h2>
+                </div>    
+            </div>
+            <div class="section__mi__element mi__column-2">
+                <div class="section__mi__content">
+                    <div class="neon">
+                        <a href="/HealthDepartment/MedicalInsurance" class="neon__button">
+                            <span class="neon__button__line neon__button__line--right"></span>
+                            <span class="neon__button__line neon__button__line--top"></span>
+                            <span class="neon__button__line neon__button__line--bottom"></span>
+                            <span class="neon__button__line neon__button__line--left"></span>
+                            Оформить
+                        </a>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+    
+
+    <!--Галерея-->
+    <div class="foto">
+        <div class="foto-block">
+            <div class="foto-block__row">
+                <div class="foto-block__element">
+                    <div class="foto-block__content">
+                        <h1>Галерея</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fotorama" data-nav="thumbs" data-transition="crossfade" data-autoplay="true" data-width="100%"
+             data-ratio="500/300">
+            <img src="~/image/Mochalkin/Foto of doctors/Under_menu.jpg">
             <img src="~/image/Mochalkin/Foto of doctors/1.jpg">
             <img src="~/image/Mochalkin/Foto of doctors/2.jpg">
             <img src="~/image/Mochalkin/Foto of doctors/3.jpg">
@@ -144,6 +146,8 @@
             <img src="~/image/Mochalkin/Foto of doctors/14.jpg">
         </div>
     </div>
+
+
 
 </body>
 
