@@ -39,6 +39,19 @@ namespace WebMaze.Controllers
             return mapper.Map<ViolationItemViewModel>(item);
         }
 
+        [HttpPost("Search")]
+        public ActionResult<ViolationSearchItems> GetSearchItems(ViolationSearchItems searchItem)
+        {
+            var item = violationRepo.GetByGivenSettings(searchItem.SearchWord, searchItem.DateFrom, 
+                searchItem.DateTo, searchItem.Order, out int foundCount, searchItem.CurrentPage);
+            
+            searchItem.Violations = mapper.Map<ViolationItemViewModel[]>(item);
+            searchItem.FoundCount = foundCount;
+            searchItem.FoundOnThisPage = searchItem.Violations.Length;
+
+            return searchItem;
+        }
+
         [HttpPost]
         public ActionResult<ViolationRegistrationViewModel> Post(ViolationRegistrationViewModel item)
         {

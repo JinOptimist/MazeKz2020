@@ -30,6 +30,7 @@ using WebMaze.DbStuff.Model.Police;
 using WebMaze.Models.PoliceCertificate;
 using WebMaze.DbStuff.Repository.MedicineRepo;
 using WebMaze.Models.Police.Violation;
+using System.Text.Json.Serialization;
 
 namespace WebMaze
 {
@@ -73,7 +74,10 @@ namespace WebMaze
 
             services.AddHttpContextAccessor();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddJsonOptions(opt => 
+            {
+                opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
         }
 
         private void RegistrationMapper(IServiceCollection services)

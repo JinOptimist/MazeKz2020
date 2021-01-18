@@ -1,16 +1,17 @@
-﻿@using WebMaze.Models.Police
-@{
+﻿@{
     Layout = "_PoliceLayout";
+    var dateStart = new DateTime(2020, 1, 1).ToString("yyyy-MM-dd");
+    var dateToday = DateTime.Today.ToString("yyyy-MM-dd");
 }
 @section Scripts
 {
     <script src="~/js/site.js"></script>
 }
 
-<form method="post">
+<form id="searchViolation" method="post" asp-controller="Violation" asp-action="GetSearchItems">
     <div class="form-group row mb-3">
         <div class="col-12">
-            <input name="violation-search" type="text" class="form-control" placeholder="Поиск" />
+            <input name="SearchWord" type="text" class="form-control" placeholder="Поиск" />
         </div>
     </div>
     <div class="row">
@@ -18,31 +19,31 @@
             <div class="form-group row mb-md-0">
                 <label class="col-auto">Сортировка: </label>
                 <div class="col-8">
-                    <select class="form-control">
-                        <option selected>Сначала последние</option>
-                        <option>Сначала ранние</option>
-                        <option>По алфавитному порядку Гр.</option>
-                        <option>По алфавитному порядку Пол.</option>
+                    <select name="order" class="form-control">
+                        <option value="Latest" selected>Сначала последние</option>
+                        <option value="Earliest">Сначала ранние</option>
+                        <option value="ABCUser">По алфавитному порядку Гр.</option>
+                        <option value="ABCPolice">По алфавитному порядку Пол.</option>
                     </select>
                 </div>
             </div>
         </div>
         <div class="col-md-8">
             <div class="form-group row mb-0">
-                <div class="col-md-4 col-6">
+                <div name="dateFrom" class="col-md-4 col-6">
                     <label class="mr-3">От:</label>
-                    <input type="date" />
+                    <input name="DateFrom" type="date" value="@dateStart" />
                 </div>
-                <div class="col-md-4 col-6">
+                <div name="dateTo" class="col-md-4 col-6">
                     <label class="mr-3">До:</label>
-                    <input type="date" />
+                    <input name="DateTo" type="date" value="@dateToday" />
                 </div>
                 <small class="col-12">Выбрать период </small>
             </div>
         </div>
     </div>
     <div class="mb-3">
-        <small class="text-muted">Найдено результатов: 2 (2 на этой странице)</small>
+        <p class="text-muted"><small id="violation-counter"></small></p>
     </div>
 </form>
 
@@ -56,6 +57,7 @@
         </tr>
     </thead>
     <tbody class="violations-list-container">
+        <tr class="violation-not-found" style="display: none;"><td>Test Not Found Element</td></tr>
         <tr class="d-flex violation-list-item violation-clickable">
             <td class="col-md-4 violation-user-field"></td>
             <td class="col-md-4 violation-policeman-field"></td>
