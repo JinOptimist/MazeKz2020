@@ -14,8 +14,6 @@ namespace WebMaze.DbStuff
         public DbSet<Policeman> Policemen { get; set; }
 
         public DbSet<Violation> Violations { get; set; }
-        
-        public DbSet<ViolationType> TypesOfViolation { get; set; }
 
         public DbSet<PoliceCertificate> PoliceCertificates { get; set; }
 

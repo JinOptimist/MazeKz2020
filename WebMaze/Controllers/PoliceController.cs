@@ -16,6 +16,7 @@ using WebMaze.Models.Police;
 
 namespace WebMaze.Controllers
 {
+    [Authorize(AuthenticationSchemes = Startup.PoliceAuthMethod)]
     public class PoliceController : Controller
     {
         private readonly IMapper mapper;
@@ -33,64 +34,7 @@ namespace WebMaze.Controllers
             this.certRepo = certRepo;
         }
 
-        public IActionResult Index()
-        {
-            var card = new CardViewModel
-            {
-                SubTitle = "Внутри системы",
-                Title = "Получить сертификат полицейского",
-                Description = "У вас есть страсть бороться с преступностью? Тогда вам к нам."
-                    + "Отправьте заявку на получение сертификата не выходя из дома!",
-                Link = "#",
-                LinkText = "Получить сейчас"
-            };
-
-            var result = new MainIndexInfoViewModel()
-            {
-                Cards = new List<CardViewModel> { card }
-            };
-
-            return View(result);
-        }
-
-        [HttpGet]
-        public IActionResult Login()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index");
-            }
-
-            return View(new PoliceLoginViewModel());
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Login(PoliceLoginViewModel user)
-        {
-            var userItem = cuRepo.GetUserByName(user.Login);
-            if (userItem == null)
-            {
-                ModelState.AddModelError("Login", "Данный логин не существует");
-            }
-            else if (userItem.Password != user.Password)
-            {
-                ModelState.AddModelError("Password", "Неправильный пароль");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View(user);
-            }
-
-            await AuthorizeUser(user.Login);
-
-            return RedirectToAction("Index");
-        }
-
-        // Authorize methods ------------------------------------------------
-
-        [HttpPost]
-        [Authorize]
         public IActionResult RegisterPoliceman()
         {
             var userItem = cuRepo.GetUserByName(User.Identity.Name);
@@ -104,14 +48,12 @@ namespace WebMaze.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(Startup.PoliceAuthMethod);
             return RedirectToAction("Index");
         }
 
-        [Authorize]
         public IActionResult Account()
         {
             var userItem = cuRepo.GetUserByName(User.Identity.Name);
@@ -138,13 +80,11 @@ namespace WebMaze.Controllers
             return View(result);
         }
 
-        [Authorize]
         public IActionResult SignUp()
         {
             return View();
         }
 
-        [Authorize]
         public IActionResult Certificate()
         {
             var user = cuRepo.GetUserByName(User.Identity.Name);
@@ -180,17 +120,95 @@ namespace WebMaze.Controllers
             return RedirectToAction("Index", "PoliceCertificate", item);
         }
 
+        [Route("[controller]/[action]/{id?}")]
+        public IActionResult Criminal(int? id)
+        {
+            if (id == null)
+            {
+                return View();
+            }
+
+            return RedirectToAction("Account");
+        }
+
+        // Anonymous methods ------------------------------------------------
+
+        [AllowAnonymous]
+        public IActionResult Index()
+        {
+            var card = new CardViewModel
+            {
+                SubTitle = "Внутри системы",
+                Title = "Получить сертификат полицейского",
+                Description = "У вас есть страсть бороться с преступностью? Тогда вам к нам."
+                    + "Отправьте заявку на получение сертификата не выходя из дома!",
+                Link = "#",
+                LinkText = "Получить сейчас"
+            };
+
+            var result = new MainIndexInfoViewModel()
+            {
+                Cards = new List<CardViewModel> { card }
+            };
+
+            return View(result);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Login(string returnUrl)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(new LoginViewModel() { ReturnUrl = returnUrl });
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel user)
+        {
+            var userItem = cuRepo.GetUserByName(user.Login);
+            if (userItem == null)
+            {
+                ModelState.AddModelError("Login", "Данный логин не существует");
+            }
+            else if (userItem.Password != user.Password)
+            {
+                ModelState.AddModelError("Password", "Неправильный пароль");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            await AuthorizeUser(userItem.Id, user.Login);
+
+            if (string.IsNullOrEmpty(user.ReturnUrl))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return Redirect(user.ReturnUrl);
+        }
+
+
         // Private methods ----------------------------------------------------
 
-        private async Task AuthorizeUser(string login)
+        private async Task AuthorizeUser(long userId, string login)
         {
             var claims = new List<Claim>()
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, login)
+                new Claim("Id", userId.ToString()),
+                new Claim(ClaimTypes.AuthenticationMethod, Startup.PoliceAuthMethod),
+                new Claim(ClaimTypes.Name, login)
             };
 
-            var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            var id = new ClaimsIdentity(claims, Startup.PoliceAuthMethod);
+            await HttpContext.SignInAsync(Startup.PoliceAuthMethod, new ClaimsPrincipal(id));
         }
         private static string ChangeNullPhotoToDefault(string urlPathString)
         {

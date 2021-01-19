@@ -22,6 +22,10 @@
         infoCard.Link = Url.Action("SignUp", "Police");
     }
 }
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+}
 
 <h2 class="mb-4">Тестовый личный кабинет пользователя @Model.ProfileVM.Login</h2>
 
@@ -39,20 +43,42 @@
         </div>
     </div>
     <div class="col-md-9">
-        @if (infoCard != null)
-        {
-            <div class="row">
-                <div class="mb-4 col-md-12">
-                    <div class="card">
-                        <div class="card-header">@infoCard.SubTitle</div>
-                        <div class="card-body">
-                            <h5 class="card-title">@infoCard.Title</h5>
-                            <p class="card-text">@infoCard.Description</p>
-                            <a class="btn btn-primary" href="@infoCard.Link">@infoCard.LinkText</a>
+        <div class="row">
+            <div class="mb-4 col-12">
+                <div class="card">
+                    <div class="card-header">@infoCard.SubTitle</div>
+                    <div class="card-body">
+                        <h5 class="card-title">@infoCard.Title</h5>
+                        <p class="card-text">@infoCard.Description</p>
+                        <a class="btn btn-primary" href="@infoCard.Link">@infoCard.LinkText</a>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 col-12">
+                <div class="card">
+                    <div class="card-header">Преступления</div>
+                    <div class="card-body row">
+                        <div class="col-12">
+                            <h5 class="card-title">Последние преступления в городе</h5>
+                        </div>
+                        <div class="col-12">
+                            <ul class="list-group mb-3 violations-list-container">
+                                <li class="text-right list-group-item list-group-item-action violation-list-item">
+                                    <div class="row">
+                                        <p class="col m-0 violation-user-field"></p>
+                                        <p class="col m-0 violation-policeman-field"></p>
+                                        <p class="col m-0 violation-date-field"></p>
+                                    </div>
+                                    <a class="stretched-link violation-link"></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12">
+                            <a class="btn btn-outline-primary stretched-link" asp-controller="Police" asp-action="Criminal">Ещё</a>
                         </div>
                     </div>
                 </div>
             </div>
-        }
+        </div>
     </div>
 </div>
