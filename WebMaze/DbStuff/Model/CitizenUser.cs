@@ -38,12 +38,17 @@ namespace WebMaze.DbStuff.Model
         public virtual bool IsDead { get; set; }
 
         public virtual DateTime BirthDate { get; set; }
+
         public virtual bool Marriage { get; set; }
+
         public virtual bool HaveChildren { get; set; }
 
+        public virtual List<Role> Roles { get; set; }
 
         public virtual List<Adress> Adresses { get; set; }
+
         public virtual List<PoliceCertificate> PoliceCertificates { get; set; }
+
         public virtual MedicalInsurance MedicalInsurance { get; set; }
     }
 }

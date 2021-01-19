@@ -32,7 +32,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>
-                                <a class="nav-link text-dark" href="/Account/Profile?id=1">Profile @userService.GetCurrentUser().Login</a>
+                                <a class="nav-link text-dark" href="/Account/Profile?id=1">Profile @userService.GetCurrentUser()?.Login</a>
                             </li>
                             <li>
                                 <a class="nav-link text-dark" href="/Account/Logout">Logout</a>
