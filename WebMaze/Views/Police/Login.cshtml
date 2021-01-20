@@ -1,5 +1,5 @@
 ﻿@using WebMaze.Helpers.Police
-@model WebMaze.Models.Police.PoliceLoginViewModel
+@model WebMaze.Models.Account.LoginViewModel
 
 @{
     Layout = "_PoliceLayout.cshtml";
@@ -13,6 +13,7 @@
 <h2 class="text-center">Вход в аккаунт</h2>
 <hr />
 <form asp-controller="Police" asp-action="Login" method="post" class="needs-validation" novalidate>
+    <input name="returnUrl" type="hidden" value="@Model.ReturnUrl" />
     <div class="form-group row justify-content-center">
         <label for="login" class="col-md-1 mr-4">Логин:</label>
         <div class="col-md-5">

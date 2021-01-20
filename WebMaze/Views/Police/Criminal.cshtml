@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "_PoliceLayout";
+    var dateStart = new DateTime(2020, 1, 1).ToString("yyyy-MM-dd");
+    var dateToday = DateTime.Today.ToString("yyyy-MM-dd");
+}
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+}
+
+<form id="searchViolation" method="post" asp-controller="Violation" asp-action="GetSearchItems">
+    <div class="form-group row mb-3">
+        <div class="col-12">
+            <input name="SearchWord" type="text" class="form-control" placeholder="Поиск" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group row mb-md-0">
+                <label class="col-auto">Сортировка: </label>
+                <div class="col-8">
+                    <select name="order" class="form-control">
+                        <option value="Latest" selected>Сначала последние</option>
+                        <option value="Earliest">Сначала ранние</option>
+                        <option value="ABCUser">По алфавитному порядку Гр.</option>
+                        <option value="ABCPolice">По алфавитному порядку Пол.</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group row mb-0">
+                <div name="dateFrom" class="col-md-4 col-6">
+                    <label class="mr-3">От:</label>
+                    <input name="DateFrom" type="date" value="@dateStart" />
+                </div>
+                <div name="dateTo" class="col-md-4 col-6">
+                    <label class="mr-3">До:</label>
+                    <input name="DateTo" type="date" value="@dateToday" />
+                </div>
+                <small class="col-12">Выбрать период </small>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <p class="text-muted"><small id="violation-counter"></small></p>
+    </div>
+</form>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="d-flex">
+            <th class="col-md-4">Гражданин</th>
+            <th class="col-md-4">Полицейский</th>
+            <th class="col-md-2 col-4">Дата</th>
+            <th class="col-md-2 d-none d-md-block"></th>
+        </tr>
+    </thead>
+    <tbody class="violations-list-container">
+        <tr class="violation-not-found" style="display: none;"><td>Test Not Found Element</td></tr>
+        <tr class="d-flex violation-list-item violation-clickable">
+            <td class="col-md-4 violation-user-field"></td>
+            <td class="col-md-4 violation-policeman-field"></td>
+            <td class="col-md-2 col-4 violation-date-field"></td>
+            <td class="col-md-2 d-none d-md-block">
+                <a class="violation-link">Перейти</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

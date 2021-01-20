@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,6 +29,9 @@ using WebMaze.Models.Police;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.Models.PoliceCertificate;
 using WebMaze.DbStuff.Repository.MedicineRepo;
+using WebMaze.Models.Roles;
+using WebMaze.Models.Police.Violation;
+using System.Text.Json.Serialization;
 using WebMaze.Models.HDDoctor;
 
 namespace WebMaze
@@ -36,6 +39,7 @@ namespace WebMaze
     public class Startup
     {
         public const string AuthMethod = "CoockieAuth";
+        public const string PoliceAuthMethod = "PoliceAuth";
         public const string MedicineAuth = "CookieMedicineAuth";
 
         public Startup(IConfiguration configuration)
@@ -57,6 +61,11 @@ namespace WebMaze
                     config.Cookie.Name = "User.Auth";
                     config.LoginPath = "/Account/Login";
                     config.AccessDeniedPath = "/Account/AccessDenied";
+                })
+                .AddCookie(PoliceAuthMethod, config => 
+                {
+                    config.Cookie.Name = "PUser";
+                    config.LoginPath = "/Police/Login";
                 });
 
             services.AddAuthentication(AuthMethod)
@@ -71,12 +80,19 @@ namespace WebMaze
 
             RegistrationRepository(services);
 
+            services.AddScoped(s => new UserPasswordValidator(requiredLength:3));
+
             services.AddScoped(s => new UserService(s.GetService<CitizenUserRepository>(),
+                s.GetService<RoleRepository>(),
+                s.GetService<UserPasswordValidator>(),
                 s.GetService<IHttpContextAccessor>()));
 
             services.AddHttpContextAccessor();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddJsonOptions(opt => 
+            {
+                opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
         }
 
         private void RegistrationMapper(IServiceCollection services)
@@ -124,7 +140,15 @@ namespace WebMaze
             configurationExpression.CreateMap<UserTaskViewModel, UserTask>();
 
             configurationExpression.CreateMap<Policeman, PolicemanViewModel>()
-                .ForMember("ProfileVM", opt => opt.MapFrom(p => p.User));
+                .ForMember(dest => dest.ProfileVM, opt => opt.MapFrom(p => p.User));
+
+            configurationExpression.CreateMap<PoliceCertificate, PoliceCertificateItemViewModel>();
+
+            configurationExpression.CreateMap<Violation, ViolationItemViewModel>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(v => v.User.FirstName + " " + v.User.LastName))
+                .ForMember(dest => dest.PolicemanName, opt => opt.MapFrom(v => v.BlamingPoliceman.User.FirstName + " " + v.BlamingPoliceman.User.LastName));
+
+            configurationExpression.CreateMap<ViolationRegistrationViewModel, Violation>();
 
             configurationExpression.CreateMap<PoliceCertificate, PoliceCertificateItemViewModel>();
 
@@ -143,6 +167,10 @@ namespace WebMaze
             configurationExpression.CreateMap<CitizenUser, DoctorPageViewModel>();
             configurationExpression.CreateMap<DoctorPageViewModel, CitizenUser>();
 
+            configurationExpression.CreateMap<Role, RoleViewModel>()
+                .ForMember(dest => dest.UserLogins, opt => opt.MapFrom(src => src.Users.Select(t => t.Login)));
+
+            configurationExpression.CreateMap<RoleViewModel, Role>();
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
@@ -161,6 +189,7 @@ namespace WebMaze
 
             services.AddScoped(s => new PolicemanRepository(s.GetService<WebMazeContext>()));
             services.AddScoped(s => new PoliceCertificateRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new ViolationRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new HealthDepartmentRepository(s.GetService<WebMazeContext>()));
 
@@ -173,6 +202,7 @@ namespace WebMaze
             services.AddScoped(s => new BusWorkerRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new UserTaskRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new RoleRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new MedicalInsuranceRepository(s.GetService<WebMazeContext>()));
         }
@@ -195,10 +225,10 @@ namespace WebMaze
 
             app.UseRouting();
 
-            // Кто ты?
+            // пїЅпїЅпїЅ пїЅпїЅ?
             app.UseAuthentication();
 
-            // Куда у тебя есть доступ?
+            // пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ?
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

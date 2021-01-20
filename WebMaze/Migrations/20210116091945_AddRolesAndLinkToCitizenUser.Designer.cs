@@ -3,22 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMaze.DbStuff;
 
 namespace WebMaze.Migrations
 {
     [DbContext(typeof(WebMazeContext))]
-    partial class WebMazeContextModelSnapshot : ModelSnapshot
+    [Migration("20210116091945_AddRolesAndLinkToCitizenUser")]
+    partial class AddRolesAndLinkToCitizenUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .UseIdentityColumns()
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
-
             modelBuilder.Entity("CitizenUserPoliceCertificate", b =>
                 {
                     b.Property<long>("PoliceCertificatesId")
@@ -316,9 +313,6 @@ namespace WebMaze.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<long?>("CitizenIdId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -329,8 +323,6 @@ namespace WebMaze.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CitizenIdId");
 
                     b.ToTable("RecordForms");
                 });
@@ -523,15 +515,6 @@ namespace WebMaze.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("WebMaze.DbStuff.Model.Medicine.RecordForm", b =>
-                {
-                    b.HasOne("WebMaze.DbStuff.Model.CitizenUser", "CitizenId")
-                        .WithMany("RecordForms")
-                        .HasForeignKey("CitizenIdId");
-
-                    b.Navigation("CitizenId");
-                });
-
             modelBuilder.Entity("WebMaze.DbStuff.Model.Police.Policeman", b =>
                 {
                     b.HasOne("WebMaze.DbStuff.Model.CitizenUser", "User")
@@ -571,8 +554,6 @@ namespace WebMaze.Migrations
                     b.Navigation("Adresses");
 
                     b.Navigation("MedicalInsurance");
-
-                    b.Navigation("RecordForms");
                 });
 #pragma warning restore 612, 618
         }
