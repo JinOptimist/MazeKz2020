@@ -2,15 +2,14 @@
 
 <body>
     <div>
-        <h1>User page</h1>
-
+        <h6>Сведения о страховке</h6>
         <div>
             <p>
 
-                Номер страхового полиса: @Html.DisplayFor(x => x.Id)
+                Номер страхового полиса: @Html.DisplayFor(x => x.OwnerId)
             </p>
             <p>
-                Ваш Id №: @Html.DisplayFor(x => x.OwnerId)
+                Ваш Id №: @Html.DisplayFor(x => x.Id)
             </p>
             <p>
                 Дата выдачи страховки: @Html.DisplayFor(x => x.StartPeriod)
@@ -21,10 +20,6 @@
             <p>
                 Тип страховки: @Html.DisplayFor(x => x.Type)
             </p>
-        </div>
-        <br />
-        <div>
-            
         </div>
     </div>
 </body>

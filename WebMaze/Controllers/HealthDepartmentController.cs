@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebMaze.DbStuff;
 using WebMaze.DbStuff.Model;
@@ -13,25 +16,23 @@ using WebMaze.DbStuff.Repository.MedicineRepository;
 using WebMaze.Models.Account;
 using WebMaze.Models.Department;
 using WebMaze.Models.HealthDepartment;
+using WebMaze.Services;
 
 namespace WebMaze.Controllers
 {
     public class HealthDepartmentController : Controller
     {
-        private HealthDepartmentRepository departmentRepository;
         private RecordFormRepository recordFormRepository;
         private IMapper mapper;
         private CitizenUserRepository citizenRepository;
         private MedicalInsuranceRepository insuranceRepository;
 
 
-
-        public HealthDepartmentController(HealthDepartmentRepository departmentRepository, RecordFormRepository recordFormRepository,
+        public HealthDepartmentController(RecordFormRepository recordFormRepository,
                                           IMapper mapper, CitizenUserRepository citizenRepository,
                                           MedicalInsuranceRepository insuranceRepository)
         {
             this.mapper = mapper;
-            this.departmentRepository = departmentRepository;
             this.recordFormRepository = recordFormRepository;
             this.citizenRepository = citizenRepository;
             this.insuranceRepository = insuranceRepository;
@@ -44,13 +45,7 @@ namespace WebMaze.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult HealthDepartmentForAuthorized()
-        {
-            return View();
-        }
-
-
+        
         [HttpGet]
         public IActionResult RecordForm()
         {
@@ -159,26 +154,56 @@ namespace WebMaze.Controllers
 
             }
 
-            return RedirectToAction("HealthDepartmentForAuthorized");
+            return RedirectToAction("HealthDepartment");
         }
 
         [HttpGet]
         public IActionResult Login()
         {
-            return View(new ForDHLoginViewModel());
+            var viewvModel = new ForDHLoginViewModel();
+            viewvModel.ReturnUrl = Request.Query["ReturnUrl"];
+
+            return View(viewvModel);
         }
 
         [HttpPost]
-        public IActionResult Login(ForDHLoginViewModel loginView)
+        public async Task<IActionResult> Login(ForDHLoginViewModel loginView)
         {
-            if (!ModelState.IsValid)
+            var user = citizenRepository.GetUserByNameAndPassword(loginView.Login, loginView.Password);
+            if(user == null)
             {
                 return View(loginView);
-
             }
 
-            return RedirectToAction("HealthDepartmentForAuthorized");
+            var recordId = new Claim("Id", user.Id.ToString());
+            var recordName = new Claim(ClaimTypes.Name, user.Login);
+            var recordAuthMetod = new Claim(ClaimTypes.AuthenticationMethod, Startup.MedicineAuth);
 
+            var page = new List<Claim>() { recordId, recordName, recordAuthMetod };
+
+            var claimsIdentity = new ClaimsIdentity(page, Startup.MedicineAuth);
+
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+            await HttpContext.SignInAsync(claimsPrincipal);
+
+            if (string.IsNullOrEmpty(loginView.ReturnUrl))
+            {
+                return RedirectToAction("HealthDepartment", "HealthDepartment");
+            }
+            else
+            {
+                return Redirect(loginView.ReturnUrl);
+            }
+            
+        }
+
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+
+            return RedirectToAction("HealthDepartment", "HealthDepartment");
         }
 
         [HttpGet]
@@ -259,16 +284,8 @@ namespace WebMaze.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult UserPage(long id)
-        {
-            var citizen = insuranceRepository.Get(id);
-            var model = mapper.Map<UserPageViewModel>(citizen);
-
-            return View(model);
-        }
-
         
-        
+
+
     }
 }

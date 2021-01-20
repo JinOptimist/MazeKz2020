@@ -29,12 +29,14 @@ using WebMaze.Models.Police;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.Models.PoliceCertificate;
 using WebMaze.DbStuff.Repository.MedicineRepo;
+using WebMaze.Models.HDDoctor;
 
 namespace WebMaze
 {
     public class Startup
     {
         public const string AuthMethod = "CoockieAuth";
+        public const string MedicineAuth = "CookieMedicineAuth";
 
         public Startup(IConfiguration configuration)
         {
@@ -55,6 +57,14 @@ namespace WebMaze
                     config.Cookie.Name = "User.Auth";
                     config.LoginPath = "/Account/Login";
                     config.AccessDeniedPath = "/Account/AccessDenied";
+                });
+
+            services.AddAuthentication(AuthMethod)
+                .AddCookie(MedicineAuth, config =>
+                {
+                    config.Cookie.Name = "User.Auth";
+                    config.LoginPath = "/HealthDepartment/Login";
+                    config.AccessDeniedPath = "/HealthDepartment/AccessDenied";
                 });
 
             RegistrationMapper(services);
@@ -127,7 +137,12 @@ namespace WebMaze
             configurationExpression.CreateMap<MedicalInsurance, UserPageViewModel>();
             configurationExpression.CreateMap<UserPageViewModel, MedicalInsurance>();
 
-            
+            configurationExpression.CreateMap<CitizenUser, UserPageViewModel>();
+            configurationExpression.CreateMap<UserPageViewModel, CitizenUser>();
+
+            configurationExpression.CreateMap<CitizenUser, DoctorPageViewModel>();
+            configurationExpression.CreateMap<DoctorPageViewModel, CitizenUser>();
+
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace WebMaze.Controllers
 {
-    public class HDManagerController : Controller
+    public class HDManagerPageController : Controller
     {
         private IMapper mapper;
 
-        public HDManagerController(IMapper mapper)
+        public HDManagerPageController(IMapper mapper)
         {
             this.mapper = mapper;
         }
