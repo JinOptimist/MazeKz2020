@@ -18,7 +18,7 @@ namespace WebMaze.DbStuff
             using(var scope = host.Services.CreateScope())
             {
                 var citizenUserRepository = scope.ServiceProvider.GetService<CitizenUserRepository>();
-                var user = citizenUserRepository.GetUserByName(AdminUserName);
+                var user = citizenUserRepository.GetUserByLogin(AdminUserName);
                 if (user == null)
                 {
                     user = new CitizenUser()

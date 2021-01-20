@@ -14,11 +14,13 @@ namespace WebMaze.Controllers
     {
         private readonly IMapper mapper;
         private readonly ViolationRepository violationRepo;
+        private readonly CitizenUserRepository userRepo;
 
-        public ViolationController(IMapper mapper, ViolationRepository violationRepo)
+        public ViolationController(IMapper mapper, ViolationRepository violationRepo, CitizenUserRepository userRepo)
         {
             this.mapper = mapper;
             this.violationRepo = violationRepo;
+            this.userRepo = userRepo;
         }
 
         [HttpGet]
@@ -37,6 +39,17 @@ namespace WebMaze.Controllers
             }
 
             return mapper.Map<ViolationItemViewModel>(item);
+        }
+
+        [HttpGet("SearchUsers/{word}")]
+        public IEnumerable<string> GetUsersByName(string word)
+        {
+            if (string.IsNullOrEmpty(word))
+            {
+                return new string[] { string.Empty };
+            }
+
+            return userRepo.GetFamiliarUserNames(word);
         }
 
         [HttpPost("Search")]

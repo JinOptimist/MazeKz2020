@@ -13,14 +13,12 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse w-100 order-1 order-md-0" id="navbarCollapsedContent">
+        <div class="collapse navbar-collapse w-100" id="navbarCollapsedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Police" asp-action="AddViolation">Написать заявление</a>
                 </li>
             </ul>
-        </div>
-        <div class="collapse navbar-collapse w-100 order-3" id="navbarCollapsedContent">
             <ul class="navbar-nav ml-auto">
                 @if (User.Identity.IsAuthenticated)
                 {

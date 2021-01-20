@@ -46,6 +46,41 @@ $(document).ready(function () {
             }
         });
     });
+
+    $("#get-citizen-user-names").on("paste input propertychange", function () {
+        $(".user-suggest-temp").remove();
+
+        const thisInput = $(this);
+
+        if (thisInput.val().length != 0) {
+            $.ajax({
+                type: "GET",
+                url: "/api/violation/SearchUsers/" + thisInput.val(),
+                success: function (data) {
+                    const sample = $(".user-suggestions .user-suggest-example-item");
+                    const parent = $(".user-suggestions");
+                    for (const item in data) {
+                        let clone = sample.clone().toggleClass("user-suggest-example-item user-suggest-temp").show().appendTo(parent);
+                        clone.text(data[item]);
+
+                        clone.click(function () {
+                            $("#get-citizen-user-names").hide();
+                            $("#ready-citizen-user-name").show().find("input").val(data[item]);
+
+                            $("#ready-citizen-user-name a").click(function () {
+                                // Cancel
+                                $("#get-citizen-user-names").show();
+                                $("#ready-citizen-user-name").hide();
+                                thisInput.val("");
+                            });
+
+                            $(".user-suggest-temp").remove();
+                        });
+                    }
+                }
+            });
+        }
+    });
 });
 
 $(document).ready(
@@ -75,7 +110,7 @@ function AddViolationItems(data) {
 
         for (const i in data) {
             const item = data[i];
-            let clone = cloneSample.clone().toggleClass("violation-list-item v-temp-item").removeAttr("style").appendTo(parent);
+            let clone = cloneSample.clone().toggleClass("violation-list-item v-temp-item").show().appendTo(parent);
             if (clone.hasClass("violation-clickable")) {
                 clone.toggleClass("v-temp-onclick");
             }
