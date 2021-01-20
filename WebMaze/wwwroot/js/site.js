@@ -20,6 +20,22 @@
 })();
 
 $(document).ready(function () {
+    if ($("#form-validation-errors").children().length != 0) {
+        $("#form-validation-errors").children().each(function () {
+            const attributeName = $(this).attr('data-valmsg-for').toLowerCase();
+            const attibuteValue = $(this).text();
+
+            const inputElement = $('.needs-validation .form-control[name="' + attributeName + '"]');
+            inputElement.on("input propertychange", function () {
+                $("#invalid-feedback-temp-" + attributeName).remove();
+            });
+            const clone = '<div class="invalid-feedback" id="invalid-feedback-temp-' + attributeName + '">' + attibuteValue + '</div>';
+            inputElement.parent().append(clone);
+        });
+
+        $(".needs-validation").toggleClass("was-validated");
+    }
+
     $("#searchViolation").submit(function (e) {
         e.preventDefault();
 

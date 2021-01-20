@@ -179,6 +179,7 @@ namespace WebMaze.Controllers
             var userItem = cuRepo.GetUserByLogin(user.Login);
             if (userItem == null)
             {
+                user.Login = string.Empty;
                 ModelState.AddModelError("Login", "Данный логин не существует");
             }
             else if (userItem.Password != user.Password)
