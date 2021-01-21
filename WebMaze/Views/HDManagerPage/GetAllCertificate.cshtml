@@ -1,7 +1,8 @@
-﻿@model WebMaze.Models.HDManager.ManagerPageViewModel
+﻿@using WebMaze.Models.HDManager
 @using WebMaze.Services
 @inject UserService userService
 
+@model List<MedicineCertificateViewModel>
 <!--Header-->
 <div class="wrap-head">
     <div class="head">
@@ -58,32 +59,58 @@
         </ul>
     </naw>
 </div>
+<!--Breadcrumb-->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/HDManagerPage/ManagerPage">Страница менеджера</a></li>
+        <li class="breadcrumb-item" aria-current="page">Страница пользователя: @userService.GetCurrentUser().Login</li>
+    </ol>
+</nav>
 
 <body>
-    <h1>Страница менеджера</h1>
+    <h1> Список всех сертификатов и врачей </h1>
+    <div>
+        Общее количество врачей: @Model.Count
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m[0].UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m[0].Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m[0].DateOfIssue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m[0].DateExpiration)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Position)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.DateOfIssue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.DateExpiration)
+                </td>
+            </tr>
+        }
+    </table>
 
-    <p>
-        <a href="/HDManagerPage/AddMedicineCertificate"><strong>1. Создать сертификат</strong></a>
-    </p>
-    <p>
-        <a href="/HDManagerPage/GetAllCertificate"><strong>2. Все сертификаты</strong></a>
-    </p>
-    <p>
-        <a href="/HDManagerPage/CheckSertificateDoctor"><strong>3. Истекающие сертификаты</strong></a>
-    </p>
-    <p>
-        <a href=""><strong>4. Количество врачей</strong></a>
-    </p>
-    <p>
-        <a href=""><strong>5. Запрос нового врача из школы</strong></a>
-    </p>
-    <p>
-        <a href=""><strong>6. Проверка привитого населения</strong></a>
-    </p>
-    <p>
-        <a href=""><strong>7. Проверка и одобрение заявок на гранты</strong></a>
-    </p>
-    <p>
-        <a href=""><strong>8. ?</strong></a>
-    </p>
+
 </body>

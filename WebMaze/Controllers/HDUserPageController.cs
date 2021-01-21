@@ -5,28 +5,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebMaze.DbStuff.Model.Medicine;
 using WebMaze.DbStuff.Repository;
+using WebMaze.DbStuff.Repository.MedicineRepo;
 using WebMaze.Models.HealthDepartment;
 using WebMaze.Services;
 
 namespace WebMaze.Controllers
 {
+    [Authorize(Roles = "User")]
+
     public class HDUserPageController : Controller
     {
         private IMapper mapper;
         private CitizenUserRepository citizenRepository;
         private UserService userService;
+        private MedicalInsuranceRepository insuranceRepository;
 
 
-        public HDUserPageController(IMapper mapper, CitizenUserRepository citizenRepository, UserService userService)
+        public HDUserPageController(IMapper mapper, CitizenUserRepository citizenRepository, UserService userService, 
+            MedicalInsuranceRepository insuranceRepository)
         {
             this.mapper = mapper;
             this.citizenRepository = citizenRepository;
             this.userService = userService;
+            this.insuranceRepository = insuranceRepository;
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult UserPage()
         {
             var user = userService.GetCurrentUser();
@@ -34,22 +40,29 @@ namespace WebMaze.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        public IActionResult UserPage(UserPageViewModel viewModel)
+
+        [HttpGet]
+        public IActionResult GetThisUserInsurance()
         {
-            //var citizen = insuranceRepository.Get(id);
-            //var model = mapper.Map<UserPageViewModel>(citizen);
-            return View(viewModel);
+            return PartialView("GetThisUserInsurance");
         }
 
         [HttpGet]
-        [Authorize]
-        public IActionResult GetThisUserInsurance()
+        public IActionResult EditThisUserInsurance()
         {
-            //var insurance = InsuranceService.GetCurrentUserInsurance();
-            //var viewModel = mapper.Map<UserPageViewModel>(insurance);
+            var insurance = userService.GetCurrentUser();
+            var viewModel = mapper.Map<UserPageViewModel>(insurance);
 
-            return PartialView(/*viewModel*/"GetThisUserInsurance");
+            return View(viewModel);
+        }
+        //TODO: доработать сохранение
+        [HttpPost]
+        public IActionResult EditThisUserInsurance(UserPageViewModel viewModel)
+        {
+            var user = mapper.Map<MedicalInsurance>(viewModel);
+            insuranceRepository.Save(user);
+
+            return RedirectToAction("UserPage");
         }
     }
 }

@@ -11,6 +11,8 @@ using WebMaze.Services;
 
 namespace WebMaze.Controllers
 {
+    [Authorize(Roles = "Doctor")]
+
     public class HDDoctorPageController : Controller
     {
         private IMapper mapper;

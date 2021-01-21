@@ -26,16 +26,18 @@ namespace WebMaze.Controllers
         private IMapper mapper;
         private CitizenUserRepository citizenRepository;
         private MedicalInsuranceRepository insuranceRepository;
+        private UserService userService;
 
 
         public HealthDepartmentController(RecordFormRepository recordFormRepository,
                                           IMapper mapper, CitizenUserRepository citizenRepository,
-                                          MedicalInsuranceRepository insuranceRepository)
+                                          MedicalInsuranceRepository insuranceRepository, UserService userService)
         {
             this.mapper = mapper;
             this.recordFormRepository = recordFormRepository;
             this.citizenRepository = citizenRepository;
             this.insuranceRepository = insuranceRepository;
+            this.userService = userService;
         }
 
 
@@ -175,17 +177,19 @@ namespace WebMaze.Controllers
                 return View(loginView);
             }
 
-            var recordId = new Claim("Id", user.Id.ToString());
-            var recordName = new Claim(ClaimTypes.Name, user.Login);
-            var recordAuthMetod = new Claim(ClaimTypes.AuthenticationMethod, Startup.MedicineAuth);
+            //var recordId = new Claim("Id", user.Id.ToString());
+            //var recordName = new Claim(ClaimTypes.Name, user.Login);
+            //var recordAuthMetod = new Claim(ClaimTypes.AuthenticationMethod, Startup.MedicineAuth);
 
-            var page = new List<Claim>() { recordId, recordName, recordAuthMetod };
+            //var page = new List<Claim>() { recordId, recordName, recordAuthMetod };
 
-            var claimsIdentity = new ClaimsIdentity(page, Startup.MedicineAuth);
+            //var claimsIdentity = new ClaimsIdentity(page, Startup.MedicineAuth);
 
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            //var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
-            await HttpContext.SignInAsync(claimsPrincipal);
+            //await HttpContext.SignInAsync(claimsPrincipal);
+
+            await userService.SignInAsync(user, isPersistent: false);
 
             if (string.IsNullOrEmpty(loginView.ReturnUrl))
             {

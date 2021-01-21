@@ -33,6 +33,7 @@ using WebMaze.Models.Roles;
 using WebMaze.Models.Police.Violation;
 using System.Text.Json.Serialization;
 using WebMaze.Models.HDDoctor;
+using WebMaze.Models.HDManager;
 
 namespace WebMaze
 {
@@ -71,7 +72,7 @@ namespace WebMaze
             services.AddAuthentication(AuthMethod)
                 .AddCookie(MedicineAuth, config =>
                 {
-                    config.Cookie.Name = "User.Auth";
+                    config.Cookie.Name = "Med.Auth";
                     config.LoginPath = "/HealthDepartment/Login";
                     config.AccessDeniedPath = "/HealthDepartment/AccessDenied";
                 });
@@ -172,6 +173,9 @@ namespace WebMaze
 
             configurationExpression.CreateMap<RoleViewModel, Role>();
 
+            configurationExpression.CreateMap<MedicineCertificate, MedicineCertificateViewModel>();
+            configurationExpression.CreateMap<MedicineCertificateViewModel, MedicineCertificate>();
+
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(s => mapper);
@@ -205,6 +209,7 @@ namespace WebMaze
             services.AddScoped(s => new RoleRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new MedicalInsuranceRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new MedicineCertificateRepository(s.GetService<WebMazeContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

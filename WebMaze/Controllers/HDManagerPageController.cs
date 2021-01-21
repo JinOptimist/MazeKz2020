@@ -1,19 +1,27 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebMaze.DbStuff.Model;
+using WebMaze.DbStuff.Model.Medicine;
+using WebMaze.DbStuff.Repository.MedicineRepo;
+using WebMaze.Models.HDManager;
 
 namespace WebMaze.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class HDManagerPageController : Controller
     {
         private IMapper mapper;
+        private MedicineCertificateRepository certificateRepository;
 
-        public HDManagerPageController(IMapper mapper)
+        public HDManagerPageController(IMapper mapper, MedicineCertificateRepository certificateRepository)
         {
             this.mapper = mapper;
+            this.certificateRepository = certificateRepository;
         }
 
         [HttpGet]
@@ -22,20 +30,29 @@ namespace WebMaze.Controllers
             return View();
         }
 
-        //[HttpGet]
-        //public IActionResult AddMedicineCertificate()
-        //{
-        //    return View(new MedicineCertificateViewModel());
-        //}
+        [HttpGet]
+        public IActionResult AddMedicineCertificate()
+        {
+            return View(new MedicineCertificateViewModel());
+        }
 
-        //[HttpPost]
-        //public IActionResult AddMedicineCertificate(MedicineCertificateViewModel viewModel)
-        //{
-        //    var certificate = mapper.Map<MedicineCertificate>(viewModel);
-        //    certificateRepository.Save(certificate);
+        [HttpPost]
+        public IActionResult AddMedicineCertificate(MedicineCertificateViewModel viewModel)
+        {
+            var certificate = mapper.Map<MedicineCertificate>(viewModel);
+            certificateRepository.Save(certificate);
 
-        //    return View(new MedicineCertificateViewModel());
-        //}
+            return View(new MedicineCertificateViewModel());
+        }
+
+        [HttpGet]
+        public IActionResult GetAllCertificate()
+        {
+            var certificate = certificateRepository.GetAll();
+            var viewModel = mapper.Map<List<MedicineCertificateViewModel>>(certificate);
+
+            return View(viewModel);
+        }
 
         public IActionResult CheckAmountEmployee()
         {
@@ -43,10 +60,14 @@ namespace WebMaze.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult CheckSertificateDoctor()
         {
-            //Проверка квалификации врача
-            return View();
+            var certificate = certificateRepository.GetAll().Where(x => x.DateExpiration == DateTime.Today);
+            var viewModel = mapper.Map<List<MedicineCertificateViewModel>>(certificate);
+
+            return View(viewModel);
+
         }
 
         public IActionResult RedirectPatients()

@@ -43,6 +43,11 @@
     outline: none;
 }
 
+.button a:hover{
+    text-decoration: none;
+    color: #ffffff;
+}
+
 /*Menu*/
 .menu {
     background-color: #39eb7e;
@@ -372,5 +377,5 @@
 
 /*Breadcrumb*/
 .breadcrumb {
-    background-color: #39eb7e;
+    background-color: #ece89d;
 }

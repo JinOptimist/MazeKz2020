@@ -67,23 +67,21 @@
     <div>
         <h1>User page</h1>
 
-        <div class="avatar">
-            Photo: <img src="@Model.AvatarUrl" />
+        <br />
+        <partial>
+            @{await Html.RenderPartialAsync("GetThisUserInsurance");}
+        </partial>
+        <br />
+        <div>
+            <strong>Сведения о записи на приём в департамент Здравоохранения</strong>
+            <br />
+            <p>
+                Номер записи: @Html.DisplayFor(x => x.MedicalInsurance.Id)
+            </p>
         </div>
         <div>
-            Id: @Html.DisplayFor(x => x.Id)
-            @Html.DisplayFor(x => x.FirstName)
-            @Html.DisplayFor(x => x.LastName)
-            @Html.DisplayFor(x => x.Balance)
+           форма записи на приём в поликлинику
         </div>
-        <br />
-        @*<partial>
-            @{await Html.RenderPartialAsync("GetThisUserInsurance");}
-        </partial>*@
-        <br />
-        Просмотр и изменение страховки
-        Просмотр и изменение записи на прием
-        Запись на прием в поликлинику
-
+       
     </div>
 </body>

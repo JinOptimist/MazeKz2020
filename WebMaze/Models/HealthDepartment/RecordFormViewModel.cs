@@ -9,7 +9,6 @@ namespace WebMaze.Models.HealthDepartment
 {
     public class RecordFormViewModel
     {
-        public long Id { get; set; }
         //[CheckOwnerId]
         public long CitizenId { get; set; }
         public string Name { get; set; }

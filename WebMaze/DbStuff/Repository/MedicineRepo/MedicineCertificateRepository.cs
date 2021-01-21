@@ -6,10 +6,9 @@ using WebMaze.DbStuff.Model.Medicine;
 
 namespace WebMaze.DbStuff.Repository.MedicineRepo
 {
-    public class MedicalInsuranceRepository : BaseRepository<MedicalInsurance>
+    public class MedicineCertificateRepository : BaseRepository<MedicineCertificate>
     {
-        public MedicalInsuranceRepository(WebMazeContext context) : base(context) { }
-
+        public MedicineCertificateRepository(WebMazeContext context) : base(context) { }
 
     }
 }
