@@ -19,6 +19,7 @@ using WebMaze.Services;
 
 namespace WebMaze.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private CitizenUserRepository citizenUserRepository;
@@ -39,6 +40,7 @@ namespace WebMaze.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             var viewModel = new LoginViewModel();
@@ -49,6 +51,7 @@ namespace WebMaze.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
             var user = citizenUserRepository
@@ -58,6 +61,7 @@ namespace WebMaze.Controllers
                 return View(loginViewModel);
             }
 
+            /* Authentication written by Pavel:
             //Строки в документе
             var recordId = new Claim("Id", user.Id.ToString());
             var recordName = new Claim(ClaimTypes.Name, user.Login);
@@ -73,6 +77,9 @@ namespace WebMaze.Controllers
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
             await HttpContext.SignInAsync(claimsPrincipal);
+            */
+
+            await userService.SignInAsync(user, isPersistent:false);
 
             if (string.IsNullOrEmpty(loginViewModel.ReturnUrl))
             {
@@ -82,11 +89,10 @@ namespace WebMaze.Controllers
             {
                 return Redirect(loginViewModel.ReturnUrl);
             }
-
-            
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Registration()
         {
             var viewModel = new RegistrationViewModel()
@@ -98,6 +104,7 @@ namespace WebMaze.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Registration(RegistrationViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -111,7 +118,6 @@ namespace WebMaze.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult Profile()
         {
             var user = userService.GetCurrentUser();

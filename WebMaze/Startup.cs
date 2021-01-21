@@ -29,6 +29,7 @@ using WebMaze.Models.Police;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.Models.PoliceCertificate;
 using WebMaze.DbStuff.Repository.MedicineRepo;
+using WebMaze.Models.Roles;
 using WebMaze.Models.Police.Violation;
 using System.Text.Json.Serialization;
 
@@ -69,7 +70,11 @@ namespace WebMaze
 
             RegistrationRepository(services);
 
+            services.AddScoped(s => new UserPasswordValidator(requiredLength:3));
+
             services.AddScoped(s => new UserService(s.GetService<CitizenUserRepository>(),
+                s.GetService<RoleRepository>(),
+                s.GetService<UserPasswordValidator>(),
                 s.GetService<IHttpContextAccessor>()));
 
             services.AddHttpContextAccessor();
@@ -143,6 +148,10 @@ namespace WebMaze
             configurationExpression.CreateMap<CitizenUser, ForDHLoginViewModel>();
             configurationExpression.CreateMap<ForDHLoginViewModel, CitizenUser>();
 
+            configurationExpression.CreateMap<Role, RoleViewModel>()
+                .ForMember(dest => dest.UserLogins, opt => opt.MapFrom(src => src.Users.Select(t => t.Login)));
+
+            configurationExpression.CreateMap<RoleViewModel, Role>();
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
@@ -174,6 +183,7 @@ namespace WebMaze
             services.AddScoped(s => new BusWorkerRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new UserTaskRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new RoleRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new MedicalInsuranceRepository(s.GetService<WebMazeContext>()));
         }

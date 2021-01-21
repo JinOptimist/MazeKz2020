@@ -9,6 +9,8 @@ namespace WebMaze.DbStuff
     {
         public DbSet<CitizenUser> CitizenUser { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+
         public DbSet<Adress> Adress { get; set; }
 
         public DbSet<Policeman> Policemen { get; set; }
@@ -49,6 +51,12 @@ namespace WebMaze.DbStuff
             modelBuilder.Entity<CitizenUser>()
                 .HasMany(citizen => citizen.Adresses)
                 .WithOne(adress => adress.Owner);
+
+            modelBuilder
+                .Entity<CitizenUser>()
+                .HasMany(p => p.Roles)
+                .WithMany(p => p.Users)
+                .UsingEntity(j => j.ToTable("CitizenUserRoles"));
 
             modelBuilder.Entity<CitizenUser>()
                 .HasOne(c => c.MedicalInsurance)
