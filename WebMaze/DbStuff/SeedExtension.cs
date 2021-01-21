@@ -202,9 +202,6 @@ namespace WebMaze.DbStuff
                 {
                     dbContext.Adress.RemoveRange(dbContext.Adress);
                     dbContext.Roles.RemoveRange(dbContext.Roles);
-                    dbContext.Policemen.RemoveRange(dbContext.Policemen);
-                    dbContext.Violations.RemoveRange(dbContext.Violations);
-                    dbContext.CitizenUser.RemoveRange(dbContext.CitizenUser);
                     dbContext.SaveChanges();
 
                     foreach (var role in roles)
