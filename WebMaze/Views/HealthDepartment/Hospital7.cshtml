@@ -1,32 +1,53 @@
 ﻿@model WebMaze.Models.HealthDepartment.HospitalsPages.Hospital1ViewModel
+<!--Header-->
+<div class="wrap-head">
+    <div class="head">
+        <div class="head__row">
+            <div class="head__column head__column-1">
+                <div class="head__element">
+                    <p><a href="/HealthDepartment/HealthDepartment"><img src="~/image/Mochalkin/Logo.jpg" /></a></p>
+                    <p><a href="/HDManager/ManagerPage"><img src="~/image/Mochalkin/Logo.jpg" /></a></p>
 
-    <!--Header-->
-    <div class="wrap-head">
-        <div class="head">
-            <div class="head__row">
-                <div class="head__column head__column-1">
-                    <div class="head__element">
-                        <p><a href="/HealthDepartment/HealthDepartment"><img src="~/image/Mochalkin/Logo.jpg" /></a></p>
-                    </div>
                 </div>
-                <div class="head__column head__column-2">
-                    <div class="head__element">
-                        <h1>Департамент здравоохранения</h1>
-                    </div>
+            </div>
+            <div class="head__column head__column-2">
+                <div class="head__element">
+                    <h1 class="section__title">Департамент здравоохранения</h1>
                 </div>
-                <div class="head__column head__column-3">
+            </div>
+            <div class="head__column head__column-3">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="head__element">
+                        <a href="/HealthDepartment/Logout" class="button btn-lg active" role="button" aria-pressed="true">Выход</a>
+                    </div>
+                }
+                else
+                {
                     <div class="head__element">
                         <a href="/HealthDepartment/Login" class="button btn-lg active" role="button" aria-pressed="true">Вход</a>
                     </div>
-                </div>
+                }
             </div>
         </div>
     </div>
+</div>
 
-    <!--Меню-->
-    <div class="menu">
-        <naw class="dws-menu">
-            <ul>
+<!--Меню-->
+<div class="menu">
+    <naw class="dws-menu">
+        <ul>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a href="/HDUserPage/UserPage"><i class="fa fa-"></i>Моя страница</a>
+                </li>
+                <li>
+                    <a href="/HDDoctorPage/DoctorPage"><i class="fa fa-"></i>Страница дока</a>
+                </li>
+                <li>
+                    <a href="/HDManagerPage/ManagerPage"><i class="fa fa-"></i>Страница упра</a>
+                </li>
                 <li>
                     <a href="/HealthDepartment/HotLine"><i class="fa fa-"></i>Горячая линия</a>
                 </li>
@@ -50,59 +71,85 @@
                 <li>
                     <a href="/HealthDepartment/Contacts"><i class="fa fa-"></i>Контакты</a>
                 </li>
-            </ul>
-        </naw>
-    </div>
+            }
+            else
+            {
+                <li>
+                    <a href="/HealthDepartment/HotLine"><i class="fa fa-"></i>Горячая линия</a>
+                </li>
+                <li>
+                    <a href="/HealthDepartment/MedicineNews"><i class="fa fa-"></i>Новости</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-"></i>Организации</a>
+                    <ul>
+                        <li>
+                            <a href="/HealthDepartment/GetListHospital">Поликлиники</a>
+                        </li>
+                        <li>
+                            <a href="/HealthDepartment/GetListSchool">Образование</a>
+                        </li>
+                        <li>
+                            <a href="/HealthDepartment/GetListMorgue">Морги</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/HealthDepartment/Contacts"><i class="fa fa-"></i>Контакты</a>
+                </li>
+            }
+        </ul>
+    </naw>
+</div>
+<!--Breadcrumb-->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/HealthDepartment/HealthDepartment">Главная</a></li>
+        <li class="breadcrumb-item"><a href="/HealthDepartment/GetListHospital">Список больниц</a></li>
+        <li class="breadcrumb-item" aria-current="page">Многопрофильный центр наркологической реабилитации города Utopia</li>
+    </ol>
+</nav>
 
-    <!--Breadcrumb-->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/HealthDepartment/HealthDepartment">Главная</a></li>
-            <li class="breadcrumb-item"><a href="/HealthDepartment/GetListHospital">Список больниц</a></li>
-            <li class="breadcrumb-item" aria-current="page">Многопрофильный центр наркологической реабилитации города Utopia</li>
-        </ol>
-    </nav>
+<!--Content-->
+<div class="container">
+    <article>
+        <h1>Многопрофильный центр наркологической реабилитации города Utopia</h1>
+        <p class="timestamps">
+            <time class="text-muted">Материал обновлён: @DateTime.Now</time>
+        </p>
+        <br>
+        <p><strong>И.о. главного врача:</strong>&nbsp;Кусимирова Анастасия Кусимировна</p>
 
-    <!--Content-->
-    <div class="container">
-        <article>
-            <h1>Многопрофильный центр наркологической реабилитации города Utopia</h1>
-            <p class="timestamps">
-                <time class="text-muted">Материал обновлён: @DateTime.Now</time>
-            </p>
-            <br>
-            <p><strong>И.о. главного врача:</strong>&nbsp;Кусимирова Анастасия Кусимировна</p>
+        <p><strong>Фактический (почтовый) адрес</strong>:&nbsp;363025,  г. Utopia, улица Лесная, дом 1</p>
 
-            <p><strong>Фактический (почтовый) адрес</strong>:&nbsp;363025,  г. Utopia, улица Лесная, дом 1</p>
+        <p><strong>Контактный телефон:</strong>&nbsp;8&nbsp;(777) 777-77-77</p>
 
-            <p><strong>Контактный телефон:</strong>&nbsp;8&nbsp;(777) 777-77-77</p>
+        <p><strong>Телефон справочной службы:</strong>&nbsp;8&nbsp;(777) 777-77-77; 8&nbsp;(777) 777-77-77</p>
 
-            <p><strong>Телефон справочной службы:</strong>&nbsp;8&nbsp;(777) 777-77-77; 8&nbsp;(777) 777-77-77</p>
+        <p><strong>Е-mail:</strong>&nbsp;<a href="">Hospital7@HealthDepartment.com</a></p>
 
-            <p><strong>Е-mail:</strong>&nbsp;<a href="">Hospital7@HealthDepartment.com</a></p>
+        <p><strong>Официальный сайт:</strong>&nbsp;<a href="">www.Hospital7.gg</a></p>
 
-            <p><strong>Официальный сайт:</strong>&nbsp;<a href="">www.Hospital7.gg</a></p>
+        <p>&nbsp;</p>
 
-            <p>&nbsp;</p>
+        <p style="text-align: center;"><strong>Виды оказываемой медицинской помощи</strong></p>
 
-            <p style="text-align: center;"><strong>Виды оказываемой медицинской помощи</strong></p>
+        <p>​-&nbsp;первичная медико-санитарная помощь</p>
 
-            <p>​-&nbsp;первичная медико-санитарная помощь</p>
+        <p>- специализированная, в том числе высокотехнологическая, медицинская помощь</p>
 
-            <p>- специализированная, в том числе высокотехнологическая, медицинская помощь</p>
+        <p>&nbsp;</p>
 
-            <p>&nbsp;</p>
+        <p style="text-align: center;"><strong>Виды оказываемой медицинской помощи</strong></p>
 
-            <p style="text-align: center;"><strong>Виды оказываемой медицинской помощи</strong></p>
+        <p>- Лечение зависимостей</p>
 
-            <p>- Лечение зависимостей</p>
+        <p>- Психотерапевтическая помощь</p>
 
-            <p>- Психотерапевтическая помощь</p>
+        <p>- Химио-токсилогическая лаборатория</p>
 
-            <p>- Химио-токсилогическая лаборатория</p>
+        <p>- Профилактика</p>
 
-            <p>- Профилактика</p>
-
-            <p>- Реабилитация</p>
-        </article>
-    </div>
+        <p>- Реабилитация</p>
+    </article>
+</div>

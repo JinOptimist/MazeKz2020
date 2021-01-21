@@ -1,0 +1,87 @@
+﻿@model WebMaze.Models.HealthDepartment.UserPageViewModel
+@using WebMaze.Services
+@inject UserService userService
+
+<!--Header-->
+<div class="wrap-head">
+    <div class="head">
+        <div class="head__row">
+            <div class="head__column head__column-1">
+                <div class="head__element">
+                    <p><a href="/HealthDepartment/HealthDepartment"><img src="~/image/Mochalkin/Logo.jpg" /></a></p>
+                </div>
+            </div>
+            <div class="head__column head__column-2">
+                <div class="head__element">
+                    <h1 class="section__title">Департамент здравоохранения</h1>
+                </div>
+            </div>
+            <div class="head__column head__column-3">
+                <div class="head__element">
+                    <a href="/HealthDepartment/Logout" class="button btn-lg active" role="button" aria-pressed="true">Выход</a>
+                </div>      
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Меню-->
+<div class="menu">
+    <naw class="dws-menu">
+        <ul>
+            <li>
+                <a href="/HealthDepartment/HotLine"><i class="fa fa-"></i>Горячая линия</a>
+            </li>
+            <li>
+                <a href="/HealthDepartment/MedicineNews"><i class="fa fa-"></i>Новости</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-"></i>Организации</a>
+                <ul>
+                    <li>
+                        <a href="/HealthDepartment/GetListHospital">Поликлиники</a>
+                    </li>
+                    <li>
+                        <a href="/HealthDepartment/GetListSchool">Образование</a>
+                    </li>
+                    <li>
+                        <a href="/HealthDepartment/GetListMorgue">Морги</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/HealthDepartment/Contacts"><i class="fa fa-"></i>Контакты</a>
+            </li>
+        </ul>
+    </naw>
+</div>
+<!--Breadcrumb-->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/HealthDepartment/HealthDepartment">Главная</a></li>
+        <li class="breadcrumb-item" aria-current="page">Страница пользователя: @userService.GetCurrentUser().Login</li>
+    </ol>
+</nav>
+
+<body>
+    <div>
+        <h1>User page</h1>
+
+        <br />
+        <partial>
+            @{await Html.RenderPartialAsync("GetThisUserInsurance");}
+        </partial>
+        <br />
+        <div>
+            <strong>Сведения о записи на приём в департамент Здравоохранения</strong>
+            <br />
+            <p>
+                Номер записи: @Html.DisplayFor(x => x.MedicalInsurance.Id)
+            </p>
+        </div>
+        <div>
+           форма записи на приём в поликлинику
+        </div>
+       
+    </div>
+</body>

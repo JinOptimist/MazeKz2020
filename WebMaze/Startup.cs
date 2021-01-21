@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,6 +32,8 @@ using WebMaze.DbStuff.Repository.MedicineRepo;
 using WebMaze.Models.Roles;
 using WebMaze.Models.Police.Violation;
 using System.Text.Json.Serialization;
+using WebMaze.Models.HDDoctor;
+using WebMaze.Models.HDManager;
 
 namespace WebMaze
 {
@@ -39,6 +41,7 @@ namespace WebMaze
     {
         public const string AuthMethod = "CoockieAuth";
         public const string PoliceAuthMethod = "PoliceAuth";
+        public const string MedicineAuth = "CookieMedicineAuth";
 
         public Startup(IConfiguration configuration)
         {
@@ -64,6 +67,14 @@ namespace WebMaze
                 {
                     config.Cookie.Name = "PUser";
                     config.LoginPath = "/Police/Login";
+                });
+
+            services.AddAuthentication(AuthMethod)
+                .AddCookie(MedicineAuth, config =>
+                {
+                    config.Cookie.Name = "Med.Auth";
+                    config.LoginPath = "/HealthDepartment/Login";
+                    config.AccessDeniedPath = "/HealthDepartment/AccessDenied";
                 });
 
             RegistrationMapper(services);
@@ -150,10 +161,22 @@ namespace WebMaze
             configurationExpression.CreateMap<CitizenUser, ForDHLoginViewModel>();
             configurationExpression.CreateMap<ForDHLoginViewModel, CitizenUser>();
 
+            configurationExpression.CreateMap<MedicalInsurance, UserPageViewModel>();
+            configurationExpression.CreateMap<UserPageViewModel, MedicalInsurance>();
+
+            configurationExpression.CreateMap<CitizenUser, UserPageViewModel>();
+            configurationExpression.CreateMap<UserPageViewModel, CitizenUser>();
+
+            configurationExpression.CreateMap<CitizenUser, DoctorPageViewModel>();
+            configurationExpression.CreateMap<DoctorPageViewModel, CitizenUser>();
+
             configurationExpression.CreateMap<Role, RoleViewModel>()
                 .ForMember(dest => dest.UserLogins, opt => opt.MapFrom(src => src.Users.Select(t => t.Login)));
 
             configurationExpression.CreateMap<RoleViewModel, Role>();
+
+            configurationExpression.CreateMap<MedicineCertificate, MedicineCertificateViewModel>();
+            configurationExpression.CreateMap<MedicineCertificateViewModel, MedicineCertificate>();
 
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
@@ -188,6 +211,7 @@ namespace WebMaze
             services.AddScoped(s => new RoleRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new MedicalInsuranceRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new MedicineCertificateRepository(s.GetService<WebMazeContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -208,10 +232,10 @@ namespace WebMaze
 
             app.UseRouting();
 
-            // Кто ты?
+            // пїЅпїЅпїЅ пїЅпїЅ?
             app.UseAuthentication();
 
-            // Куда у тебя есть доступ?
+            // пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ?
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
