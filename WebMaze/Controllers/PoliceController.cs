@@ -37,7 +37,7 @@ namespace WebMaze.Controllers
         [HttpPost]
         public IActionResult RegisterPoliceman()
         {
-            var userItem = cuRepo.GetUserByName(User.Identity.Name);
+            var userItem = cuRepo.GetUserByLogin(User.Identity.Name);
             if (userItem == null || pmRepo.IsUserPoliceman(userItem, out _))
             {
                 throw new NotImplementedException();
@@ -56,7 +56,7 @@ namespace WebMaze.Controllers
 
         public IActionResult Account()
         {
-            var userItem = cuRepo.GetUserByName(User.Identity.Name);
+            var userItem = cuRepo.GetUserByLogin(User.Identity.Name);
             if (userItem == null)
             {
                 throw new NotImplementedException();
@@ -87,7 +87,7 @@ namespace WebMaze.Controllers
 
         public IActionResult Certificate()
         {
-            var user = cuRepo.GetUserByName(User.Identity.Name);
+            var user = cuRepo.GetUserByLogin(User.Identity.Name);
             if (!pmRepo.IsUserPoliceman(user, out _))
             {
                 pmRepo.MakePolicemanFromUser(user);
@@ -131,6 +131,12 @@ namespace WebMaze.Controllers
             return RedirectToAction("Account");
         }
 
+        public IActionResult AddViolation()
+        {
+            var user = cuRepo.GetUserByLogin(User.Identity.Name);
+            return View((object)$"{user.FirstName} {user.LastName}");
+        }
+
         // Anonymous methods ------------------------------------------------
 
         [AllowAnonymous]
@@ -170,9 +176,10 @@ namespace WebMaze.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel user)
         {
-            var userItem = cuRepo.GetUserByName(user.Login);
+            var userItem = cuRepo.GetUserByLogin(user.Login);
             if (userItem == null)
             {
+                user.Login = string.Empty;
                 ModelState.AddModelError("Login", "Данный логин не существует");
             }
             else if (userItem.Password != user.Password)
@@ -185,7 +192,7 @@ namespace WebMaze.Controllers
                 return View(user);
             }
 
-            await AuthorizeUser(userItem.Id, user.Login);
+            await AuthorizeUser(userItem.Id, userItem.Login);
 
             if (string.IsNullOrEmpty(user.ReturnUrl))
             {

@@ -1,0 +1,32 @@
+﻿@model string
+@{
+    Layout = "_PoliceLayout";
+}
+
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+}
+
+<h2 class="mb-3">Сообщение о нарушении</h2>
+<form id="add-violation" method="post">
+    <div class="form-group row mb-3">
+        <label class="col-4">Обвинитель: </label>
+        <div class="col-8 mb-3">
+            <p class="form-control">@Model</p>
+        </div>
+        <label class="col-4">Выберите нарушителя:</label>
+        <div class="col-8">
+            <input id="get-citizen-user-names" type="search" class="form-control" placeholder="Обвиняемый" maxlength="50" />
+            <div class="row" id="ready-citizen-user-name" style="display: none!important;">
+                <div class="col-10">
+                    <input class="form-control" type="text" readonly required />
+                </div>
+                <button class="col-2 py-1 btn btn-link">Отмена</button>
+            </div>
+            <div class="list-group user-suggestions">
+                <button class="btn-link user-suggest-example-item list-group-item text-left" type="button" style="display: none!important;"></button>
+            </div>
+        </div>
+    </div>
+</form>
