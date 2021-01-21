@@ -70,11 +70,13 @@ namespace WebMaze
 
             RegistrationRepository(services);
 
-            services.AddScoped(s => new UserPasswordValidator(requiredLength:3));
+            services.AddScoped(s => new UserValidator(
+                s.GetService<CitizenUserRepository>(), 
+                requiredPasswordLength:3));
 
             services.AddScoped(s => new UserService(s.GetService<CitizenUserRepository>(),
                 s.GetService<RoleRepository>(),
-                s.GetService<UserPasswordValidator>(),
+                s.GetService<UserValidator>(),
                 s.GetService<IHttpContextAccessor>()));
 
             services.AddHttpContextAccessor();

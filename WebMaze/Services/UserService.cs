@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
@@ -16,15 +17,15 @@ namespace WebMaze.Services
     {
         private CitizenUserRepository citizenUserRepository;
         private RoleRepository roleRepository;
-        private UserPasswordValidator userPasswordValidator;
+        private UserValidator userValidator;
         private IHttpContextAccessor httpContextAccessor;
 
         public UserService(CitizenUserRepository citizenUserRepository, RoleRepository roleRepository,
-            UserPasswordValidator userPasswordValidator, IHttpContextAccessor httpContextAccessor)
+            UserValidator userValidator, IHttpContextAccessor httpContextAccessor)
         {
             this.citizenUserRepository = citizenUserRepository;
             this.roleRepository = roleRepository;
-            this.userPasswordValidator = userPasswordValidator;
+            this.userValidator = userValidator;
             this.httpContextAccessor = httpContextAccessor;
         }
 
@@ -57,23 +58,9 @@ namespace WebMaze.Services
             return citizenUserRepository.GetUserByName(login);
         }
 
-        public virtual CitizenUser FindUserByNameAndPassword(string userName, string password)
-        {
-            return citizenUserRepository.GetUserByNameAndPassword(userName, password);
-        }
-
         public virtual void Save(CitizenUser user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-
-            if (!ValidateUser(user))
-            {
-                throw new Exception("User validation failed.");
-            }
-
+            userValidator.Validate(user);
             citizenUserRepository.Save(user);
         }
 
@@ -84,19 +71,18 @@ namespace WebMaze.Services
 
         public virtual void ChangePassword(CitizenUser user, string oldPassword, string newPassword)
         {
-            if (userPasswordValidator.Validate(newPassword))
-            {
-                throw new NotImplementedException();
-            }
-
+            userValidator.ValidatePassword(newPassword);
+            
             throw new NotImplementedException();
         }
 
-        public virtual async Task SignInAsync(CitizenUser user, bool isPersistent)
+        public virtual async Task SignInAsync(string userName, string password, bool isPersistent)
         {
+            var user = citizenUserRepository.GetUserByNameAndPassword(userName, password);
+
             if (user == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ValidationException("Login or password is incorrect.");
             }
 
             var claimsIdentity = new ClaimsIdentity(Startup.AuthMethod);
@@ -109,24 +95,24 @@ namespace WebMaze.Services
                 claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, role.Name));
             }
 
-            var userPrincipal =  new ClaimsPrincipal(claimsIdentity);
+            var userPrincipal = new ClaimsPrincipal(claimsIdentity);
 
             await httpContextAccessor.HttpContext.SignInAsync(userPrincipal,
-                new AuthenticationProperties {IsPersistent = isPersistent});
+                new AuthenticationProperties { IsPersistent = isPersistent });
         }
 
         public virtual bool IsInRole(CitizenUser user, string roleName)
         {
             if (user == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ValidationException("Specified user does not exist.");
             }
 
             var role = roleRepository.GetRoleByName(roleName);
 
             if (role == null)
             {
-                throw new ArgumentNullException(nameof(role));
+                throw new ValidationException("Specified role does not exist.");
             }
 
             return user.Roles.Any(useRole => useRole.Name == roleName);
@@ -136,7 +122,7 @@ namespace WebMaze.Services
         {
             if (IsInRole(user, roleName))
             {
-                throw new InvalidOperationException($"User {user.Login} is already in role = {roleName}");
+                throw new ValidationException($"User {user.Login} is already in role = {roleName}");
             }
 
             var role = roleRepository.GetRoleByName(roleName);
@@ -148,39 +134,12 @@ namespace WebMaze.Services
         {
             if (!IsInRole(user, roleName))
             {
-                throw new InvalidOperationException($"User {user.Login} is not in role = {roleName}");
+                throw new ValidationException($"User {user.Login} is not in role = {roleName}");
             }
 
             var role = roleRepository.GetRoleByName(roleName);
             user.Roles.Remove(role);
             citizenUserRepository.Save(user);
-        }
-
-        protected bool ValidateUser(CitizenUser user)
-        {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-
-            if (string.IsNullOrWhiteSpace(user.Login))
-            {
-                return false;
-            }
-
-            var owner = FindByLogin(user.Login);
-
-            if (owner != null && owner.Id != user.Id)
-            {
-                return false;
-            }
-
-            if (!userPasswordValidator.Validate(user.Password))
-            {
-                throw new Exception("Password validation failed.");
-            }
-
-            return true;
         }
     }
 }

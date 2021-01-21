@@ -37,7 +37,7 @@ namespace WebMaze.DbStuff
             {
                 new CitizenUser
                 {
-                    Login = "Admin",
+                    Login = "Bill",
                     Password = "123",
                     Balance = 120000000000,
                     RegistrationDate = new DateTime(2020, 10, 1),
@@ -189,24 +189,18 @@ namespace WebMaze.DbStuff
             {
                 var userService = scope.ServiceProvider.GetService<UserService>();
                 var roleRepository = scope.ServiceProvider.GetService<RoleRepository>();
-                var dbContext = scope.ServiceProvider.GetService<WebMazeContext>();
 
-                if (userService == null || roleRepository == null || dbContext == null)
+                if (userService == null || roleRepository == null)
                 {
                     throw new Exception("Cannot get services from ServiceProvider.");
                 }
 
                 var currentUsers = userService.GetUsers();
 
-                if (currentUsers.Count == 0 || currentUsers[0].Roles.Count == 0)
-                {
-                    dbContext.Adress.RemoveRange(dbContext.Adress);
-                    dbContext.Roles.RemoveRange(dbContext.Roles);
-                    dbContext.Policemen.RemoveRange(dbContext.Policemen);
-                    dbContext.Violations.RemoveRange(dbContext.Violations);
-                    dbContext.CitizenUser.RemoveRange(dbContext.CitizenUser);
-                    dbContext.SaveChanges();
+                var adminExists = currentUsers.Any(user => user.Roles.Any(role => role.Name == "Admin"));
 
+                if (currentUsers.Count == 0 || !adminExists)
+                {
                     foreach (var role in roles)
                     {
                         roleRepository.Save(role);
