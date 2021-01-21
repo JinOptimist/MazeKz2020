@@ -54,7 +54,7 @@ namespace WebMaze.Services
 
         public virtual CitizenUser FindByLogin(string login)
         {
-            return citizenUserRepository.GetUserByName(login);
+            return citizenUserRepository.GetUserByLogin(login);
         }
 
         public virtual CitizenUser FindUserByNameAndPassword(string userName, string password)
