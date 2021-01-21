@@ -9,9 +9,10 @@ namespace WebMaze.Models.Bus
     public class BusViewModel
     {   
         public long Id { get; set; }
-        public long BusRouteId { get; set; }
         public string RegistrationPlate { get; set; }
-
         public int Capacity { get; set; }
+        public string BusModel { get; set; }
+        public long WorkerId { get; set; }
+        public long BusRouteId { get; set; }
     }
 }

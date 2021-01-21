@@ -53,7 +53,7 @@ namespace WebMaze.Controllers
             foreach(var bus in buses)
             {
                 var model = mapper.Map<BusViewModel>(bus);
-                viewModel.buses.Add(model);
+                viewModel.Buses.Add(model);
             }
             return View(viewModel);
         }
@@ -80,10 +80,58 @@ namespace WebMaze.Controllers
             return View();
         }
 
-        public IActionResult BusPartial()
+        [HttpGet]
+        public IActionResult CreateBusRoute()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateBusRoute(CreateBusRouteViewModel viewModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            var busRoute = mapper.Map<BusRoute>(viewModel);
+            busRouteRepository.Save(busRoute);
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ManageBusRouteTime()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ManageBusRouteTime(BusRouteTimeManagmentViewModel viewModel)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ManageWorker()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ManageWorker(BusOrderViewModel viewModel)
+        {
+            return View();
+        }
+
+        public IActionResult BusAdminPartial()
         {
             return PartialView();
         }
+
+        public IActionResult BusUserPartial()
+        {
+            return PartialView();
+        }
+
     }
 }
 

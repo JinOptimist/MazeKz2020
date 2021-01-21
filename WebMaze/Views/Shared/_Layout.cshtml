@@ -1,15 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@using WebMaze.Services
+@inject UserService userService
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WebMaze</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css?v=2" />
     <link rel="stylesheet" href="~/css/saginbekSite.css" />
     <link rel="stylesheet" href="~/css/site.css?t=@DateTime.Now.Ticks" />
     <link rel="stylesheet" href="~/css/HealthDepartment.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     @RenderSection("Scripts", required: false)
 </head>
 <body>
@@ -26,12 +29,24 @@
                         <li>
                             <a class="nav-link text-dark" href="/Home/Index">Home</a>
                         </li>
-                        <li>
-                            <a class="nav-link text-dark" href="/Account/Profile?id=1">Profile</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" href="/Account/Registration">Registration</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <a class="nav-link text-dark" href="/Account/Profile?id=1">Profile @userService.GetCurrentUser()?.Login</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" href="/Account/Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a class="nav-link text-dark" href="/Account/Login">Login</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" href="/Account/Registration">Registration</a>
+                            </li>
+                        }
                         <li>
                             <a class="nav-link text-dark" href="/Student/Index">Students page</a>
                         </li>

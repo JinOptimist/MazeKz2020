@@ -1,0 +1,120 @@
+﻿@using WebMaze.Models.HealthDepartment.MenuPages
+
+@model ContactsViewModel
+
+<!--Header-->
+<div class="wrap-head">
+    <div class="head">
+        <div class="head__row">
+            <div class="head__column head__column-1">
+                <div class="head__element">
+                    <p><a href="/HealthDepartment/HealthDepartment"><img src="~/image/Mochalkin/Logo.jpg" /></a></p>
+                </div>
+            </div>
+            <div class="head__column head__column-2">
+                <div class="head__element">
+                    <h1>Департамент здравоохранения</h1>
+                </div>
+            </div>
+            <div class="head__column head__column-3">
+                <div class="head__element">
+                    <a href="/HealthDepartment/RecordForm" class="button btn-lg active" role="button" aria-pressed="true">Запись на приём</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Меню-->
+<div class="menu">
+    <naw class="dws-menu">
+        <ul>
+            <li>
+                <a href="/HealthDepartment/HotLine"><i class="fa fa-"></i>Горячая линия</a>
+            </li>
+            <li>
+                <a href="/HealthDepartment/MedicineNews"><i class="fa fa-"></i>Новости</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-"></i>Организации</a>
+                <ul>
+                    <li>
+                        <a href="/HealthDepartment/GetListHospital">Поликлиники</a>
+                    </li>
+                    <li>
+                        <a href="/HealthDepartment/GetListSchool">Образование</a>
+                    </li>
+                    <li>
+                        <a href="/HealthDepartment/GetListMorgue">Морги</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/HealthDepartment/Contacts"><i class="fa fa-"></i>Контакты</a>
+            </li>
+        </ul>
+    </naw>
+</div>
+
+<!--Breadcrumb-->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/HealthDepartment/HealthDepartment">Главная</a></li>
+        <li class="breadcrumb-item" aria-current="page">Контакты</li>
+    </ol>
+</nav>
+
+<h1>Страница контактов</h1>
+
+<!--Content-->
+<div class="block">
+    <div class="block__row">
+        <div class="block__element block__element-1" style="margin: 50px;">
+            <div class="block__content">
+                <h5 style="text-align: center;">Справочные телефоны</h5>
+                <p style="text-align: center;">
+                    <strong>Телефон справочной службы</strong>:<b style="line-height: 1.428571429;">Тел.: 8&nbsp;(111) 111-11-11</b></p>
+                <p style="text-align: center;">
+                    <strong>Телефон службы доверия</strong>:<b style="line-height: 1.428571429;">Тел.: 8&nbsp;(222) 222-22-22</b></p>
+                <p style="text-align: center;">
+                    <strong>Адрес электронной почты:</strong> 
+                    <strong style="line-height: 17.142858505249px;">
+                        <a href="">info@HealthDepartment.com</a>
+                    </strong>
+                </p>
+                <p style="text-align: center;"><strong>Адрес:</strong> г. Utopia, Медицинская улица, д. 3</p>
+            </div>
+        </div>
+        <div class="block__element block__element-2" style="margin: 50px;">
+            <div class="block__content">
+                <h5 style="text-align: center;">Контакты для СМИ</h5>
+                <p style="text-align: center;"><b><i>Юзеров Юзер Юзеревич </i></b><i>- специалист отдела пресс-службы</i></p>
+                <p style="text-align: center;"><b><i>Юзерова Юзер Юзеровна </i></b><i>- специалист отдела пресс-службы</i></p>
+                <p style="text-align: center;"><b style="line-height: 1.428571429;">Тел.: 8&nbsp;(111) 111-11-11</b></p>
+                <p style="text-align: center">
+                    <span style="line-height: 17.142858505249px;">
+                        <strong>Электронная почта для направления официальных запросов</strong>: &nbsp;
+                    </span>
+                    <strong style="line-height: 17.142858505249px;">
+                        <a href="#">press@HealthDepartment.gov.com</a>
+                    </strong>
+                </p>
+            </div>
+        </div>
+        <div class="block__element block__element-3" style="margin: 50px;">
+            <div class="block__content">
+                <h5 style="text-align: center;">Контакты по вопросам замещения вакантных должностей</h5>
+                <p>
+                    Номер телефона и адрес электронной почты, по которым можно получить информацию по вопросу замещения вакантных
+                    должностей в Минздраве EPAM Utopia:
+                    <b style="line-height: 1.428571429;">Тел.: 8&nbsp;(111) 111-11-11,</b>
+                    <strong style="line-height: 17.142858505249px;">
+                        <a href="#">HealthDepartment@gmail.com</a>
+                    </strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+

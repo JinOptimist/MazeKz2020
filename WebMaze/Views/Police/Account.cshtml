@@ -1,0 +1,84 @@
+﻿@using WebMaze.Models.Police
+@model PolicemanViewModel
+@{
+    Layout = "_PoliceLayout";
+    ViewBag.Title = $"{Model.ProfileVM.Login}";
+    var status = "Полицейский";
+    var infoCard = new CardViewModel
+    {
+        SubTitle = "Сертификаты",
+        Title = "Управление сертификатами",
+        Description = "Управляйте своими сертификатами",
+        Link = Url.Action("Items", "PoliceCertificate"),
+        LinkText = "Перейти"
+    };
+
+    if (!Model.HasValidCertificate)
+    {
+        status = "Не имеет сертификат";
+        infoCard.Title = "Получить сертификат";
+        infoCard.Description = "Внимание, у вас в данный момент нет действующего сертификата. " +
+            "Чтобы получить его, вам необходимо перейти в сайт Градоуправления, и подтвердить там ваш сертификат";
+        infoCard.Link = Url.Action("SignUp", "Police");
+    }
+}
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+}
+
+<h2 class="mb-4">Тестовый личный кабинет пользователя @Model.ProfileVM.Login</h2>
+
+<div class="row justify-content-center justify-content-md-start">
+    <div class="mb-4 col-6 col-md-3 order-md-last">
+        <div class="card">
+            <div class="card-img">
+                <img src="@Model.ProfileVM.AvatarUrl" class="rounded img-fluid" />
+                <hr />
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.ProfileVM.Login</h5>
+                <p class="card-text text-success">@status</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="mb-4 col-12">
+                <div class="card">
+                    <div class="card-header">@infoCard.SubTitle</div>
+                    <div class="card-body">
+                        <h5 class="card-title">@infoCard.Title</h5>
+                        <p class="card-text">@infoCard.Description</p>
+                        <a class="btn btn-primary" href="@infoCard.Link">@infoCard.LinkText</a>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 col-12">
+                <div class="card">
+                    <div class="card-header">Преступления</div>
+                    <div class="card-body row">
+                        <div class="col-12">
+                            <h5 class="card-title">Последние преступления в городе</h5>
+                        </div>
+                        <div class="col-12">
+                            <ul class="list-group mb-3 violations-list-container">
+                                <li class="text-right list-group-item list-group-item-action violation-list-item">
+                                    <div class="row">
+                                        <p class="col m-0 violation-user-field"></p>
+                                        <p class="col m-0 violation-policeman-field"></p>
+                                        <p class="col m-0 violation-date-field"></p>
+                                    </div>
+                                    <a class="stretched-link violation-link"></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12">
+                            <a class="btn btn-outline-primary stretched-link" asp-controller="Police" asp-action="Criminal">Ещё</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

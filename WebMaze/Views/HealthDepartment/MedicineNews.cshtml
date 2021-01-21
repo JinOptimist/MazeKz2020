@@ -1,0 +1,228 @@
+﻿@using WebMaze.Models.HealthDepartment.MenuPages
+
+@model MedicineNewsViewModel
+<!--Header-->
+<div class="wrap-head">
+    <div class="head">
+        <div class="head__row">
+            <div class="head__column head__column-1">
+                <div class="head__element">
+                    <p><a href="/HealthDepartment/HealthDepartment"><img src="~/image/Mochalkin/Logo.jpg" /></a></p>
+                </div>
+            </div>
+            <div class="head__column head__column-2">
+                <div class="head__element">
+                    <h1>Департамент здравоохранения</h1>
+                </div>
+            </div>
+            <div class="head__column head__column-3">
+                <div class="head__element">
+                    <a href="/HealthDepartment/RecordForm" class="button btn-lg active" role="button" aria-pressed="true">Запись на приём</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Меню-->
+<div class="menu">
+    <naw class="dws-menu">
+        <ul>
+            <li>
+                <a href="/HealthDepartment/HotLine"><i class="fa fa-"></i>Горячая линия</a>
+            </li>
+            <li>
+                <a href="/HealthDepartment/MedicineNews"><i class="fa fa-"></i>Новости</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-"></i>Организации</a>
+                <ul>
+                    <li>
+                        <a href="/HealthDepartment/GetListHospital">Поликлиники</a>
+                    </li>
+                    <li>
+                        <a href="/HealthDepartment/GetListSchool">Образование</a>
+                    </li>
+                    <li>
+                        <a href="/HealthDepartment/GetListMorgue">Морги</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/HealthDepartment/Contacts"><i class="fa fa-"></i>Контакты</a>
+            </li>
+        </ul>
+    </naw>
+</div>
+
+<!--Breadcrumb-->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/HealthDepartment/HealthDepartment">Главная</a></li>
+        <li class="breadcrumb-item" aria-current="page">Новости</li>
+    </ol>
+</nav>
+
+<h1>Страница новостей</h1>
+
+<!--Content-->
+<div class="media">
+    <div class="media_row">
+        <div class="media__element media__element-1" style="margin: 50px;">
+            <div class="media_content">
+                <time class="text-muted" id="current_date"></time>
+                <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392792">Глава Европейского бюро ВОЗ о кризисе в сфере психического здоровья населения</a></h4>
+                <div class="media-text">
+                    <div class="hidden-xs hidden-sm">
+                        Боязнь заразиться, опасения за здоровье близких, карантин, безработица, финансовые проблемы,
+                        социальная изоляция – как считают специалисты, последствия пандемии для психического здоровья населения будут
+                        ощущаться еще долго.
+                    </div>
+                    <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392792">Читать подробнее</a>
+                </div>
+            </div>
+        </div>
+        <div class="media__element media__element-2" style="margin: 50px;">
+            <div class="media_content">
+                <time class="text-muted" id="current_date"></time>
+                <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392802">Глава Европейского бюро ВОЗ побывал в Киеве и Тбилиси</a></h4>
+                <div class="media-text">
+                    <div class="hidden-xs hidden-sm">
+                        Сегодня директор Европейского регионального бюро Всемирной организации здравоохранения (ВОЗ) Ханс Клюге 
+                        прибыл в Тбилиси, а ранее на этой неделе побывал в Киеве.
+                    </div>
+                    <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392802">Читать подробнее</a>
+                </div>
+            </div>
+        </div>
+        <div class="media__element media__element-3" style="margin: 50px;">
+            <div class="media_content">
+                <time class="text-muted" id="current_date"></time>
+                <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392652">Учреждения ООН помогают Казахстану справиться с пандемией COVID-19</a></h4>
+                <div class="media-text">
+                    <div class="hidden-xs hidden-sm">
+                        С начала пандемии Всемирная организация здравоохранения направила в Казахстан 76 тонн медицинских материалов 
+                        для борьбы с пандемией.
+                    </div>
+                    <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392652">Читать подробнее</a>
+                </div>
+            </div>
+        </div>
+        <div class="media__element media__element-4" style="margin: 50px;">
+            <div class="media_content">
+                <time class="text-muted" id="current_date"></time>
+                <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392592">Учителя должны быть вакцинированы против COVID-19 в приоритетном порядке</a></h4>
+                <div class="media-text">
+                    <div class="hidden-xs hidden-sm">
+                        Учителя и технический персонал школ должны быть в числе тех, кто сможет получить вакцину от коронавируса в 
+                        первую очередь.
+                    </div>
+                    <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392592">Читать подробнее</a>
+                </div>
+            </div>
+        </div>
+        <div class="media__element media__element-5" style="margin: 50px;">
+            <div class="media_content">
+                <time class="text-muted" id="current_date"></time>
+                <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392562">Онкологические заболевания в 2020 году: 19,3 млн новых случаев и 10 млн летальных исходов</a></h4>
+                <div class="media-text">
+                    <div class="hidden-xs hidden-sm">
+                        Специалисты Международного агентства по изучению рака представили во вторник новые данные по заболеваемости 
+                        раком в 185 странах: число новых случаев в 2020 году достигнет 19,3 миллиона, и 10 млн человек скончаются от 
+                        этой болезни.
+                    </div>
+                    <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392562">Читать подробнее</a>
+                </div>
+            </div>
+        </div>
+        <div class="media__element media__element-6" style="margin: 50px;">
+            <div class="media_content">
+                <time class="text-muted" id="current_date"></time>
+                <h4 class="media-heading"><a href="https://informburo.kz/novosti/minzdrav-oproverg-sluhi-o-prinuditelnoy-vakcinacii-kazahstancev-ot-covid-19.html">Минздрав опроверг слухи о принудительной вакцинации казахстанцев от Covid-19</a></h4>
+                <div class="media-text">
+                    <div class="hidden-xs hidden-sm">
+                        В соцсетях распространяется информация о том, что вакцинация от Covid-19 будет обязательной.
+                    </div>
+                    <a class="read-more-link" href="https://informburo.kz/novosti/minzdrav-oproverg-sluhi-o-prinuditelnoy-vakcinacii-kazahstancev-ot-covid-19.html">Читать подробнее</a>
+                </div>
+            </div>
+        </div>
+        <div class="media__element media__element-7" style="margin: 50px;">
+            <div class="media_content">
+                <time class="text-muted" id="current_date"></time>
+                <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392422">Больница без воды и туалетов – это рассадник COVID-19</a></h4>
+                <div class="media-text">
+                    <div class="hidden-xs hidden-sm">
+                        В каждом четвертом медицинском учреждении в мире нет адекватных санитарно-гигиенических условий, в том числе водопровода.
+                    </div>
+                    <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392422">Читать подробнее</a>
+                </div>
+            </div>
+        </div>
+        <div class="media__element media__element-8" style="margin: 50px;">
+            <div class="media_content">
+                <time class="text-muted" id="current_date"></time>
+                <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392082">ВОЗ: все больше людей умирает в результате болезней сердца</a></h4>
+                <div class="media-text">
+                    <div class="hidden-xs hidden-sm">
+                        Главной причиной смерти в мире по-прежнему остаются болезни сердца. Причем от них умирает все больше людей.
+                    </div>
+                    <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392082">Читать подробнее</a>
+                </div>
+            </div>
+        </div>
+        <div class="media__element media__element-9" style="margin: 50px;">
+            <div class="media_content">
+                <time class="text-muted" id="current_date"></time>
+                <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392032">«Решай и бросай!» Новая кампания ВОЗ поможет бросить курить 100 миллионам человек</a></h4>
+                <div class="media-text">
+                    <div class="hidden-xs hidden-sm">
+                        Ежегодно из-за болезней, связанных с курением, умирает 8 миллионов человек. 
+                        Такова официальная статистика Всемирной организации здравоохранения (ВОЗ).
+                    </div>
+                    <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392032">Читать подробнее</a>
+                </div>
+            </div>
+        </div>
+        <div class="media__element media__element-10" style="margin: 50px;">
+            <div class="media_content">
+                <time class="text-muted" id="current_date"></time>
+                <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1391832">Вакцины от COVID-19: как извлечь максимальную выгоду</a></h4>
+                <div class="media-text">
+                    <div class="hidden-xs hidden-sm">
+                        Если удастся обеспечить всеобщий доступ к вакцинам от COVID-19, то уже в следующем году десять ведущих 
+                        экономик мира получат совокупный доход в 153 млрд долларов, а к 2025 году он составит 466 млрд долларов.
+                    </div>
+                    <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1391832">Читать подробнее</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    /* функция добавления ведущих нулей */
+    /* (если число меньше десяти, перед числом добавляем ноль) */
+    function zero_first_format(value) {
+        if (value < 10) {
+            value = '0' + value;
+        }
+        return value;
+    }
+
+    /* функция получения текущей даты и времени */
+    function date_time() {
+        var current_datetime = new Date();
+        var day = zero_first_format(current_datetime.getDate());
+        var month = zero_first_format(current_datetime.getMonth() + 1);
+        var year = current_datetime.getFullYear();
+
+        return day + "." + month + "." + year;
+    }
+
+    /* выводим текущую дату и время на сайт в блок с id "current_date_block" */
+    document.getElementById('current_date').innerHTML = date_time();
+</script>

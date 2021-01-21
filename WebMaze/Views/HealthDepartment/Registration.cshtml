@@ -1,0 +1,29 @@
+﻿@model WebMaze.Models.HealthDepartment.ForDHLoginViewModel
+
+<div class="form">
+    <h1 class="form__header">Регистрация</h1>
+
+    <form action="@Url.Action("Registration", "Account")" method="post">
+        <div class="form__input">
+            <label class="text__form">Login</label>
+            <div>
+                @Html.TextBoxFor(n => n.Login)
+                @Html.ValidationMessageFor(n => n.Login)
+            </div>
+        </div>
+        <div class="form__input">
+            <label class="text__form">Password</label>
+            <div>
+                @Html.TextBoxFor(n => n.Password, new { @type = "password" })
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+        </div>
+
+        <div>
+            <button class="button" type="submit">Зарегестрироваться</button>
+            <input class="button" type="reset" value="Сбросить">
+
+        </div>
+    </form>
+</div>
+

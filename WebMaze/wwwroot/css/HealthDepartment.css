@@ -1,123 +1,372 @@
-﻿body {
-
-}
-/*Head*/
-.section {
+﻿/*Head*/
+.head__row {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-around;
-    padding: 10px;
-}
-
-.block {
-    display: flex;
-    justify-content: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
-}
-.block1 img{
-    margin: 10px;
+    margin: 0px 0px 20px 0px;
 }
 
-.wrap-block {
-    display: table;
-    vertical-align: middle;
-    width: 100%;
+.head__column {
+    margin: 1rem;
+}
+
+.head__column a:hover {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.head__element {
+    padding: 0.5rem;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 33.333%;
+    flex: 0 1 33.333%;
 }
 
 .button {
     background-color: #39eb7e;
     color: #ffffff;
     border-radius: 8px;
+    margin-top: 1rem;
     text-transform: uppercase;
     border: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
 }
 
-.main-text {
-    justify-content: center;
-    padding: 40px;
+.button:focus {
+    outline: none;
 }
-
 
 /*Menu*/
-.head {
-    margin-bottom: 40px;
+.menu {
+    background-color: #39eb7e;
 }
 
-.dws-menu *{
+.dws-menu * {
     margin: 0;
     padding: 0;
 }
 
 .dws-menu li,
-.dws-menu ol{
+.dws-menu ul {
     list-style: none;
 }
 
-.dws-menu > ul{
+.dws-menu > ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
 }
 
-.dws-menu > ul li a{
+.dws-menu > ul li a {
     display: block;
     background: #39eb7e;
     padding: 1em;
     color: black;
     text-decoration: none;
     text-transform: uppercase;
+   -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
-.dws-menu > ul li{
+.dws-menu > ul li {
     position: relative;
     border-right: 1px solid #ffd800;
 }
 
-.dws-menu > ul li >a i.fa{
-    position:absolute;
+.dws-menu > ul li > a i.fa {
+    position: absolute;
     top: 15px;
     left: 12px;
-    
 }
 
-.dws-menu > ul li:first-child{
+.dws-menu > ul li:first-child {
     border-left: 1px solid #ffd800;
 }
 
-.dws-menu > ul li:last-child{
+.dws-menu > ul li:last-child {
     border-right: 1px solid #ffd800;
 }
 
-.dws-menu li a:hover{
-    background: #00ff21;
+.dws-menu li a:hover {
+    background: #207dff;
     color: #ffff;
+    -webkit-box-shadow: 1px 5px 10px -5px black;
     box-shadow: 1px 5px 10px -5px black;
+    -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
-.dws-menu li ul{
-    position:absolute;
+.dws-menu li ul {
+    position: absolute;
     min-width: 150px;
     display: none;
 }
 
-.dws-menu li > ul li{
+.dws-menu li > ul li {
     border: 1px solid black;
-
 }
 
-.dws-menu li > ul li a{
+.dws-menu li > ul li a {
     padding: 10px;
     text-transform: none;
     background: #e9ea80;
 }
 
-.dws-menu li:hover > ul{
-    display:block;
+.dws-menu li:hover > ul {
+    display: block;
 }
 
+/*Section under menu*/
+.section__wrap {
+    width: 1110px;
+    height: 450px;
+    color: #fff;
+    background: #207dff;
+    display: flex;
+}
+
+.section__img{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url('../image/Mochalkin/Foto of doctors/Under_menu.jpg');
+}
+
+.section__row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section__title {
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #207dff;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/*Record form*/
+.partial__row {
+    display: flex;
+    justify-content: space-between;
+    height: 500px;
+}
+
+
+.partial__column-1 {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left;
+    background-image: url('../image/Mochalkin/Foto of doctors/Form.jpg');
+    width: 100%;
+    display: block;
+}
+
+
+.partial__column-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Form*/
+.form {
+    padding: 4rem 5rem;
+    text-align: center;
+}
+
+.form__header {
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #0079c8;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.form__input {
+    margin: 10px;
+    width: 100%;
+}
+
+.text__form {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #0079c8;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+
+/*Galery*/
+.foto-block {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-top: 3rem;
+}
+
+.foto-block__content {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #0079c8;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
 
 .fotorama {
     display: table;
     margin: 0 auto;
     padding-top: 3em;
 }
+
+/*Style Contacts*/
+.block__row {
+    display: flex;
+    flex-direction: column;
+}
+
+/*Section medical incurance*/
+.section__mi {
+    width: 1110px;
+    height: 450px;
+    color: #fff;
+    background: #207dff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.section__mi__img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url('../image/Mochalkin/Mi_form.jpg');
+}
+
+
+.section__mi__element {
+    padding: 15px;
+}
+
+.neon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.neon__button {
+    position: relative;
+    display: inline-block;
+    padding: 15px 30px;
+    color: #730d73;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 24px;
+    letter-spacing: 4px;
+    overflow: hidden;
+    transition: 0.2s;
+    font-weight: 600;
+}
+
+.neon__button__line{
+    position: absolute;
+    display: block;
+}
+
+.neon__button__line--right {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #39eb7e);
+}
+
+.neon__button:hover .neon__button__line--right {
+    top: 100%;
+    transition: 1s;
+    transition-delay: 0s;
+}
+
+
+.neon__button__line--top {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #39eb7e);
+}
+
+.neon__button:hover .neon__button__line--top {
+    left: 100%;
+    transition: 1s;
+    transition-delay: 0.25s;
+}
+
+.neon__button__line--bottom {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #39eb7e);
+}
+
+.neon__button:hover .neon__button__line--bottom {
+    right: 100%;
+    transition: 1s;
+    transition-delay: 0.25s;
+}
+
+
+.neon__button__line--left {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(0deg, transparent, #39eb7e);
+}
+
+.neon__button:hover .neon__button__line--left {
+    bottom: 100%;
+    transition: 1s;
+    transition-delay: 0s;
+}
+
+.neon__button:hover {
+    box-shadow: 0 0 10px #39eb7e, 0 0 40px #39eb7e;
+    background-color: #39eb7e;
+    color: #730d73;
+    transition-delay: 1s;
+}
+
+/*Validation*/
+.input-validation-error {
+    border-color: red;
+}
+
+.field-validation-error {
+    font-size: 10px;
+    color: #1acd88;
+}
+
