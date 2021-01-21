@@ -83,19 +83,19 @@ $(document).ready(function () {
                             $("#get-citizen-user-names").hide();
                             $("#ready-citizen-user-name").show().find("input").val(data[item]);
 
-                            $("#ready-citizen-user-name a").click(function () {
-                                // Cancel
-                                $("#get-citizen-user-names").show();
-                                $("#ready-citizen-user-name").hide();
-                                thisInput.val("");
-                            });
-
                             $(".user-suggest-temp").remove();
                         });
                     }
                 }
             });
         }
+    });
+
+    $("#ready-citizen-user-name a").click(function () {
+        // Cancel
+        $("#get-citizen-user-names").show();
+        $("#ready-citizen-user-name").hide();
+        thisInput.val("");
     });
 });
 
