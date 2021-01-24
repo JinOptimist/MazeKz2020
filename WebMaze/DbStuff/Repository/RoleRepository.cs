@@ -16,5 +16,10 @@ namespace WebMaze.DbStuff.Repository
         {
             return dbSet.SingleOrDefault(role => role.Name == roleName);
         }
+
+        public bool RoleExists(string roleName)
+        {
+            return GetRoleByName(roleName) != null;
+        }
     }
 }

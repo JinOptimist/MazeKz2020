@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using WebMaze.DbStuff.Model;
 using WebMaze.DbStuff.Repository;
 using WebMaze.Services;
@@ -12,29 +13,55 @@ namespace WebMaze.DbStuff
 {
     public static class SeedExtension
     {
-        private static readonly List<CitizenUser> users;
-
-        private static readonly List<Role> roles;
-
-        static SeedExtension()
+        public static IHost Seed(this IHost host)
         {
-            roles = new List<Role>()
+            using (var scope = host.Services.CreateScope())
             {
-                new Role
+                AddIfNotExistRoles(scope);
+                AddIfNotExistAdmins(scope);
+
+                var webHostEnvironment = scope.ServiceProvider.GetService<IWebHostEnvironment>();
+
+                if (webHostEnvironment.IsDevelopment())
                 {
-                    Name = "Admin"
-                },
-                new Role
-                {
-                    Name = "Policeman"
-                },
-                new Role
-                {
-                    Name = "Doctor"
+                    new TestDataSeeder(scope).SeedData();
                 }
-            };
-            users = new List<CitizenUser>()
+            }
+
+            return host;
+        }
+
+        private static void AddIfNotExistRoles(IServiceScope scope)
+        {
+            var roleRepository = scope.ServiceProvider.GetService<RoleRepository>();
+
+            if (roleRepository == null)
             {
+                throw new Exception("Cannot get RoleRepository from ServiceProvider.");
+            }
+
+            var roleNames = new List<string> { "Admin", "Policeman", "Doctor" };
+
+            foreach (var roleName in roleNames)
+            {
+                if (!roleRepository.RoleExists(roleName))
+                {
+                    var newRole = new Role() { Name = roleName };
+                    roleRepository.Save(newRole);
+                }
+            }
+        }
+
+        private static void AddIfNotExistAdmins(IServiceScope scope)
+        {
+            var userService = scope.ServiceProvider.GetService<UserService>();
+
+            if (userService == null)
+            {
+                throw new Exception("Cannot get UserService from ServiceProvider.");
+            }
+
+            var admins = new List<CitizenUser> { 
                 new CitizenUser
                 {
                     Login = "Bill",
@@ -47,8 +74,7 @@ namespace WebMaze.DbStuff
                     Gender = "Male",
                     Email = "BillGates@example.com",
                     PhoneNumber = "0000000000",
-                    BirthDate = new DateTime(1955, 10, 28),
-                    Roles = roles.Where(role => role.Name == "Admin").ToList()
+                    BirthDate = new DateTime(1955, 10, 28)
                 },
                 new CitizenUser
                 {
@@ -62,8 +88,7 @@ namespace WebMaze.DbStuff
                     Gender = "Male",
                     Email = "ElonMusk@example.com",
                     PhoneNumber = "1111111111",
-                    BirthDate = new DateTime(1971, 7, 28),
-                    Roles = roles.Where(role => role.Name == "Admin").ToList()
+                    BirthDate = new DateTime(1971, 7, 28)
                 },
                 new CitizenUser
                 {
@@ -77,143 +102,19 @@ namespace WebMaze.DbStuff
                     Gender = "Male",
                     Email = "BjarneStroustrup@example.com",
                     PhoneNumber = "2222222222",
-                    BirthDate = new DateTime(1950, 12, 30),
-                    Roles = roles.Where(role => role.Name == "Admin").ToList()
-                },
-                new CitizenUser
-                {
-                    Login = "Tsoi",
-                    Password = "123",
-                    Balance = 300000,
-                    RegistrationDate = new DateTime(2020, 10, 28),
-                    LastLoginDate = new DateTime(2020, 10, 28),
-                    FirstName = "Alexey",
-                    LastName = "Tsoi",
-                    Gender = "Male",
-                    Email = "AlexeyTsoi@example.com",
-                    PhoneNumber = "3333333333",
-                    BirthDate = new DateTime(1977, 4, 2),
-                    Roles = roles.Where(role => role.Name == "Doctor").ToList()
-                },
-                new CitizenUser
-                {
-                    Login = "Chuck",
-                    Password = "123",
-                    Balance = 6000000,
-                    RegistrationDate = new DateTime(2020, 12, 30),
-                    LastLoginDate = new DateTime(2020, 12, 30),
-                    FirstName = "Chuck",
-                    LastName = "Norris",
-                    Gender = "Male",
-                    Email = "ChuckNorris@example.com",
-                    PhoneNumber = "4444444444",
-                    BirthDate = new DateTime(1940, 3, 10),
-                    Roles = roles.Where(role => role.Name == "Policeman").ToList()
-                },
-                new CitizenUser
-                {
-                    Login = "Ivan",
-                    Password = "123",
-                    Balance = 1000,
-                    RegistrationDate = new DateTime(2021, 1, 12),
-                    LastLoginDate = new DateTime(2021, 1, 12),
-                    FirstName = "Ivan",
-                    LastName = "Sokolov",
-                    Gender = "Male",
-                    Email = "IvanSokolov@example.com",
-                    PhoneNumber = "5555555555",
-                    BirthDate = new DateTime(1980, 5, 17)
-                },
-                new CitizenUser
-                {
-                    Login = "Anastasia",
-                    Password = "123",
-                    Balance = 30000,
-                    RegistrationDate = new DateTime(2021, 1, 15),
-                    LastLoginDate = new DateTime(2021, 1, 15),
-                    FirstName = "Anastasia",
-                    LastName = "Kuznecova",
-                    Gender = "Female",
-                    Email = "AnastasiaKuznecova@example.com",
-                    PhoneNumber = "66666666",
-                    BirthDate = new DateTime(1990, 11, 22)
-                },
-                new CitizenUser
-                {
-                    Login = "Arnold",
-                    Password = "123",
-                    Balance = 0,
-                    RegistrationDate = new DateTime(2021, 1, 16),
-                    LastLoginDate = new DateTime(2021, 1, 16),
-                    FirstName = "Arnold",
-                    LastName = "Goldenberg",
-                    Gender = "Male",
-                    Email = "ArnoldGoldenberg@example.com",
-                    PhoneNumber = "77777777",
-                    BirthDate = new DateTime(1977, 5, 10)
-                },
-                new CitizenUser
-                {
-                    Login = "Aigerim",
-                    Password = "123",
-                    Balance = 8000,
-                    RegistrationDate = new DateTime(2021, 1, 17),
-                    LastLoginDate = new DateTime(2021, 1, 17),
-                    FirstName = "Aigerim",
-                    LastName = "Alieva",
-                    Gender = "Female",
-                    Email = "AigerimAlieva@example.com",
-                    PhoneNumber = "8888888888",
-                    BirthDate = new DateTime(1983, 8, 3)
-                },
-                new CitizenUser
-                {
-                    Login = "Dias",
-                    Password = "123",
-                    Balance = 15000,
-                    RegistrationDate = new DateTime(2021, 1, 19),
-                    LastLoginDate = new DateTime(2021, 1, 19),
-                    FirstName = "Dias",
-                    LastName = "Karimov",
-                    Gender = "Male",
-                    Email = "DiasKarimov@example.com",
-                    PhoneNumber = "9999999999",
-                    BirthDate = new DateTime(2005, 10, 5)
-                }
-            };
-        }
+                    BirthDate = new DateTime(1950, 12, 30)
+                }, };
 
-        public static IHost Seed(this IHost host)
-        {
-            using (var scope = host.Services.CreateScope())
+            foreach (var admin in admins)
             {
-                var userService = scope.ServiceProvider.GetService<UserService>();
-                var roleRepository = scope.ServiceProvider.GetService<RoleRepository>();
+                var adminFromDb = userService.FindByLogin(admin.Login);
 
-                if (userService == null || roleRepository == null)
+                if (adminFromDb == null)
                 {
-                    throw new Exception("Cannot get services from ServiceProvider.");
-                }
-
-                var currentUsers = userService.GetUsers();
-
-                var adminExists = currentUsers.Any(user => user.Roles.Any(role => role.Name == "Admin"));
-
-                if (currentUsers.Count == 0 || !adminExists)
-                {
-                    foreach (var role in roles)
-                    {
-                        roleRepository.Save(role);
-                    }
-
-                    foreach (var user in users)
-                    {
-                        userService.Save(user);
-                    }
+                    userService.Save(admin);
+                    userService.AddToRole(admin, "Admin");
                 }
             }
-
-            return host;
         }
     }
 }

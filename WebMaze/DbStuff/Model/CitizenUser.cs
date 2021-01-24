@@ -44,7 +44,7 @@ namespace WebMaze.DbStuff.Model
 
         public virtual bool HaveChildren { get; set; }
 
-        public virtual List<Role> Roles { get; set; }
+        public virtual List<Role> Roles { get; set; } = new List<Role>();
 
         public virtual List<Adress> Adresses { get; set; }
 

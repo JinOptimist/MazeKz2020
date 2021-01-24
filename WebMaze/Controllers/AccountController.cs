@@ -81,24 +81,26 @@ namespace WebMaze.Controllers
             await HttpContext.SignInAsync(claimsPrincipal);
             */
 
-            try
+            if (ModelState.IsValid)
             {
-                await userService.SignInAsync(loginViewModel.Login, loginViewModel.Password, isPersistent: false);
+                var operationResult = await userService.SignInAsync(loginViewModel.Login, loginViewModel.Password, isPersistent: false);
+                if (operationResult.Succeeded)
+                {
+                    if (string.IsNullOrEmpty(loginViewModel.ReturnUrl))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    return Redirect(loginViewModel.ReturnUrl);
+                }
+
+                foreach (var error in operationResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
             }
-            catch (ValidationException exception)
-            {
-                ModelState.AddModelError("", exception.Message);
-                return View(loginViewModel);
-            }
-            
-            if (string.IsNullOrEmpty(loginViewModel.ReturnUrl))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return Redirect(loginViewModel.ReturnUrl);
-            }
+
+            return View(loginViewModel);
         }
 
         [HttpGet]
@@ -117,34 +119,14 @@ namespace WebMaze.Controllers
         [AllowAnonymous]
         public IActionResult Registration(RegistrationViewModel viewModel)
         {
-            /* Registration written by Pavel:
             if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
 
             var user = mapper.Map<CitizenUser>(viewModel);
-            citizenUserRepository.Save(user);
-            return View();
-            */
-
-            if (ModelState.IsValid)
-            {
-                var user = mapper.Map<CitizenUser>(viewModel);
-                try
-                {
-                    userService.Save(user);
-                }
-                catch (ValidationException exception)
-                {
-                    ModelState.AddModelError("", exception.Message);
-                    return View(viewModel);
-                }
-
-                return RedirectToAction(nameof(Login));
-            }
-
-            return View(viewModel);
+            userService.Save(user);
+            return RedirectToAction(nameof(Login));
         }
 
         [HttpGet]

@@ -55,7 +55,7 @@ namespace WebMaze.Controllers
         public IActionResult Delete(long id)
         {
             var role = roleRepository.Get(id);
-            
+
             if (role != null)
             {
                 roleRepository.Delete(id);
@@ -98,25 +98,19 @@ namespace WebMaze.Controllers
         [HttpPost]
         public IActionResult Edit(RoleModificationViewModel model)
         {
-            
+
             if (ModelState.IsValid)
             {
                 foreach (var userLogin in model.LoginsToAdd ?? new string[] { })
                 {
                     var user = userService.FindByLogin(userLogin);
-                    if (user != null)
-                    {
-                        userService.AddToRole(user, model.RoleName);
-                    }
+                    userService.AddToRole(user, model.RoleName);
                 }
 
                 foreach (var userLogin in model.LoginsToDelete ?? new string[] { })
                 {
                     var user = userService.FindByLogin(userLogin);
-                    if (user != null)
-                    {
-                        userService.RemoveFromRole(user, model.RoleName);
-                    }
+                    userService.RemoveFromRole(user, model.RoleName);
                 }
 
                 return RedirectToAction(nameof(Index));

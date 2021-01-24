@@ -17,15 +17,13 @@ namespace WebMaze.Services
     {
         private CitizenUserRepository citizenUserRepository;
         private RoleRepository roleRepository;
-        private UserValidator userValidator;
         private IHttpContextAccessor httpContextAccessor;
 
         public UserService(CitizenUserRepository citizenUserRepository, RoleRepository roleRepository,
-            UserValidator userValidator, IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor)
         {
             this.citizenUserRepository = citizenUserRepository;
             this.roleRepository = roleRepository;
-            this.userValidator = userValidator;
             this.httpContextAccessor = httpContextAccessor;
         }
 
@@ -60,7 +58,6 @@ namespace WebMaze.Services
 
         public virtual void Save(CitizenUser user)
         {
-            userValidator.Validate(user);
             citizenUserRepository.Save(user);
         }
 
@@ -71,18 +68,16 @@ namespace WebMaze.Services
 
         public virtual void ChangePassword(CitizenUser user, string oldPassword, string newPassword)
         {
-            userValidator.ValidatePassword(newPassword);
-            
             throw new NotImplementedException();
         }
 
-        public virtual async Task SignInAsync(string userName, string password, bool isPersistent)
+        public virtual async Task<OperationResult> SignInAsync(string userName, string password, bool isPersistent)
         {
             var user = citizenUserRepository.GetUserByNameAndPassword(userName, password);
 
             if (user == null)
             {
-                throw new ValidationException("Login or password is incorrect.");
+                return OperationResult.Failed("Login or password is incorrect.");
             }
 
             var claimsIdentity = new ClaimsIdentity(Startup.AuthMethod);
@@ -99,47 +94,61 @@ namespace WebMaze.Services
 
             await httpContextAccessor.HttpContext.SignInAsync(userPrincipal,
                 new AuthenticationProperties { IsPersistent = isPersistent });
+
+            return OperationResult.Success();
         }
 
         public virtual bool IsInRole(CitizenUser user, string roleName)
         {
+            return user.Roles.Any() && user.Roles.All(useRole => useRole.Name == roleName);
+        }
+
+        public virtual OperationResult AddToRole(CitizenUser user, string roleName)
+        {
             if (user == null)
             {
-                throw new ValidationException("Specified user does not exist.");
+                return OperationResult.Failed("Specified user does not exist.");
             }
 
             var role = roleRepository.GetRoleByName(roleName);
 
             if (role == null)
             {
-                throw new ValidationException("Specified role does not exist.");
+                return OperationResult.Failed("Specified role does not exist.");
             }
 
-            return user.Roles.Any(useRole => useRole.Name == roleName);
-        }
-
-        public virtual void AddToRole(CitizenUser user, string roleName)
-        {
             if (IsInRole(user, roleName))
             {
-                throw new ValidationException($"User {user.Login} is already in role = {roleName}");
+                return OperationResult.Failed($"User {user.Login} is already in role = {roleName}");
             }
 
-            var role = roleRepository.GetRoleByName(roleName);
             user.Roles.Add(role);
             citizenUserRepository.Save(user);
+            return OperationResult.Success();
         }
 
-        public virtual void RemoveFromRole(CitizenUser user, string roleName)
+        public virtual OperationResult RemoveFromRole(CitizenUser user, string roleName)
         {
-            if (!IsInRole(user, roleName))
+            if (user == null)
             {
-                throw new ValidationException($"User {user.Login} is not in role = {roleName}");
+                return OperationResult.Failed("Specified user does not exist.");
             }
 
             var role = roleRepository.GetRoleByName(roleName);
+
+            if (role == null)
+            {
+                return OperationResult.Failed("Specified role does not exist.");
+            }
+
+            if (!IsInRole(user, roleName))
+            {
+                return OperationResult.Failed($"User {user.Login} is not in role = {roleName}");
+            }
+
             user.Roles.Remove(role);
             citizenUserRepository.Save(user);
+            return OperationResult.Success();
         }
     }
 }
