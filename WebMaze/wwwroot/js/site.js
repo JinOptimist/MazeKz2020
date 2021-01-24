@@ -1,8 +1,6 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-// Write your JavaScript code.
-
 (function () {
     'use strict';
     window.addEventListener('load', function () {
@@ -36,10 +34,49 @@ $(document).ready(function () {
         $(".needs-validation").toggleClass("was-validated");
     }
 
-    $("#searchViolation").submit(function (e) {
+    $('.prevent-enter').on('keyup keypress', function (e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    $("#cancel-get-user").hide().click(function () {
+        // Cancel
+        $("#get-citizen-user-names").removeAttr('readonly').val("").parent().toggleClass('col-md-8 col-md-6');
+        $(this).hide();
+    });
+
+    // НЕ РАБОТАЕТ без скриптов, объявленные в _PoliceLayout.cshtml
+    $('#get-citizen-user-names').autocomplete({
+        source: function (request, respone) {
+            $.ajax({
+                type: "GET",
+                url: "/api/violation/SearchUsers/" + $('#get-citizen-user-names').val(),
+                success: function (data) {
+                    respone($.map(data, function (item) {
+                        return {
+                            value: item.name,
+                            label: item.name,
+                            login: item.login
+                        }
+                    }))
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#get-citizen-user-names').attr('readonly', 'true').parent().toggleClass('col-md-8 col-md-6');
+            $("#cancel-get-user").show();
+            $('input[name="login"]').val(ui.item.login);
+        }
+    });
+
+    $("#searchViolation :input").change(function (e) {
+        const form = $(this).closest('form');
         e.preventDefault();
 
-        var unindexed_array = $(this).serializeArray();
+        var unindexed_array = form.serializeArray();
         var indexed_array = {};
         $.map(unindexed_array, function (n, i) {
             indexed_array[n['name']] = n['value'];
@@ -47,7 +84,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: $(this).attr("action"),
+            url: form.attr("action"),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -56,70 +93,31 @@ $(document).ready(function () {
             success: function (data) {
                 AddViolationItems(data.violations);
                 $("#violation-counter").text("Найдено результатов: " + data.foundCount + " (" + data.foundOnThisPage + " на этой странице)");
+                if (data.violations.length == 0) {
+                $("#violation-counter").text("");
+                    $(".violation-not-found").show();
+                }
             },
             error: function (data) {
-                $(".violations-list-container .violation-not-found").show();
+                $(".violation-not-found").show();
             }
         });
     });
 
-    $("#get-citizen-user-names").on("paste input propertychange", function () {
-        $(".user-suggest-temp").remove();
-
-        const thisInput = $(this);
-
-        if (thisInput.val().length != 0) {
-            $.ajax({
-                type: "GET",
-                url: "/api/violation/SearchUsers/" + thisInput.val(),
-                success: function (data) {
-                    const sample = $(".user-suggestions .user-suggest-example-item");
-                    const parent = $(".user-suggestions");
-                    for (const item in data) {
-                        let clone = sample.clone().toggleClass("user-suggest-example-item user-suggest-temp").show().appendTo(parent);
-                        clone.text(data[item]);
-
-                        clone.click(function () {
-                            $("#get-citizen-user-names").hide();
-                            $("#ready-citizen-user-name").show().find("input").val(data[item]);
-
-                            $(".user-suggest-temp").remove();
-                        });
-                    }
-                }
-            });
-        }
-    });
-
-    $("#ready-citizen-user-name a").click(function () {
-        // Cancel
-        $("#get-citizen-user-names").show();
-        $("#ready-citizen-user-name").hide();
-        thisInput.val("");
-    });
+    if ($(".violations-list-container .violation-list-item").length != 0) {
+        $.get('/api/violation/', function (data) {
+            AddViolationItems(data);
+            if (data.length == 0) {
+                $(".violation-not-found").show();
+            }
+        });
+    }
 });
 
-$(document).ready(
-    async function () {
-        if ($(".violations-list-container .violation-list-item") != null) {
-            const respone = await fetch("/api/violation",
-                {
-                    method: "GET",
-                    headers: { "Accept": "application/json" }
-                });
-
-            if (respone.ok === true) {
-                AddViolationItems(await respone.json());
-            }
-            else {
-                $(".violations-list-container .violation-not-found").show();
-            }
-        }
-    });
-
+// Заполнение данных Violations к нужным местам
 function AddViolationItems(data) {
     let cloneSample = $(".violations-list-container .violation-list-item");
-    if (cloneSample != null) {
+    if (cloneSample.length != 0) {
         const parent = $(".violations-list-container");
 
         $(".v-temp-item").remove();

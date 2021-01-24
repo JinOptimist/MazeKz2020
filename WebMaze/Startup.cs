@@ -60,7 +60,7 @@ namespace WebMaze
                     config.LoginPath = "/Account/Login";
                     config.AccessDeniedPath = "/Account/AccessDenied";
                 })
-                .AddCookie(PoliceAuthMethod, config => 
+                .AddCookie(PoliceAuthMethod, config =>
                 {
                     config.Cookie.Name = "PUser";
                     config.LoginPath = "/Police/Login";
@@ -70,7 +70,7 @@ namespace WebMaze
 
             RegistrationRepository(services);
 
-            services.AddScoped(s => new UserPasswordValidator(requiredLength:3));
+            services.AddScoped(s => new UserPasswordValidator(requiredLength: 3));
 
             services.AddScoped(s => new UserService(s.GetService<CitizenUserRepository>(),
                 s.GetService<RoleRepository>(),
@@ -79,7 +79,7 @@ namespace WebMaze
 
             services.AddHttpContextAccessor();
 
-            services.AddControllersWithViews().AddJsonOptions(opt => 
+            services.AddControllersWithViews().AddJsonOptions(opt =>
             {
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
@@ -125,7 +125,6 @@ namespace WebMaze
             configurationExpression.CreateMap<RecordForm, ListRecordFormViewModel>();
             configurationExpression.CreateMap<ListRecordFormViewModel, RecordForm>();
 
-            
             configurationExpression.CreateMap<UserTask, UserTaskViewModel>();
             configurationExpression.CreateMap<UserTaskViewModel, UserTask>();
 
@@ -141,6 +140,9 @@ namespace WebMaze
             configurationExpression.CreateMap<ViolationRegistrationViewModel, Violation>();
 
             configurationExpression.CreateMap<PoliceCertificate, PoliceCertificateItemViewModel>();
+
+            configurationExpression.CreateMap<CitizenUser, FoundUsersViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(u => u.FirstName + " " + u.LastName));
 
             configurationExpression.CreateMap<MedicalInsurance, MedicalInsuranceViewModel>();
             configurationExpression.CreateMap<MedicalInsuranceViewModel, MedicalInsurance>();

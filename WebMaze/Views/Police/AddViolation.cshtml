@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model WebMaze.Models.Police.Violation.ViolationRegistrationViewModel
 @{
     Layout = "_PoliceLayout";
 }
@@ -9,24 +9,43 @@
 }
 
 <h2 class="mb-3">Сообщение о нарушении</h2>
-<form id="add-violation" method="post">
-    <div class="form-group row mb-3">
-        <label class="col-4">Обвинитель: </label>
-        <div class="col-8 mb-3">
-            <p class="form-control">@Model</p>
-        </div>
-        <label class="col-4">Выберите нарушителя:</label>
-        <div class="col-8">
-            <input id="get-citizen-user-names" type="search" class="form-control" placeholder="Обвиняемый" maxlength="50" />
-            <div class="row" id="ready-citizen-user-name" style="display: none!important;">
-                <div class="col-10">
-                    <input class="form-control" type="text" readonly required />
-                </div>
-                <button class="col-2 py-1 btn btn-link">Отмена</button>
-            </div>
-            <div class="list-group user-suggestions">
-                <button class="btn-link user-suggest-example-item list-group-item text-left" type="button" style="display: none!important;"></button>
-            </div>
+<form id="add-violation" method="post" class="prevent-enter needs-validation" novalidate>
+    <input name="date" type="hidden" value="@Model.Date.ToString("yyyy-MM-dd")" />
+    <input name="login" type="hidden" />
+    <div class="form-group row">
+        <label class="col-md-4">Обвинитель:</label>
+        <div class="col-md-8">
+            <p class="form-control">@Model.UserLogin</p>
         </div>
     </div>
+    <div class="form-group row">
+        <label class="col-md-4">Дата:</label>
+        <div class="col-md-8">
+            <p class="form-control">@Model.Date.ToString("dd MMMM yyyy")</p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Выберите нарушителя:</label>
+        <div class="col-md-8">
+            <input id="get-citizen-user-names" list="user-suggestions" class="form-control" placeholder="Обвиняемый" maxlength="50" required />
+        </div>
+        <button id="cancel-get-user" type="button" class="btn btn-link col">Отменить</button>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Выберите тип нарушения:</label>
+        <div class="col-md-8">
+            <select name="offensetype" class="form-control">
+                <option value="administrative" selected>Административное правонарушение</option>
+                <option value="criminal">Уголовное правонарушение</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Доп. информация:</label>
+        <div class="col-md-8">
+            <textarea class="form-control" placeholder="Расскажите в подробностях, что случилось, и почему этот человек заслуживает наказание."
+                      rows="5"></textarea>
+        </div>
+    </div>
+    <button class="btn btn-danger" type="submit">Отправить</button>
 </form>

@@ -30,12 +30,12 @@ namespace WebMaze.DbStuff.Repository
             return dbSet.SingleOrDefault(x => x.Password == password);
         }
 
-        public IEnumerable<string> GetFamiliarUserNames(string userName)
+        public IEnumerable<CitizenUser> GetFamiliarUserNames(string userName)
         {
             userName = userName.Trim().Replace(" ", string.Empty);
             return from u in dbSet
-                   where (u.FirstName + u.LastName).Contains(userName)
-                   select u.FirstName + " " + u.LastName;
+                   where (u.FirstName + u.LastName).Contains(userName) || u.Login.Contains(userName)
+                   select u;
         }
     }
 }

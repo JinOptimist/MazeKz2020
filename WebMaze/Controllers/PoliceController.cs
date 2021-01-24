@@ -13,6 +13,7 @@ using WebMaze.DbStuff.Repository;
 using WebMaze.Models.Account;
 using WebMaze.Models.PoliceCertificate;
 using WebMaze.Models.Police;
+using WebMaze.Models.Police.Violation;
 
 namespace WebMaze.Controllers
 {
@@ -134,7 +135,13 @@ namespace WebMaze.Controllers
         public IActionResult AddViolation()
         {
             var user = cuRepo.GetUserByLogin(User.Identity.Name);
-            return View((object)$"{user.FirstName} {user.LastName}");
+            var result = new ViolationRegistrationViewModel()
+            {
+                UserLogin = $"{user.FirstName} {user.LastName}",
+                Date = DateTime.Today
+            };
+
+            return View(result);
         }
 
         // Anonymous methods ------------------------------------------------

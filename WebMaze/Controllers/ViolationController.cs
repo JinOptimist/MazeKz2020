@@ -42,14 +42,14 @@ namespace WebMaze.Controllers
         }
 
         [HttpGet("SearchUsers/{word}")]
-        public IEnumerable<string> GetUsersByName(string word)
+        public IEnumerable<FoundUsersViewModel> GetUsersByName(string word)
         {
             if (string.IsNullOrEmpty(word))
             {
-                return new string[] { string.Empty };
+                return new FoundUsersViewModel[] { new FoundUsersViewModel { Login = string.Empty, Name = string.Empty } };
             }
 
-            return userRepo.GetFamiliarUserNames(word);
+            return mapper.Map<IEnumerable<FoundUsersViewModel>>(userRepo.GetFamiliarUserNames(word));
         }
 
         [HttpPost("Search")]
