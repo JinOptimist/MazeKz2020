@@ -34,7 +34,7 @@ namespace WebMaze.Services
                 validationMessages += Environment.NewLine + invalidUserName;
             }
 
-            var owner = citizenUserRepository.GetUserByName(user.Login);
+            var owner = citizenUserRepository.GetUserByLogin(user.Login);
 
             if (owner != null && owner.Id != user.Id)
             {

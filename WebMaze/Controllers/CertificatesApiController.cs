@@ -57,7 +57,7 @@ namespace WebMaze.Controllers
             // Exclude property from binding.
             certificateViewModel.Id = 0;
 
-            var citizenUser = citizenUserRepository.GetUserByName(certificateViewModel.OwnerLogin);
+            var citizenUser = citizenUserRepository.GetUserByLogin(certificateViewModel.OwnerLogin);
             
             if (citizenUser == null)
             {
