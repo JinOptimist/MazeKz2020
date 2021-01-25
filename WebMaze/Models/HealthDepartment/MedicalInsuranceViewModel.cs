@@ -11,6 +11,8 @@ namespace WebMaze.Models.HealthDepartment
 {
     public class MedicalInsuranceViewModel
     {
+        public long Id { get; set; }
+
         [Required(ErrorMessage = "Это поле обязательно для заполнения")]
         [CheckOwnerId(ErrorMessage = "Не найден")]
         public long OwnerId { get; set; }

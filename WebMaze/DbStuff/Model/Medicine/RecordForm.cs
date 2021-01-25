@@ -12,7 +12,8 @@ namespace WebMaze.DbStuff.Model.Medicine
 
         public virtual string LastName { get; set; }
 
-        [DataType(DataType.PhoneNumber)]
         public virtual string PhoneNumber { get; set; }
+
+        public virtual CitizenUser CitizenId { get; set; }
     }
 }

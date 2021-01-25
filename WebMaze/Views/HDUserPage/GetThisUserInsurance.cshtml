@@ -1,0 +1,31 @@
+﻿@model WebMaze.Models.HealthDepartment.UserPageViewModel
+@using WebMaze.Services
+@inject UserService userService
+
+<body>
+    <div>
+        <strong>Сведения о страховке</strong>
+        <br />
+        <p>
+
+            Номер страхового полиса: @Html.DisplayFor(x => x.MedicalInsurance.Id)
+        </p>
+        <p>
+            Ваш Id №: @Html.DisplayFor(x => x.MedicalInsurance.OwnerId)
+        </p>
+        <p>
+            Дата выдачи страховки: @Html.DisplayFor(x => x.MedicalInsurance.StartPeriod)
+        </p>
+        <p>
+            Дата окончания страховки: @Html.DisplayFor(x => x.MedicalInsurance.EndPeriod)
+        </p>
+        <p>
+            Тип страховки: @Html.DisplayFor(x => x.MedicalInsurance.Type)
+        </p>
+        <div class="head__element">
+            <a href="/HDUserPage/EditThisUserInsurance" class="button btn-lg active" role="button" aria-pressed="true">Изменить страховку</a>
+        </div>
+    </div>
+    
+   
+</body>

@@ -1,0 +1,50 @@
+﻿@model List<WebMaze.Models.Certificates.CertificateViewModel>
+
+<h2>All certificates</h2>
+<a asp-action="Create" class="btn btn-sm btn-primary">Create certificate</a>
+<a asp-action="Get" class="btn btn-sm btn-secondary">Get certificate</a>
+ 
+<table class="table table-sm table-striped table-bordered m-2">
+    <thead>
+    <tr>
+        <th><label asp-for="@Model[0].Id"></label></th>
+        <th><label asp-for="@Model[0].Name"></label></th>
+        <th><label asp-for="@Model[0].OwnerLogin"></label></th>
+        <th><label asp-for="@Model[0].Description"></label></th>
+        <th><label asp-for="@Model[0].ExpiryDate"></label></th>
+        <th><label asp-for="@Model[0].ImageUrl"></label></th>
+        <th><label asp-for="@Model[0].IssueDate"></label></th>
+        <th><label asp-for="@Model[0].IssuedBy"></label></th>
+        <th><label asp-for="@Model[0].Status"></label></th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var certificate in Model)
+    {
+        <tr>
+            <td>@certificate.Id</td>
+            <td>@certificate.Name</td>
+            <td>@certificate.OwnerLogin</td>
+            <td>@certificate.Description</td>
+            <td>@certificate.ExpiryDate</td>
+            <td>@certificate.ImageUrl</td>
+            <td>@certificate.IssueDate</td>
+            <td>@certificate.IssuedBy</td>
+            <td>@certificate.Status</td>
+            <td>
+                <a asp-action="Update" asp-route-id="@certificate.Id">
+                    Update
+                </a>
+            </td>
+            <td>
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" name="id" value="@certificate.Id" />
+                    <button type="submit" class="btn btn-danger btn-sm btn-block">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

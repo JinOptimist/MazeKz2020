@@ -5,6 +5,7 @@
     Страница регистрации
 
     <form action="@Url.Action("Registration", "Account")" method="post">
+        @Html.ValidationSummary(true)
         <div>
             @Html.DisplayNameFor(x => x.Login):
             @Html.TextBoxFor(x => x.Login)

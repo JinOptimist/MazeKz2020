@@ -1,24 +1,35 @@
 ﻿@using WebMaze.Models.HealthDepartment.MenuPages
 
 @model MedicineNewsViewModel
-<!--Header-->
+    <!--Header-->
 <div class="wrap-head">
     <div class="head">
         <div class="head__row">
             <div class="head__column head__column-1">
                 <div class="head__element">
                     <p><a href="/HealthDepartment/HealthDepartment"><img src="~/image/Mochalkin/Logo.jpg" /></a></p>
+                    <p><a href="/HDManager/ManagerPage"><img src="~/image/Mochalkin/Logo.jpg" /></a></p>
+
                 </div>
             </div>
             <div class="head__column head__column-2">
                 <div class="head__element">
-                    <h1>Департамент здравоохранения</h1>
+                    <h1 class="section__title">Департамент здравоохранения</h1>
                 </div>
             </div>
             <div class="head__column head__column-3">
-                <div class="head__element">
-                    <a href="/HealthDepartment/RecordForm" class="button btn-lg active" role="button" aria-pressed="true">Запись на приём</a>
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="head__element">
+                        <a href="/HealthDepartment/Logout" class="button btn-lg active" role="button" aria-pressed="true">Выход</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="head__element">
+                        <a href="/HealthDepartment/Login" class="button btn-lg active" role="button" aria-pressed="true">Вход</a>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -28,29 +39,67 @@
 <div class="menu">
     <naw class="dws-menu">
         <ul>
-            <li>
-                <a href="/HealthDepartment/HotLine"><i class="fa fa-"></i>Горячая линия</a>
-            </li>
-            <li>
-                <a href="/HealthDepartment/MedicineNews"><i class="fa fa-"></i>Новости</a>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-"></i>Организации</a>
-                <ul>
-                    <li>
-                        <a href="/HealthDepartment/GetListHospital">Поликлиники</a>
-                    </li>
-                    <li>
-                        <a href="/HealthDepartment/GetListSchool">Образование</a>
-                    </li>
-                    <li>
-                        <a href="/HealthDepartment/GetListMorgue">Морги</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="/HealthDepartment/Contacts"><i class="fa fa-"></i>Контакты</a>
-            </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a href="/HDUserPage/UserPage"><i class="fa fa-"></i>Моя страница</a>
+                </li>
+                <li>
+                    <a href="/HDDoctorPage/DoctorPage"><i class="fa fa-"></i>Страница дока</a>
+                </li>
+                <li>
+                    <a href="/HDManagerPage/ManagerPage"><i class="fa fa-"></i>Страница упра</a>
+                </li>
+                <li>
+                    <a href="/HealthDepartment/HotLine"><i class="fa fa-"></i>Горячая линия</a>
+                </li>
+                <li>
+                    <a href="/HealthDepartment/MedicineNews"><i class="fa fa-"></i>Новости</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-"></i>Организации</a>
+                    <ul>
+                        <li>
+                            <a href="/HealthDepartment/GetListHospital">Поликлиники</a>
+                        </li>
+                        <li>
+                            <a href="/HealthDepartment/GetListSchool">Образование</a>
+                        </li>
+                        <li>
+                            <a href="/HealthDepartment/GetListMorgue">Морги</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/HealthDepartment/Contacts"><i class="fa fa-"></i>Контакты</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="/HealthDepartment/HotLine"><i class="fa fa-"></i>Горячая линия</a>
+                </li>
+                <li>
+                    <a href="/HealthDepartment/MedicineNews"><i class="fa fa-"></i>Новости</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-"></i>Организации</a>
+                    <ul>
+                        <li>
+                            <a href="/HealthDepartment/GetListHospital">Поликлиники</a>
+                        </li>
+                        <li>
+                            <a href="/HealthDepartment/GetListSchool">Образование</a>
+                        </li>
+                        <li>
+                            <a href="/HealthDepartment/GetListMorgue">Морги</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/HealthDepartment/Contacts"><i class="fa fa-"></i>Контакты</a>
+                </li>
+            }
         </ul>
     </naw>
 </div>
@@ -88,7 +137,7 @@
                 <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392802">Глава Европейского бюро ВОЗ побывал в Киеве и Тбилиси</a></h4>
                 <div class="media-text">
                     <div class="hidden-xs hidden-sm">
-                        Сегодня директор Европейского регионального бюро Всемирной организации здравоохранения (ВОЗ) Ханс Клюге 
+                        Сегодня директор Европейского регионального бюро Всемирной организации здравоохранения (ВОЗ) Ханс Клюге
                         прибыл в Тбилиси, а ранее на этой неделе побывал в Киеве.
                     </div>
                     <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392802">Читать подробнее</a>
@@ -101,7 +150,7 @@
                 <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392652">Учреждения ООН помогают Казахстану справиться с пандемией COVID-19</a></h4>
                 <div class="media-text">
                     <div class="hidden-xs hidden-sm">
-                        С начала пандемии Всемирная организация здравоохранения направила в Казахстан 76 тонн медицинских материалов 
+                        С начала пандемии Всемирная организация здравоохранения направила в Казахстан 76 тонн медицинских материалов
                         для борьбы с пандемией.
                     </div>
                     <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392652">Читать подробнее</a>
@@ -114,7 +163,7 @@
                 <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392592">Учителя должны быть вакцинированы против COVID-19 в приоритетном порядке</a></h4>
                 <div class="media-text">
                     <div class="hidden-xs hidden-sm">
-                        Учителя и технический персонал школ должны быть в числе тех, кто сможет получить вакцину от коронавируса в 
+                        Учителя и технический персонал школ должны быть в числе тех, кто сможет получить вакцину от коронавируса в
                         первую очередь.
                     </div>
                     <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392592">Читать подробнее</a>
@@ -127,8 +176,8 @@
                 <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392562">Онкологические заболевания в 2020 году: 19,3 млн новых случаев и 10 млн летальных исходов</a></h4>
                 <div class="media-text">
                     <div class="hidden-xs hidden-sm">
-                        Специалисты Международного агентства по изучению рака представили во вторник новые данные по заболеваемости 
-                        раком в 185 странах: число новых случаев в 2020 году достигнет 19,3 миллиона, и 10 млн человек скончаются от 
+                        Специалисты Международного агентства по изучению рака представили во вторник новые данные по заболеваемости
+                        раком в 185 странах: число новых случаев в 2020 году достигнет 19,3 миллиона, и 10 млн человек скончаются от
                         этой болезни.
                     </div>
                     <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392562">Читать подробнее</a>
@@ -177,7 +226,7 @@
                 <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1392032">«Решай и бросай!» Новая кампания ВОЗ поможет бросить курить 100 миллионам человек</a></h4>
                 <div class="media-text">
                     <div class="hidden-xs hidden-sm">
-                        Ежегодно из-за болезней, связанных с курением, умирает 8 миллионов человек. 
+                        Ежегодно из-за болезней, связанных с курением, умирает 8 миллионов человек.
                         Такова официальная статистика Всемирной организации здравоохранения (ВОЗ).
                     </div>
                     <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1392032">Читать подробнее</a>
@@ -190,7 +239,7 @@
                 <h4 class="media-heading"><a href="https://news.un.org/ru/story/2020/12/1391832">Вакцины от COVID-19: как извлечь максимальную выгоду</a></h4>
                 <div class="media-text">
                     <div class="hidden-xs hidden-sm">
-                        Если удастся обеспечить всеобщий доступ к вакцинам от COVID-19, то уже в следующем году десять ведущих 
+                        Если удастся обеспечить всеобщий доступ к вакцинам от COVID-19, то уже в следующем году десять ведущих
                         экономик мира получат совокупный доход в 153 млрд долларов, а к 2025 году он составит 466 млрд долларов.
                     </div>
                     <a class="read-more-link" href="https://news.un.org/ru/story/2020/12/1391832">Читать подробнее</a>

@@ -15,9 +15,16 @@
             <div class="partial__element">
                 <div class="partial__content">
                     <div class="form">
-                        <h1 class="partial__header">Запись на приём в департамент</h1>
+                        <h1 class="form__header">Запись на приём в департамент</h1>
 
                         <form action="@Url.Action("RecordForm", "HealthDepartment")" method="post">
+                            <div class="partial__input">
+                                <label class="text__form">ID гражданина</label>
+                                <div class="form__input">
+                                    @Html.TextBoxFor(x => x.CitizenId)
+                                    @Html.ValidationMessageFor(n => n.CitizenId)
+                                </div>
+                            </div>
                             <div class="partial__input">
                                 <label class="text__form">Имя</label>
                                 <div class="form__input">

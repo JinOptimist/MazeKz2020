@@ -43,6 +43,11 @@
     outline: none;
 }
 
+.button a:hover{
+    text-decoration: none;
+    color: #ffffff;
+}
+
 /*Menu*/
 .menu {
     background-color: #39eb7e;
@@ -162,7 +167,7 @@
 .partial__row {
     display: flex;
     justify-content: space-between;
-    height: 500px;
+    height: 550px;
 }
 
 
@@ -370,3 +375,7 @@
     color: #1acd88;
 }
 
+/*Breadcrumb*/
+.breadcrumb {
+    background-color: #ece89d;
+}

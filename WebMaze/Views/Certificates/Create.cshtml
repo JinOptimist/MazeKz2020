@@ -1,0 +1,74 @@
+﻿@using WebMaze.DbStuff.Model.UserAccount
+@model WebMaze.Models.Certificates.CertificateViewModel
+
+<h2>Create a Certificate <a asp-action="Index" class="btn btn-sm btn-secondary">Back</a></h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl"></label>
+        <input asp-for="ImageUrl" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ExpiryDate"></label>
+        <input asp-for="ExpiryDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="IssueDate"></label>
+        <input asp-for="IssueDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="IssuedBy"></label>
+        <input asp-for="IssuedBy" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Status"></label>
+        <select asp-for="Status" asp-items="Html.GetEnumSelectList<CertificateStatus>()">123</select>
+    </div>
+    <div class="form-group">
+        <label asp-for="OwnerLogin"></label>
+        <input asp-for="OwnerLogin" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-sm btn-primary">Create</button>
+    </div>
+</form>
+
+@if (Model != null)
+{
+    <table class="table table-sm table-striped table-bordered m-2">
+        <thead>
+            <tr>
+                <th><label asp-for="Id"></label></th>
+                <th><label asp-for="Name"></label></th>
+                <th><label asp-for="OwnerLogin"></label></th>
+                <th><label asp-for="Description"></label></th>
+                <th><label asp-for="ExpiryDate"></label></th>
+                <th><label asp-for="ImageUrl"></label></th>
+                <th><label asp-for="IssueDate"></label></th>
+                <th><label asp-for="IssuedBy"></label></th>
+                <th><label asp-for="Status"></label></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.Name</td>
+                <td>@Model.OwnerLogin</td>
+                <td>@Model.Description</td>
+                <td>@Model.ExpiryDate</td>
+                <td>@Model.ImageUrl</td>
+                <td>@Model.IssueDate</td>
+                <td>@Model.IssuedBy</td>
+                <td>@Model.Status</td>
+            </tr>
+        </tbody>
+    </table>
+}

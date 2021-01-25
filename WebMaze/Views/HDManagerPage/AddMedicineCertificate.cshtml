@@ -1,0 +1,37 @@
+﻿@model WebMaze.Models.HDManager.MedicineCertificateViewModel
+
+<body>
+    <div class="form">
+        <h1 class="form__header">Добавить сертификат пользователю</h1>
+        <form action="@Url.Action("AddMedicineCertificate", "HDManagerPage")" method="post">
+            <div class="form__input">
+                <label class="text__form">Id пользователя:</label>
+                <input type="text" name="UserId" />
+                @Html.ValidationMessageFor(x => x.UserId)
+
+            </div>
+            <div class="form__input">
+                <label class="text__form">Должность:</label>
+                <input type="text" name="Position" />
+
+            </div>
+            <div class="form__input">
+                <label class="text__form">Дата выдачи сертификата:</label>
+                <input type="date" name="DateOfIssue" />
+                @Html.ValidationMessageFor(x => x.DateOfIssue)
+
+            </div>
+            <div class="form__input">
+                <label class="text__form">Дата окончания сертификата</label>
+                <input type="date" name="DateExpiration" />
+                @Html.ValidationMessageFor(x => x.DateExpiration)
+
+            </div>
+            <div>
+                <button class="button" type="submit">Добавить</button>
+                <button class="button" type="reset">Сбросить</button>
+
+            </div>
+        </form>
+    </div>
+</body>

@@ -5,6 +5,7 @@
     <h1 class="form__header">Вход в аккаунт</h1>
 
     <form action="@Url.Action("Login", "HealthDepartment")" method="post">
+        @Html.HiddenFor(x => x.ReturnUrl)
         <div class="form__input">
             <label class="text__form">Login</label>
             <div>

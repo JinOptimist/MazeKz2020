@@ -1,0 +1,45 @@
+﻿@model WebMaze.Models.Certificates.CertificateViewModel
+
+<h2>Get Certificate by Id <a asp-action="Index" class="btn btn-sm btn-primary">Back</a></h2>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Id"></label>
+        <input asp-for="Id" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-sm btn-primary">Get Certificate</button>
+    </div>
+</form>
+
+@if (Model != null)
+{
+    <h2>Certificate</h2>
+    <table class="table table-sm table-striped table-bordered m-2">
+        <thead>
+            <tr>
+                <th><label asp-for="Id"></label></th>
+                <th><label asp-for="Name"></label></th>
+                <th><label asp-for="OwnerLogin"></label></th>
+                <th><label asp-for="Description"></label></th>
+                <th><label asp-for="ExpiryDate"></label></th>
+                <th><label asp-for="ImageUrl"></label></th>
+                <th><label asp-for="IssueDate"></label></th>
+                <th><label asp-for="IssuedBy"></label></th>
+                <th><label asp-for="Status"></label></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.Name</td>
+                <td>@Model.OwnerLogin</td>
+                <td>@Model.Description</td>
+                <td>@Model.ExpiryDate</td>
+                <td>@Model.ImageUrl</td>
+                <td>@Model.IssueDate</td>
+                <td>@Model.IssuedBy</td>
+                <td>@Model.Status</td>
+            </tr>
+        </tbody>
+    </table>
+}
