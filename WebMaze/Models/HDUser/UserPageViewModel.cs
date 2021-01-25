@@ -11,11 +11,12 @@ namespace WebMaze.Models.HealthDepartment
     public class UserPageViewModel
     {
         public long Id { get; set; }
+        
         public virtual string Login { get; set; }
         public virtual string ReturnUrl { get; set; }
        
         public MedicalInsuranceViewModel MedicalInsurance { get; set; }
-
+        
         public List<RecordFormViewModel> RecordForms { get; set; }
     }
 }

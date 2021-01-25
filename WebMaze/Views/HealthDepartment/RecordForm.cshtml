@@ -43,6 +43,12 @@
                                     @Html.TextBoxFor(n => n.PhoneNumber)
                                 </div>
                             </div>
+                            <div class="partial__input">
+                                <label class="text__form">Желаемая дата</label>
+                                <div class="form__input">
+                                    @Html.EditorFor(n => n.DateTime)
+                                </div>
+                            </div>
                             <div>
                                 <button class="button" type="submit">Записаться</button>
                                 <button class="button" type="reset">Сбросить</button>

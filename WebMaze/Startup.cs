@@ -176,6 +176,9 @@ namespace WebMaze
             configurationExpression.CreateMap<MedicineCertificate, MedicineCertificateViewModel>();
             configurationExpression.CreateMap<MedicineCertificateViewModel, MedicineCertificate>();
 
+            configurationExpression.CreateMap<ReceptionOfPatients, ReceptionOfPatientsViewModel>();
+            configurationExpression.CreateMap<ReceptionOfPatientsViewModel, ReceptionOfPatients>();
+
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(s => mapper);
@@ -210,6 +213,7 @@ namespace WebMaze
 
             services.AddScoped(s => new MedicalInsuranceRepository(s.GetService<WebMazeContext>()));
             services.AddScoped(s => new MedicineCertificateRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new ReceptionOfPatientsRepository(s.GetService<WebMazeContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

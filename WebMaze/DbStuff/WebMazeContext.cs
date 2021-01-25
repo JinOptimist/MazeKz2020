@@ -38,6 +38,7 @@ namespace WebMaze.DbStuff
 
         public DbSet<MedicalInsurance> MedicalInsurances { get; set; }
         public DbSet<MedicineCertificate> MedicineCertificates { get; set; }
+        public DbSet<ReceptionOfPatients> ReceptionOfPatients { get; set; }
 
         public WebMazeContext(DbContextOptions dbContext) : base(dbContext) { }
 
@@ -65,12 +66,13 @@ namespace WebMaze.DbStuff
 
             modelBuilder.Entity<CitizenUser>()
                 .HasMany(citizen => citizen.RecordForms)
-                .WithOne(records => records.CitizenId);
+                .WithOne(records => records.Citizen);
 
             modelBuilder.Entity<CitizenUser>()
                 .HasOne(p => p.MedicineCertificate)
                 .WithOne(o => o.User);
 
+            
             base.OnModelCreating(modelBuilder);
         }
     }

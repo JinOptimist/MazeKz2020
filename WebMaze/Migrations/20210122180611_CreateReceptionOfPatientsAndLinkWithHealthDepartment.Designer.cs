@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMaze.DbStuff;
 
 namespace WebMaze.Migrations
 {
     [DbContext(typeof(WebMazeContext))]
-    partial class WebMazeContextModelSnapshot : ModelSnapshot
+    [Migration("20210122180611_CreateReceptionOfPatientsAndLinkWithHealthDepartment")]
+    partial class CreateReceptionOfPatientsAndLinkWithHealthDepartment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -343,6 +345,9 @@ namespace WebMaze.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("HealthDepartmentId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -359,6 +364,9 @@ namespace WebMaze.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HealthDepartmentId")
+                        .IsUnique();
 
                     b.ToTable("ReceptionOfPatients");
                 });
@@ -591,6 +599,17 @@ namespace WebMaze.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("WebMaze.DbStuff.Model.Medicine.ReceptionOfPatients", b =>
+                {
+                    b.HasOne("WebMaze.DbStuff.Model.HealthDepartment", "HealthDepartment")
+                        .WithOne("ReceptionOfPatients")
+                        .HasForeignKey("WebMaze.DbStuff.Model.Medicine.ReceptionOfPatients", "HealthDepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HealthDepartment");
+                });
+
             modelBuilder.Entity("WebMaze.DbStuff.Model.Medicine.RecordForm", b =>
                 {
                     b.HasOne("WebMaze.DbStuff.Model.CitizenUser", "Citizen")
@@ -643,6 +662,11 @@ namespace WebMaze.Migrations
                     b.Navigation("MedicineCertificate");
 
                     b.Navigation("RecordForms");
+                });
+
+            modelBuilder.Entity("WebMaze.DbStuff.Model.HealthDepartment", b =>
+                {
+                    b.Navigation("ReceptionOfPatients");
                 });
 #pragma warning restore 612, 618
         }

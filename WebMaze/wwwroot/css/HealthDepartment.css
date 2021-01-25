@@ -167,7 +167,7 @@
 .partial__row {
     display: flex;
     justify-content: space-between;
-    height: 550px;
+    height: 650px;
 }
 
 
@@ -379,3 +379,29 @@
 .breadcrumb {
     background-color: #ece89d;
 }
+
+/*Section reception patients*/
+.reception_patients__row {
+    display: flex;
+    justify-content: space-between;
+    height: 850px;
+}
+
+.reception_patients__column-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reception_patients__column-2 {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-image: url('../image/Mochalkin/ReceptiionPatient.jpg');
+    width: 100%;
+    display: block;
+}
+
+
+
+

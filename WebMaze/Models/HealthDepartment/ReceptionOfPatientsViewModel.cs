@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebMaze.DbStuff.Model.Medicine
+namespace WebMaze.Models.HealthDepartment
 {
-    public class RecordForm : BaseModel
+    public class ReceptionOfPatientsViewModel
     {
         public virtual string Name { get; set; }
-
         public virtual string LastName { get; set; }
-
         public virtual string PhoneNumber { get; set; }
-
         public virtual DateTime DateTime { get; set; }
+        public virtual string PrimarySymptoms { get; set; }
+        public virtual string MedicineDepartment { get; set; }
+        public virtual long HealthDepartmentId { get; set; }
 
-        public virtual CitizenUser Citizen { get; set; }
     }
 }

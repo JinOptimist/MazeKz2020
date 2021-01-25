@@ -42,27 +42,22 @@ namespace WebMaze.Controllers
 
 
         [HttpGet]
-        public IActionResult GetThisUserInsurance()
-        {
-            return PartialView("GetThisUserInsurance");
-        }
-
-        [HttpGet]
         public IActionResult EditThisUserInsurance()
         {
-            var insurance = userService.GetCurrentUser();
-            var viewModel = mapper.Map<UserPageViewModel>(insurance);
+            var insurance = userService.GetCurrentUser().MedicalInsurance;
+            var viewModel = mapper.Map<MedicalInsuranceViewModel>(insurance);
 
             return View(viewModel);
         }
-        //TODO: доработать сохранение
         [HttpPost]
-        public IActionResult EditThisUserInsurance(UserPageViewModel viewModel)
+        public IActionResult EditThisUserInsurance(MedicalInsuranceViewModel viewModel)
         {
-            var user = mapper.Map<MedicalInsurance>(viewModel);
-            insuranceRepository.Save(user);
+            var insurance = mapper.Map<MedicalInsurance>(viewModel);
+            insuranceRepository.Save(insurance);
 
             return RedirectToAction("UserPage");
         }
+
+        
     }
 }
