@@ -10,5 +10,6 @@ namespace WebMaze.DbStuff.Repository.MedicineRepo
     {
         public MedicalInsuranceRepository(WebMazeContext context) : base(context) { }
 
+
     }
 }

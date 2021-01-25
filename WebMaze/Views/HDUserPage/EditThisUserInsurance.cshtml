@@ -1,0 +1,55 @@
+﻿@model WebMaze.Models.HealthDepartment.UserPageViewModel
+@using WebMaze.Services
+@inject UserService userService
+
+<body>
+    <div class="form">
+        <h1 class="form__header">Изменение пунктов страховки</h1>
+        <form action="@Url.Action("EditThisUserInsurance", "HDUserPage")" method="post">
+            @Html.HiddenFor(x => x.MedicalInsurance.OwnerId)
+            @Html.HiddenFor(x => x.MedicalInsurance.Id)
+
+            <div class="form__input">
+                <label class="text__form">Дата окончания действия страховки: </label>
+                @Html.DisplayFor(x => x.MedicalInsurance.EndPeriod)
+            </div>
+            <div>
+                <label class="text__form">Новая дата окончания страховки: </label>
+                @Html.EditorFor(x => x.MedicalInsurance.EndPeriod)
+                
+            </div>
+            <div class="form__input">
+                <label class="text__form">Текущий тип страхового полиса: </label>
+                @Html.DisplayFor(x => x.MedicalInsurance.Type)
+
+                <div class="form__input">
+                    <label class="text__form">Новый тип страхового полиса: </label>
+                    <br />
+                    <label class="text__form">Семейная</label>
+                    <input type="checkbox" name="@Model.MedicalInsurance.Type" value="Семейная" />
+
+                    <label class="text__form">Для пожилых</label>
+                    <input type="checkbox" name="@Model.MedicalInsurance.Type" value="Для пожилых" />
+
+                    <label class="text__form">Индивидуальная</label>
+                    <input type="checkbox" name="@Model.MedicalInsurance.Type" value="Индивидуальная" />
+                </div>
+                <p>
+                    Для изменения семейного положения и наличия детей необходимо снять галочку с поля
+                </p>
+            </div>
+            <div class="form__input">
+                <label class="text__form">Семейное положение: </label>
+                @Html.CheckBoxFor(x => x.MedicalInsurance.IsMaried)
+            </div>
+            <div class="form__input">
+                <label class="text__form">Наличие детей:</label>
+                @Html.CheckBoxFor(x => x.MedicalInsurance.HaveChildren)
+            </div>
+            <div>
+                <button class="button" type="submit">Применить изменения</button>
+                <button class="button" type="reset">Сбросить</button>
+            </div>
+        </form>
+    </div>
+</body>
