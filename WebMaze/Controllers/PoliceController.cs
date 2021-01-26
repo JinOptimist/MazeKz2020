@@ -137,7 +137,8 @@ namespace WebMaze.Controllers
             var user = cuRepo.GetUserByLogin(User.Identity.Name);
             var result = new ViolationRegistrationViewModel()
             {
-                UserLogin = $"{user.FirstName} {user.LastName}",
+                UserName = $"{user.FirstName} {user.LastName}",
+                UserLogin = user.Login,
                 Date = DateTime.Today
             };
 

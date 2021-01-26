@@ -44,7 +44,7 @@ $(document).ready(function () {
 
     $("#cancel-get-user").hide().click(function () {
         // Cancel
-        $("#get-citizen-user-names").removeAttr('readonly').val("").parent().toggleClass('col-md-8 col-md-6');
+        $("#get-citizen-user-names").removeAttr('readonly').attr('data-mmsg', 'null').val("").parent().toggleClass('col-md-8 col-md-6');
         $(this).hide();
     });
 
@@ -58,7 +58,7 @@ $(document).ready(function () {
                     respone($.map(data, function (item) {
                         return {
                             value: item.name,
-                            label: item.name,
+                            label: (item.name + ' (' + item.login + ' )'),
                             login: item.login
                         }
                     }))
@@ -66,9 +66,9 @@ $(document).ready(function () {
             });
         },
         select: function (event, ui) {
-            $('#get-citizen-user-names').attr('readonly', 'true').parent().toggleClass('col-md-8 col-md-6');
+            $('#get-citizen-user-names').attr('readonly', 'true').attr('data-mmsg', ui.item.login).parent().toggleClass('col-md-8 col-md-6');
             $("#cancel-get-user").show();
-            $('input[name="login"]').val(ui.item.login);
+            $('input[name="blamedUserLogin"]').val(ui.item.login);
         }
     });
 
@@ -76,11 +76,7 @@ $(document).ready(function () {
         const form = $(this).closest('form');
         e.preventDefault();
 
-        var unindexed_array = form.serializeArray();
-        var indexed_array = {};
-        $.map(unindexed_array, function (n, i) {
-            indexed_array[n['name']] = n['value'];
-        });
+        const jData = SerializeForm(form);
 
         $.ajax({
             type: "POST",
@@ -89,12 +85,12 @@ $(document).ready(function () {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            data: JSON.stringify(indexed_array),
+            data: jData,
             success: function (data) {
                 AddViolationItems(data.violations);
                 $("#violation-counter").text("Найдено результатов: " + data.foundCount + " (" + data.foundOnThisPage + " на этой странице)");
                 if (data.violations.length == 0) {
-                $("#violation-counter").text("");
+                    $("#violation-counter").text("");
                     $(".violation-not-found").show();
                 }
             },
@@ -112,6 +108,44 @@ $(document).ready(function () {
             }
         });
     }
+
+    $('#makeConfirmModalView').click(function (event) {
+        const form = $(this).closest('form');
+        const input = $('#get-citizen-user-names');
+        if (input.attr('data-mmsg') == 'null' || input.attr('data-mmsg') != form.find('input[name="blamedUserLogin"]').val()) {
+            input.attr('data-mmsg', 'null').val('');
+        }
+
+        if (form[0].checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        form.addClass('was-validated');
+    });
+
+    $('#confirm-add-violation').click(function () {
+        const form = $('#add-violation');
+        const jData = SerializeForm(form);
+
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: jData,
+            success: function (data) {
+                // TO DO: 
+                // Перенаправление на другой View
+            },
+            error: function () {
+                alert('Произошла ошибка');
+                location.reload();
+            }
+        });
+    });
 });
 
 // Заполнение данных Violations к нужным местам
@@ -140,4 +174,14 @@ function AddViolationItems(data) {
 
         cloneSample.attr("style", "display: none!important;");
     }
+};
+
+function SerializeForm(form) {
+    var unindexed_array = form.serializeArray();
+    var indexed_array = {};
+    $.map(unindexed_array, function (n, i) {
+        indexed_array[n['name']] = n['value'];
+    });
+
+    return JSON.stringify(indexed_array);
 };
