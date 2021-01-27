@@ -15,6 +15,11 @@ namespace WebMaze.DbStuff.Repository
 
         public override async Task SaveAsync(Certificate certificate)
         {
+            if (DoesCitizenAlreadyHaveValidCertificateAsync(certificate).Result)
+            {
+                throw new InvalidOperationException(message: $"The citizen already have valid {certificate.Name}.");
+            }
+
             if (certificate.Id > 0)
             {
                 DbSet.Update(certificate);
@@ -22,20 +27,25 @@ namespace WebMaze.DbStuff.Repository
                 return;
             }
 
-            if (DoesCitizenAlreadyHaveValidCertificate(certificate).Result)
-            {
-                throw new InvalidOperationException(message: $"The citizen already have valid {certificate.Name}.");
-            }
-
             await DbSet.AddAsync(certificate);
             await Context.SaveChangesAsync();
         }
 
-        public async Task<bool> DoesCitizenAlreadyHaveValidCertificate(Certificate certificate)
+        public async Task<bool> DoesCitizenAlreadyHaveValidCertificateAsync(Certificate certificate)
         {
             return await DbSet.AnyAsync(c =>
-                c.Owner.Id == certificate.Owner.Id && c.Name == certificate.Name &&
-                c.Status == CertificateStatus.Valid);
+                c.Name == certificate.Name && c.Owner.Id == certificate.Owner.Id &&
+                c.Status == CertificateStatus.Valid && c.Id != certificate.Id);
+        }
+
+        public async Task<List<Certificate>> GetCertificatesByNameAsync(string certificateName)
+        {
+            return await DbSet.Where(certificate => certificate.Name == certificateName).ToListAsync();
+        }
+
+        public async Task<List<Certificate>> GetUserCertificatesAsync(string userLogin)
+        {
+            return await DbSet.Where(certificate => certificate.Owner.Login == userLogin).ToListAsync();
         }
     }
 }
