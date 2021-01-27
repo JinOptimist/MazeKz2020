@@ -3,40 +3,63 @@
 <h2>All certificates</h2>
 <a asp-action="Create" class="btn btn-sm btn-primary">Create certificate</a>
 <a asp-action="Get" class="btn btn-sm btn-secondary">Get certificate</a>
- 
+<div>Filter certificates:</div>
+<form asp-controller="Certificates" asp-action="Index" method="get">
+    <div>
+        User login: <input type="text" name="userLogin" />
+        Certificate name: <input type="text" name="certificateName" />
+        <input type="submit" value="Filter" />
+    </div>
+</form>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <table class="table table-sm table-striped table-bordered m-2">
     <thead>
-    <tr>
-        <th><label asp-for="@Model[0].Id"></label></th>
-        <th><label asp-for="@Model[0].Name"></label></th>
-        <th><label asp-for="@Model[0].OwnerLogin"></label></th>
-        <th><label asp-for="@Model[0].Description"></label></th>
-        <th><label asp-for="@Model[0].ExpiryDate"></label></th>
-        <th><label asp-for="@Model[0].ImageUrl"></label></th>
-        <th><label asp-for="@Model[0].IssueDate"></label></th>
-        <th><label asp-for="@Model[0].IssuedBy"></label></th>
-        <th><label asp-for="@Model[0].Status"></label></th>
-        <th>Update</th>
-        <th>Delete</th>
-    </tr>
+        <tr>
+            <th><label asp-for="@Model[0].Id"></label></th>
+            <th><label asp-for="@Model[0].Name"></label></th>
+            <th><label asp-for="@Model[0].OwnerLogin"></label></th>
+            <th><label asp-for="@Model[0].ImageUrl"></label></th>
+            <th><label asp-for="@Model[0].IssuedBy"></label></th>
+            <th><label asp-for="@Model[0].Description"></label></th>
+            <th><label asp-for="@Model[0].IssueDate"></label></th>
+            <th><label asp-for="@Model[0].ExpiryDate"></label></th>
+            <th><label asp-for="@Model[0].Status"></label></th>
+            <th>Issue</th>
+            <th>Update</th>
+            <th>Revoke</th>
+            <th>Delete</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var certificate in Model)
-    {
+        @foreach (var certificate in Model)
+        {
         <tr>
             <td>@certificate.Id</td>
             <td>@certificate.Name</td>
             <td>@certificate.OwnerLogin</td>
-            <td>@certificate.Description</td>
-            <td>@certificate.ExpiryDate</td>
             <td>@certificate.ImageUrl</td>
-            <td>@certificate.IssueDate</td>
             <td>@certificate.IssuedBy</td>
+            <td>@certificate.Description</td>
+            <td>@certificate.IssueDate</td>
+            <td>@certificate.ExpiryDate</td>
             <td>@certificate.Status</td>
             <td>
-                <a asp-action="Update" asp-route-id="@certificate.Id">
+                <form asp-action="Issue" method="post">
+                    <input type="hidden" name="userLogin" value="@certificate.OwnerLogin" />
+                    <button type="submit" class="btn btn-success btn-sm btn-block">Issue</button>
+                </form>
+            </td>
+            <td>
+                <a asp-action="Update" asp-route-id="@certificate.Id" class="btn btn-primary btn-sm btn-block">
                     Update
                 </a>
+            </td>
+            <td>
+                <form asp-action="Revoke" method="post">
+                    <input type="hidden" name="certificateName" value="@certificate.Name" />
+                    <input type="hidden" name="userLogin" value="@certificate.OwnerLogin" />
+                    <button type="submit" class="btn btn-warning btn-sm btn-block">Revoke</button>
+                </form>
             </td>
             <td>
                 <form asp-action="Delete" method="post">
@@ -45,6 +68,6 @@
                 </form>
             </td>
         </tr>
-    }
+        }
     </tbody>
 </table>
