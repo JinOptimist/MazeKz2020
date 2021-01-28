@@ -11,8 +11,6 @@ namespace WebMaze.Models.HealthDepartment
     public class UserPageViewModel
     {
         public long Id { get; set; }
-        
-        public virtual string Login { get; set; }
         public virtual string ReturnUrl { get; set; }
        
         public MedicalInsuranceViewModel MedicalInsurance { get; set; }
@@ -24,7 +22,8 @@ namespace WebMaze.Models.HealthDepartment
         public virtual string Name { get; set; }
         public virtual string LastName { get; set; }
         public virtual string MedicineDepartment { get; set; }
+        public virtual string PhoneNumber { get; set; }
+        public virtual string PrimarySymptoms { get; set; }
 
-        public ReceptionOfPatientsViewModel ReceptionOfPatientsView { get; set; }
     }
 }

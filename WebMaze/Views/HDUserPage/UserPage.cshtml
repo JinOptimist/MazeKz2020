@@ -113,10 +113,42 @@
                     <p>Фамилия: @appointment.LastName </p>
                     <p>Время записи: @appointment.DateTime</p>
                     <p>Отделение: @appointment.MedicineDepartment</p>
-                    <div class="head__element">
-                        <a href="/HDUserPage/EditThisUserDoctorsAppointments" class="button btn-lg active" 
-                           role="button" aria-pressed="true">Изменить время приёма</a>
+                    <br />
+                    <p>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Изменить дату записи
+                        </button>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <div class="form">
+                                <p class="form__header">Изменить дату записи</p>
+                                <form action="@Url.Action("EditThisUserDoctorsAppointments", "HDUserPage")" method="post">
+
+                                    <input type="hidden" name="Id" value="@appointment.Id" />
+                                    <input type="hidden" name="EnrolledCitizenId" value="@appointment.EnrolledCitizenId" />
+                                    <input type="hidden" name="Name" value="@appointment.Name" />
+                                    <input type="hidden" name="LastName" value="@appointment.LastName" />
+                                    <input type="hidden" name="PhoneNumber" value="@appointment.PhoneNumber" />
+                                    <input type="hidden" name="PrimarySymptoms" value="@appointment.PrimarySymptoms" />
+                                    <input type="hidden" name="MedicineDepartment" value="@appointment.MedicineDepartment" />
+
+                                    <div class="partial__input">
+                                        <div class="form__input">
+                                            <input type="datetime-local" name="DateTime" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <button class="button" type="submit">Применить изменения</button>
+                                        <button class="button" type="reset">Сбросить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
+                    
+                    <br />
                 }
             </div>
             
@@ -124,3 +156,4 @@
        
     </div>
 </body>
+

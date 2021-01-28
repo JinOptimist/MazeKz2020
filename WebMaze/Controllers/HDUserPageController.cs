@@ -21,18 +21,15 @@ namespace WebMaze.Controllers
         private UserService userService;
         private MedicalInsuranceRepository insuranceRepository;
         private ReceptionOfPatientsRepository receptionRepository;
-        private CitizenUserRepository citizenRepository;
 
 
         public HDUserPageController(IMapper mapper, UserService userService,
-            MedicalInsuranceRepository insuranceRepository, ReceptionOfPatientsRepository receptionRepository, 
-            CitizenUserRepository citizenRepository)
+            MedicalInsuranceRepository insuranceRepository, ReceptionOfPatientsRepository receptionRepository)
         {
             this.mapper = mapper;
             this.userService = userService;
             this.insuranceRepository = insuranceRepository;
             this.receptionRepository = receptionRepository;
-            this.citizenRepository = citizenRepository;
         }
 
         [HttpGet]
@@ -61,20 +58,14 @@ namespace WebMaze.Controllers
 
             return RedirectToAction("UserPage");
         }
-        
-        [HttpGet]
-        public IActionResult EditThisUserDoctorsAppointments()
-        {
-            var appointment = userService.GetCurrentUser().DoctorsAppointments;
-            var viewModel = mapper.Map<List<ReceptionOfPatientsViewModel>>(appointment);
 
-            return View(viewModel);
-        }
 
         [HttpPost]
-        public IActionResult EditThisUserDoctorsAppointments(ReceptionOfPatientsViewModel viewModel)
+        public IActionResult EditThisUserDoctorsAppointments(UserPageViewModel viewModel)
         {
+            var enrolledCitizen = receptionRepository.Get(viewModel.EnrolledCitizenId);
             var appointment = mapper.Map<ReceptionOfPatients>(viewModel);
+            appointment.EnrolledCitizen = enrolledCitizen.EnrolledCitizen;
             receptionRepository.Save(appointment);
 
             return RedirectToAction("UserPage");
