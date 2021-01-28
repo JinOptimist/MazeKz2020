@@ -125,7 +125,7 @@ namespace WebMaze.Controllers
                 return NotFound(errorMessages);
             }
 
-            var citizenUser = citizenUserRepository.GetUserByName(certificateViewModel.OwnerLogin);
+            var citizenUser = citizenUserRepository.GetUserByLogin(certificateViewModel.OwnerLogin);
 
             if (citizenUser == null)
             {
