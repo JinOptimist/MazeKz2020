@@ -178,83 +178,71 @@ namespace WebMaze.DbStuff
             var allCitizens = userService.GetUsers();
 
             // Ensure that all citizens have a birth certificate.
-            foreach (var citizen in allCitizens)
-            {
-                AddIfNotExistCertificateToCitizen(citizen, "Birth Certificate", citizen.BirthDate, DateTime.MaxValue);
-            }
+            AddIfNotExistCertificateToCitizens(allCitizens, "Birth Certificate");
 
             // Ensure that 5 citizens have a diploma.
             var citizenLoginsWithDiploma = new List<string> { "Bill", "Musk", "Stroustrup", "Tsoi", "Chuck" };
-            foreach (var citizenLogin in citizenLoginsWithDiploma)
-            {
-                var citizen = allCitizens.SingleOrDefault(c => c.Login == citizenLogin);
-
-                AddIfNotExistCertificateToCitizen(citizen, "Diploma of Higher Education",
-                    citizen.BirthDate + TimeSpan.FromDays(22 * 365), DateTime.MaxValue);
-            }
+            var citizenWithDiploma = allCitizens.Where(c => citizenLoginsWithDiploma.Contains(c.Login)).ToList();
+            AddIfNotExistCertificateToCitizens(citizenWithDiploma, "Diploma of Higher Education");
 
             // Ensure that citizens have a policeman certificate.
             var citizenLoginsWithPoliceCertificate = new List<string> { "Chuck" };
-            foreach (var citizenLogin in citizenLoginsWithPoliceCertificate)
-            {
-                var citizen = allCitizens.SingleOrDefault(c => c.Login == citizenLogin);
-
-                AddIfNotExistCertificateToCitizen(citizen, "Policeman Certificate",
-                    new DateTime(2021, 1, 28), new DateTime(2022, 1, 28));
-            }
+            var policemen = allCitizens.Where(c => citizenLoginsWithPoliceCertificate.Contains(c.Login)).ToList();
+            AddIfNotExistCertificateToCitizens(policemen, "Policeman Certificate");
 
             // Ensure that citizens have a doctor certificate.
             var citizenLoginsWithDoctorCertificate = new List<string> { "Tsoi" };
-            foreach (var citizenLogin in citizenLoginsWithDoctorCertificate)
-            {
-                var citizen = allCitizens.SingleOrDefault(c => c.Login == citizenLogin);
-
-                AddIfNotExistCertificateToCitizen(citizen, "Doctor Certificate",
-                    new DateTime(2020, 5, 3), new DateTime(2021, 5, 3));
-            }
+            var doctors = allCitizens.Where(c => citizenLoginsWithDoctorCertificate.Contains(c.Login)).ToList();
+            AddIfNotExistCertificateToCitizens(doctors, "Doctor Certificate");
         }
 
-        private void AddIfNotExistCertificateToCitizen(CitizenUser citizen, string certificateName, DateTime issueDate, DateTime expiryDate)
+        private void AddIfNotExistCertificateToCitizens(List<CitizenUser> citizens, string certificateName)
         {
-            if (citizen.Certificates.All(c => c.Name != certificateName))
+            foreach (var citizen in citizens)
             {
-                var certificate = GenerateCertificateFromTemplate(certificateName, citizen, issueDate, expiryDate);
-                citizen.Certificates.Add(certificate);
-                userService.Save(citizen);
+                if (citizen.Certificates.All(c => c.Name != certificateName))
+                {
+                    var certificate = GenerateCertificate(certificateName, citizen);
+                    citizen.Certificates.Add(certificate);
+                    userService.Save(citizen);
+                }
             }
         }
 
-        private Certificate GenerateCertificateFromTemplate(string templateName, CitizenUser owner, DateTime issueDate, DateTime expiryDate)
+        private Certificate GenerateCertificate(string certificateName, CitizenUser owner)
         {
             var certificate = new Certificate
             {
-                IssueDate = issueDate,
-                ExpiryDate = expiryDate,
+                Name = certificateName,
                 Owner = owner
             };
 
-            switch (templateName)
+            switch (certificateName)
             {
                 case "Diploma of Higher Education":
-                    certificate.Name = "Diploma of Higher Education";
                     certificate.Description =
                         "The document certifies that the person completed a course of study in a university";
                     certificate.IssuedBy = "University";
+                    certificate.IssueDate = owner.BirthDate + TimeSpan.FromDays(22 * 365);
+                    certificate.ExpiryDate = DateTime.MaxValue;
                     break;
                 case "Birth Certificate":
-                    certificate.Name = "Birth Certificate";
                     certificate.Description = "The certificate documents the birth of the person";
                     certificate.IssuedBy = "Hospital";
+                    certificate.IssueDate = owner.BirthDate;
+                    certificate.ExpiryDate = DateTime.MaxValue;
                     break;
                 case "Policeman Certificate":
-                    certificate.Name = "Policeman Certificate";
                     certificate.Description = "The document assure qualification to work as a policeman";
                     certificate.IssuedBy = "Police";
+                    certificate.IssueDate = new DateTime(2021, 1, 28);
+                    certificate.ExpiryDate = new DateTime(2022, 1, 28);
                     break;
                 case "Doctor Certificate":
-                    certificate.Name = "Doctor Certificate";
                     certificate.Description = "The document assure qualification to work as a doctor";
                     certificate.IssuedBy = "Health Department";
+                    certificate.IssueDate = new DateTime(2020, 5, 3);
+                    certificate.ExpiryDate = new DateTime(2021, 5, 3);
                     break;
             }
 
