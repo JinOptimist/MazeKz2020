@@ -1,0 +1,95 @@
+﻿@model WebMaze.Models.HealthDepartment.ReceptionOfPatientsViewModel
+@using WebMaze.Services
+@inject UserService userService
+
+<body>
+    <div class="reception_patients__wrap">
+        <div class="reception_patients__row">
+            <div class="reception_patients__column reception_patients__column-1 col-md-4">
+                <div class="reception_patients__element">
+                    <div class="reception_patients__content">
+                        <div class="form">
+                            <p class="form__header">Запись на приём в поликлинику</p>
+
+                            <form action="@Url.Action("ReceptionPatient", "HealthDepartment")" method="post">
+                                <input type="hidden" name="EnrolledCitizenId" value="@userService.GetCurrentUser().Id"/>
+
+                                <div class="partial__input">
+                                    <label class="text__form">Имя</label>
+                                    <div class="form__input">
+                                        <input type="text" name="Name" />
+                                        @Html.ValidationMessageFor(n => n.Name)
+                                    </div>
+                                </div>
+                                <div class="partial__input">
+                                    <label class="text__form">Фамилия</label>
+                                    <div class="form__input">
+                                        <input type="text" name="LastName" />
+                                        @Html.ValidationMessageFor(n => n.LastName)
+                                    </div>
+                                </div>
+                                <div class="partial__input">
+                                    <label class="text__form">Номер телефона</label>
+                                    <div class="form__input">
+                                        <input type="tel" name="PhoneNumber" />
+                                        @Html.ValidationMessageFor(n => n.PhoneNumber)
+                                    </div>
+                                </div>
+                                <div class="partial__input">
+                                    <label class="text__form">Медецинское отделение</label>
+                                    <div class="form__input">
+                                        <p>
+                                            <select size="1" name="MedicineDepartment">
+                                                <option selected>Выбор отделения</option>
+                                                <option value="Неотложная помощь">Неотложная помощь</option>
+                                                <option value="Хирургия">Хирургия</option>
+                                                <option value="Травматология и ортопедия">Травматология и ортопедия</option>
+                                                <option value="Офтольмология">Офтольмология</option>
+                                                <option value="ЛОР">ЛОР</option>
+                                                <option value="Терапевтическое">Терапевтическое</option>
+                                                <option value="Педиатрия">Педиатрия</option>
+                                                <option value="Наркология">Наркология</option>
+                                                <option value="Родильное">Родильное</option>
+                                                <option value="Пульмонология">Пульмонология</option>
+
+                                            </select>
+                                        </p>
+                                        @Html.ValidationMessageFor(n => n.MedicineDepartment)
+                                    </div>
+                                </div>
+                                <div class="partial__input">
+                                    <label class="text__form">Дата</label>
+                                    <div class="form__input">
+                                        @Html.EditorFor(x => x.DateTime)
+                                        @Html.ValidationMessageFor(n => n.DateTime)
+                                    </div>
+                                </div>
+                                <div class="partial__input">
+                                    <label class="text__form">Описание первичных симптомов</label>
+                                    <div class="form__input">
+                                        @Html.TextAreaFor(x => x.PrimarySymptoms)
+                                        @Html.ValidationMessageFor(n => n.PrimarySymptoms)
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="button" type="submit">Записаться</button>
+                                    <button class="button" type="reset">Сбросить</button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reception_patients__column reception_patients__column-2 col-md-8">
+                <div class="reception_patients__element">
+                    <div class="reception_patients__content">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+@*style="background-image: url('/wwwroot/image/Mochalkin/ReceptiionPatient.jpg');"*@

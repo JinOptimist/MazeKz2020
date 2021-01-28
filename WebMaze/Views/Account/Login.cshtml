@@ -10,6 +10,7 @@
 
     <form action="@Url.Action("Login", "Account")" method="post">
         @Html.HiddenFor(x => x.ReturnUrl)
+        @Html.ValidationSummary(true)
         <div>
             @Html.DisplayNameFor(x => x.Login):
             @Html.TextBoxFor(x => x.Login)

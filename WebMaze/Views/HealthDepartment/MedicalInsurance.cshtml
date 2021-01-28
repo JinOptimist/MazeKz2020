@@ -1,0 +1,90 @@
+﻿@model WebMaze.Models.HealthDepartment.MedicalInsuranceViewModel
+
+
+<div class="med_insurence">
+    <div class="med_insurence__row">
+        <div class="med_insurence__column">
+            <div class="med_insurence__element">
+                <div class="med_insurence__content">
+                    <div class="form">
+                        <h1 class="form__header">Оформление страховки</h1>
+
+                        <form action="@Url.Action("MedicalInsurance", "HealthDepartment")" method="post">
+                            <div class="form__input">
+                                <label class="text__form">Id</label>
+                                <input type="text"  name="OwnerId"/>
+                                @Html.ValidationMessageFor(x => x.OwnerId)
+
+                            </div>
+                            <div class="form__input">
+                                <label class="text__form">Семейное положение</label>
+
+                                @Html.CheckBoxFor(x => x.IsMaried)
+                                @Html.ValidationMessageFor(x => x.IsMaried)
+
+                            </div>
+                            <div class="form__input">
+                                <label class="text__form">Дети</label>
+                                @Html.CheckBoxFor(x => x.HaveChildren)
+                                @Html.ValidationMessageFor(x => x.HaveChildren)
+
+                            </div>
+                            <div class="form__input">
+                                <label class="text__form">Начало использования</label>
+
+                                <input type="date" name="StartPeriod" />
+                                @Html.ValidationMessageFor(x => x.StartPeriod)
+                            </div>
+                            <div class="form__input">
+                                <label class="text__form">Окончание использования</label>
+                                <input type="date" name="EndPeriod" />
+                                @Html.ValidationMessageFor(x => x.EndPeriod)
+                            </div>
+
+                            <label class="text__form">Тип</label>
+
+                            <div class="form__input">
+
+                                <label class="text__form">Семейная</label>
+                                <input type="checkbox" name="Type" value="Семейная" />
+
+                                <label for="Coast">1500$</label>
+                                <input id="Coast" type="hidden" name="Coast" value="1500" />
+                                <p>
+                                    В семейную страховку входит: полный спектр медицинских услуг для всей семьи.
+                                </p>
+
+                                <label class="text__form">Для пожилых</label>
+                                <input type="checkbox" name="Type" value="Для пожилых" />
+
+                                <label for="Coast">1000$</label>
+                                <input id="Coast" type="hidden" name="Coast" value="1000" />
+
+                                <p>
+                                    В страховку для пожилых людей входит: полный спектр медицинских услуг и услуги сиделки.
+                                </p>
+
+                                <label class="text__form">Индивидуальная</label>
+                                <input type="checkbox" name="Type" value="Индивидуальная" />
+
+                                <label for="Coast">2000$</label>
+                                <input id="Coast" type="hidden" name="Coast" value="2000" />
+
+                                <p>
+                                    В индивидуальную страховку входит: полный спектр медицинских услуг для людей вне брака.
+
+                                </p>
+                            </div>
+                            <div>
+                                <button class="button" type="submit">Оформить</button>
+                                <button class="button" type="reset">Сбросить</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

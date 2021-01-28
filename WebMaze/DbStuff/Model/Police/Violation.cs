@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebMaze.DbStuff.Model.Police
 {
@@ -8,8 +9,15 @@ namespace WebMaze.DbStuff.Model.Police
         
         public virtual Policeman BlamingPoliceman { get; set; }
         
-        public virtual ViolationType TypeOfViolation { get; set; }
-        
         public DateTime Date { get; set; }
+
+        public string Article { get; set; }
+
+        public string Punishment { get; set; }
+
+        public DateTime? TermOfPunishment { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal? Penalty { get; set; }
     }
 }
