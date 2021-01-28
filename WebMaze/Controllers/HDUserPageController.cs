@@ -18,18 +18,21 @@ namespace WebMaze.Controllers
     public class HDUserPageController : Controller
     {
         private IMapper mapper;
-        private CitizenUserRepository citizenRepository;
         private UserService userService;
         private MedicalInsuranceRepository insuranceRepository;
+        private ReceptionOfPatientsRepository receptionRepository;
+        private CitizenUserRepository citizenRepository;
 
 
-        public HDUserPageController(IMapper mapper, CitizenUserRepository citizenRepository, UserService userService, 
-            MedicalInsuranceRepository insuranceRepository)
+        public HDUserPageController(IMapper mapper, UserService userService,
+            MedicalInsuranceRepository insuranceRepository, ReceptionOfPatientsRepository receptionRepository, 
+            CitizenUserRepository citizenRepository)
         {
             this.mapper = mapper;
-            this.citizenRepository = citizenRepository;
             this.userService = userService;
             this.insuranceRepository = insuranceRepository;
+            this.receptionRepository = receptionRepository;
+            this.citizenRepository = citizenRepository;
         }
 
         [HttpGet]
@@ -49,6 +52,7 @@ namespace WebMaze.Controllers
 
             return View(viewModel);
         }
+
         [HttpPost]
         public IActionResult EditThisUserInsurance(MedicalInsuranceViewModel viewModel)
         {
@@ -57,7 +61,24 @@ namespace WebMaze.Controllers
 
             return RedirectToAction("UserPage");
         }
-
         
+        [HttpGet]
+        public IActionResult EditThisUserDoctorsAppointments()
+        {
+            var appointment = userService.GetCurrentUser().DoctorsAppointments;
+            var viewModel = mapper.Map<List<ReceptionOfPatientsViewModel>>(appointment);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditThisUserDoctorsAppointments(ReceptionOfPatientsViewModel viewModel)
+        {
+            var appointment = mapper.Map<ReceptionOfPatients>(viewModel);
+            receptionRepository.Save(appointment);
+
+            return RedirectToAction("UserPage");
+        }
+
     }
 }

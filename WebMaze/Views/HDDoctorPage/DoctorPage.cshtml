@@ -1,4 +1,6 @@
 ﻿@model WebMaze.Models.HDDoctor.DoctorPageViewModel
+@using WebMaze.Services
+@inject UserService userService
 <!--Header-->
 <div class="wrap-head">
     <div class="head">
@@ -104,14 +106,22 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/HealthDepartment/HealthDepartment">Главная</a></li>
-        <li class="breadcrumb-item" aria-current="page">Контакты</li>
+        <li class="breadcrumb-item" aria-current="page">Страница врача: @userService.GetCurrentUser().FirstName</li>
     </ol>
 </nav>
 
 <body>
     <div>
         <h1>Страница врача</h1>
-        Просмотр сертификата
+        <br />
+        <div>
+            <strong>Информация о вашем сертификате</strong>
+            <div>
+                Должность: <p>@userService.GetCurrentUser().MedicineCertificate.Position</p>
+                Дата выдачи: <p>@userService.GetCurrentUser().MedicineCertificate.DateOfIssue</p>
+                Дата окончания срока действия: <p>@userService.GetCurrentUser().MedicineCertificate.DateExpiration</p>
+            </div>
+        </div>
         Подача на грант
         Запись на прием к глав врачу
 

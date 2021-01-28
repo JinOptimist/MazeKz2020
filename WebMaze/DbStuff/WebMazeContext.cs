@@ -72,6 +72,10 @@ namespace WebMaze.DbStuff
                 .HasOne(p => p.MedicineCertificate)
                 .WithOne(o => o.User);
 
+            modelBuilder.Entity<CitizenUser>()
+                .HasMany(x => x.DoctorsAppointments)
+                .WithOne(x => x.EnrolledCitizen);
+
             
             base.OnModelCreating(modelBuilder);
         }

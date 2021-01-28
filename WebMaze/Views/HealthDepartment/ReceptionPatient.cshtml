@@ -1,4 +1,6 @@
 ﻿@model WebMaze.Models.HealthDepartment.ReceptionOfPatientsViewModel
+@using WebMaze.Services
+@inject UserService userService
 
 <body>
     <div class="reception_patients__wrap">
@@ -10,6 +12,8 @@
                             <p class="form__header">Запись на приём в поликлинику</p>
 
                             <form action="@Url.Action("ReceptionPatient", "HealthDepartment")" method="post">
+                                <input type="hidden" name="EnrolledCitizenId" value="@userService.GetCurrentUser().Id"/>
+
                                 <div class="partial__input">
                                     <label class="text__form">Имя</label>
                                     <div class="form__input">

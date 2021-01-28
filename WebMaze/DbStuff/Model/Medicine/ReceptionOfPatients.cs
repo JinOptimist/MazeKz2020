@@ -14,6 +14,7 @@ namespace WebMaze.DbStuff.Model.Medicine
         public virtual string PrimarySymptoms { get; set; }
         public virtual string MedicineDepartment { get; set; }
         
+        public virtual CitizenUser EnrolledCitizen { get; set; }
 
 
 

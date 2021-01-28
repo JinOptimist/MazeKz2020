@@ -302,7 +302,9 @@ namespace WebMaze.Controllers
         [HttpPost]
         public IActionResult ReceptionPatient(ReceptionOfPatientsViewModel viewModel)
         {
+            var citizen = citizenRepository.Get(viewModel.EnrolledCitizenId);
             var reception = mapper.Map<ReceptionOfPatients>(viewModel);
+            reception.EnrolledCitizen = citizen;
             receptionRepository.Save(reception);
 
 

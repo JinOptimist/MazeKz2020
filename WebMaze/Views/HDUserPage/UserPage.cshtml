@@ -105,9 +105,21 @@
         </div>
         <div>
            <strong>Сведения о записи на приём к врачу</strong>
+            <br />
             <div>
-
+                @foreach (var appointment in Model.DoctorsAppointments)
+                {
+                    <p>Имя: @appointment.Name </p>
+                    <p>Фамилия: @appointment.LastName </p>
+                    <p>Время записи: @appointment.DateTime</p>
+                    <p>Отделение: @appointment.MedicineDepartment</p>
+                    <div class="head__element">
+                        <a href="/HDUserPage/EditThisUserDoctorsAppointments" class="button btn-lg active" 
+                           role="button" aria-pressed="true">Изменить время приёма</a>
+                    </div>
+                }
             </div>
+            
         </div>
        
     </div>
