@@ -4,14 +4,17 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using WebMaze.DbStuff.Model.Medicine;
 using WebMaze.DbStuff.Model.Police;
 using WebMaze.DbStuff.Model.UserAccount;
 
 namespace WebMaze.DbStuff.Model
 {
+    [Index(nameof(Login), IsUnique = true)]
     public class CitizenUser : BaseModel
     {
+        [Required]
         public virtual string Login { get; set; }
 
         public virtual string Password { get; set; }

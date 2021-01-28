@@ -10,8 +10,8 @@ using WebMaze.DbStuff;
 namespace WebMaze.Migrations
 {
     [DbContext(typeof(WebMazeContext))]
-    [Migration("20210126121919_AddedViolationDeclaration")]
-    partial class AddedViolationDeclaration
+    [Migration("20210128145027_AddUniqueConstraintToLogin")]
+    partial class AddUniqueConstraintToLogin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -241,7 +241,8 @@ namespace WebMaze.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("Marriage")
                         .HasColumnType("bit");
@@ -256,6 +257,9 @@ namespace WebMaze.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Login")
+                        .IsUnique();
 
                     b.ToTable("CitizenUser");
                 });
