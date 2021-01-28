@@ -1,4 +1,4 @@
-﻿@model WebMaze.Models.HealthDepartment.UserPageViewModel
+﻿@model WebMaze.Models.HealthDepartment.MedicalInsuranceViewModel
 @using WebMaze.Services
 @inject UserService userService
 
@@ -6,33 +6,42 @@
     <div class="form">
         <h1 class="form__header">Изменение пунктов страховки</h1>
         <form action="@Url.Action("EditThisUserInsurance", "HDUserPage")" method="post">
-            @Html.HiddenFor(x => x.MedicalInsurance.OwnerId)
-            @Html.HiddenFor(x => x.MedicalInsurance.Id)
+            @Html.HiddenFor(x => x.StartPeriod)
+            @Html.HiddenFor(x => x.OwnerId)
+
 
             <div class="form__input">
-                <label class="text__form">Дата окончания действия страховки: </label>
-                @Html.DisplayFor(x => x.MedicalInsurance.EndPeriod)
+                <label class="text__form">Текущая дата окончания действия страховки: </label>
+                @Html.DisplayFor(x => x.EndPeriod)
             </div>
             <div>
                 <label class="text__form">Новая дата окончания страховки: </label>
-                @Html.EditorFor(x => x.MedicalInsurance.EndPeriod)
-                
+                <input type="date" name="EndPeriod" />
+
             </div>
             <div class="form__input">
                 <label class="text__form">Текущий тип страхового полиса: </label>
-                @Html.DisplayFor(x => x.MedicalInsurance.Type)
+                @Html.DisplayFor(x => x.Type)
 
                 <div class="form__input">
                     <label class="text__form">Новый тип страхового полиса: </label>
                     <br />
                     <label class="text__form">Семейная</label>
-                    <input type="checkbox" name="@Model.MedicalInsurance.Type" value="Семейная" />
+                    <input type="checkbox" name="Type" value="Семейная" />
+                    <label for="Coast">1500$</label>
+                    <input id="Coast" type="hidden" name="Coast" value="1500" />
 
                     <label class="text__form">Для пожилых</label>
-                    <input type="checkbox" name="@Model.MedicalInsurance.Type" value="Для пожилых" />
+                    <input type="checkbox" name="Type" value="Для пожилых" />
+                    <label for="Coast">1000$</label>
+                    <input id="Coast" type="hidden" name="Coast" value="1000" />
+
 
                     <label class="text__form">Индивидуальная</label>
-                    <input type="checkbox" name="@Model.MedicalInsurance.Type" value="Индивидуальная" />
+                    <input type="checkbox" name="Type" value="Индивидуальная" />
+                    <label for="Coast">2000$</label>
+                    <input id="Coast" type="hidden" name="Coast" value="2000" />
+
                 </div>
                 <p>
                     Для изменения семейного положения и наличия детей необходимо снять галочку с поля
@@ -40,11 +49,16 @@
             </div>
             <div class="form__input">
                 <label class="text__form">Семейное положение: </label>
-                @Html.CheckBoxFor(x => x.MedicalInsurance.IsMaried)
+                @Html.CheckBoxFor(x => x.IsMaried)
             </div>
             <div class="form__input">
                 <label class="text__form">Наличие детей:</label>
-                @Html.CheckBoxFor(x => x.MedicalInsurance.HaveChildren)
+                @Html.CheckBoxFor(x => x.HaveChildren)
+            </div>
+            <div>
+                <label class="text__form">Номер вашей страховки: </label>
+                <input type="text" name="Id" />
+
             </div>
             <div>
                 <button class="button" type="submit">Применить изменения</button>

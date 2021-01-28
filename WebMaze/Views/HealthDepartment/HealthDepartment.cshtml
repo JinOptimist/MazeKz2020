@@ -159,6 +159,14 @@
         </div>
     </div>
 
+    <!--Section Reception Patients-->
+    @if (User.Identity.IsAuthenticated)
+    {
+        <partial>
+            @{await Html.RenderPartialAsync("ReceptionPatient");}
+        </partial>
+
+    }
 
     <!--Галерея-->
     <div class="foto">

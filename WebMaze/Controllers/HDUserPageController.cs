@@ -18,18 +18,18 @@ namespace WebMaze.Controllers
     public class HDUserPageController : Controller
     {
         private IMapper mapper;
-        private CitizenUserRepository citizenRepository;
         private UserService userService;
         private MedicalInsuranceRepository insuranceRepository;
+        private ReceptionOfPatientsRepository receptionRepository;
 
 
-        public HDUserPageController(IMapper mapper, CitizenUserRepository citizenRepository, UserService userService, 
-            MedicalInsuranceRepository insuranceRepository)
+        public HDUserPageController(IMapper mapper, UserService userService,
+            MedicalInsuranceRepository insuranceRepository, ReceptionOfPatientsRepository receptionRepository)
         {
             this.mapper = mapper;
-            this.citizenRepository = citizenRepository;
             this.userService = userService;
             this.insuranceRepository = insuranceRepository;
+            this.receptionRepository = receptionRepository;
         }
 
         [HttpGet]
@@ -42,27 +42,34 @@ namespace WebMaze.Controllers
 
 
         [HttpGet]
-        public IActionResult GetThisUserInsurance()
-        {
-            return PartialView("GetThisUserInsurance");
-        }
-
-        [HttpGet]
         public IActionResult EditThisUserInsurance()
         {
-            var insurance = userService.GetCurrentUser();
-            var viewModel = mapper.Map<UserPageViewModel>(insurance);
+            var insurance = userService.GetCurrentUser().MedicalInsurance;
+            var viewModel = mapper.Map<MedicalInsuranceViewModel>(insurance);
 
             return View(viewModel);
         }
-        //TODO: доработать сохранение
+
         [HttpPost]
-        public IActionResult EditThisUserInsurance(UserPageViewModel viewModel)
+        public IActionResult EditThisUserInsurance(MedicalInsuranceViewModel viewModel)
         {
-            var user = mapper.Map<MedicalInsurance>(viewModel);
-            insuranceRepository.Save(user);
+            var insurance = mapper.Map<MedicalInsurance>(viewModel);
+            insuranceRepository.Save(insurance);
 
             return RedirectToAction("UserPage");
         }
+
+
+        [HttpPost]
+        public IActionResult EditThisUserDoctorsAppointments(UserPageViewModel viewModel)
+        {
+            var enrolledCitizen = receptionRepository.Get(viewModel.EnrolledCitizenId);
+            var appointment = mapper.Map<ReceptionOfPatients>(viewModel);
+            appointment.EnrolledCitizen = enrolledCitizen.EnrolledCitizen;
+            receptionRepository.Save(appointment);
+
+            return RedirectToAction("UserPage");
+        }
+
     }
 }

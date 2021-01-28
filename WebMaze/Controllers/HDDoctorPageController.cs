@@ -39,8 +39,7 @@ namespace WebMaze.Controllers
         [HttpPost]
         public IActionResult DoctorPage(DoctorPageViewModel viewModel)
         {
-            //var citizen = insuranceRepository.Get(id);
-            //var model = mapper.Map<UserPageViewModel>(citizen);
+            
             return View(viewModel);
         }
 

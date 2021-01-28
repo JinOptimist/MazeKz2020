@@ -16,5 +16,6 @@ namespace WebMaze.Models.HealthDepartment
         public string LastName { get; set; }
 
         public string PhoneNumber { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }

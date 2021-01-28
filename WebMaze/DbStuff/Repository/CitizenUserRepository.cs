@@ -37,5 +37,6 @@ namespace WebMaze.DbStuff.Repository
                    where (u.FirstName + u.LastName).Contains(userName) || u.Login.Contains(userName)
                    select u;
         }
+        
     }
 }

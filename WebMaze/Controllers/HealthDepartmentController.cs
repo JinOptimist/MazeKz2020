@@ -27,17 +27,20 @@ namespace WebMaze.Controllers
         private CitizenUserRepository citizenRepository;
         private MedicalInsuranceRepository insuranceRepository;
         private UserService userService;
+        private ReceptionOfPatientsRepository receptionRepository;
 
 
         public HealthDepartmentController(RecordFormRepository recordFormRepository,
                                           IMapper mapper, CitizenUserRepository citizenRepository,
-                                          MedicalInsuranceRepository insuranceRepository, UserService userService)
+                                          MedicalInsuranceRepository insuranceRepository, UserService userService,
+                                          ReceptionOfPatientsRepository receptionRepository)
         {
             this.mapper = mapper;
             this.recordFormRepository = recordFormRepository;
             this.citizenRepository = citizenRepository;
             this.insuranceRepository = insuranceRepository;
             this.userService = userService;
+            this.receptionRepository = receptionRepository;
         }
 
 
@@ -59,8 +62,10 @@ namespace WebMaze.Controllers
         [HttpPost]
         public IActionResult RecordForm(RecordFormViewModel viewModel)
         {
-            var user = mapper.Map<RecordForm>(viewModel);
-            recordFormRepository.Save(user);
+            var citizen = citizenRepository.Get(viewModel.CitizenId);
+            var recordForm = mapper.Map<RecordForm>(viewModel);
+            recordForm.Citizen = citizen;
+            recordFormRepository.Save(recordForm);
 
             return RedirectToAction("HealthDepartment");
         }
@@ -288,7 +293,23 @@ namespace WebMaze.Controllers
             return View();
         }
 
-        
+        [HttpGet]
+        public IActionResult ReceptionPatient()
+        {
+            return PartialView("ReceptionPatient");
+        }
+
+        [HttpPost]
+        public IActionResult ReceptionPatient(ReceptionOfPatientsViewModel viewModel)
+        {
+            var citizen = citizenRepository.Get(viewModel.EnrolledCitizenId);
+            var reception = mapper.Map<ReceptionOfPatients>(viewModel);
+            reception.EnrolledCitizen = citizen;
+            receptionRepository.Save(reception);
+
+
+            return RedirectToAction("HealthDepartment");
+        }
 
 
     }

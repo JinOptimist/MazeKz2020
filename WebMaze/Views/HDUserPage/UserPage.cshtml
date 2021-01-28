@@ -68,20 +68,92 @@
         <h1>User page</h1>
 
         <br />
-        <partial>
-            @{await Html.RenderPartialAsync("GetThisUserInsurance");}
-        </partial>
-        <br />
         <div>
-            <strong>Сведения о записи на приём в департамент Здравоохранения</strong>
+            <strong>Сведения о страховке</strong>
             <br />
             <p>
-                Номер записи: @Html.DisplayFor(x => x.MedicalInsurance.Id)
+                Номер страхового полиса: @userService.GetCurrentUser().MedicalInsurance.Id
             </p>
+            <p>
+                Ваш Id №: @userService.GetCurrentUser().MedicalInsurance.OwnerId
+            </p>
+            <p>
+                Дата выдачи страховки: @userService.GetCurrentUser().MedicalInsurance.StartPeriod
+            </p>
+            <p>
+                Дата окончания страховки: @userService.GetCurrentUser().MedicalInsurance.EndPeriod
+            </p>
+            <p>
+                Тип страховки: @userService.GetCurrentUser().MedicalInsurance.Type
+            </p>
+            <div class="head__element">
+                <a href="/HDUserPage/EditThisUserInsurance" class="button btn-lg active" role="button" aria-pressed="true">Изменить страховку</a>
+            </div>
+        </div>
+        <br />
+        <div>
+            <strong>Сведения о записи на приём в Департамент Здравоохранения</strong>
+            <br />
+            <div>
+                @foreach (var forms in Model.RecordForms)
+                {
+                    <p>Имя: @forms.Name </p>
+                    <p>Фамилия: @forms.LastName </p>
+                    <p>Время записи: @forms.DateTime</p>
+                }
+            </div>
         </div>
         <div>
-           форма записи на приём в поликлинику
+           <strong>Сведения о записи на приём к врачу</strong>
+            <br />
+            <div>
+                @foreach (var appointment in Model.DoctorsAppointments)
+                {
+                    <p>Имя: @appointment.Name </p>
+                    <p>Фамилия: @appointment.LastName </p>
+                    <p>Время записи: @appointment.DateTime</p>
+                    <p>Отделение: @appointment.MedicineDepartment</p>
+                    <br />
+                    <p>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Изменить дату записи
+                        </button>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <div class="form">
+                                <p class="form__header">Изменить дату записи</p>
+                                <form action="@Url.Action("EditThisUserDoctorsAppointments", "HDUserPage")" method="post">
+
+                                    <input type="hidden" name="Id" value="@appointment.Id" />
+                                    <input type="hidden" name="EnrolledCitizenId" value="@appointment.EnrolledCitizenId" />
+                                    <input type="hidden" name="Name" value="@appointment.Name" />
+                                    <input type="hidden" name="LastName" value="@appointment.LastName" />
+                                    <input type="hidden" name="PhoneNumber" value="@appointment.PhoneNumber" />
+                                    <input type="hidden" name="PrimarySymptoms" value="@appointment.PrimarySymptoms" />
+                                    <input type="hidden" name="MedicineDepartment" value="@appointment.MedicineDepartment" />
+
+                                    <div class="partial__input">
+                                        <div class="form__input">
+                                            <input type="datetime-local" name="DateTime" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <button class="button" type="submit">Применить изменения</button>
+                                        <button class="button" type="reset">Сбросить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <br />
+                }
+            </div>
+            
         </div>
        
     </div>
 </body>
+
