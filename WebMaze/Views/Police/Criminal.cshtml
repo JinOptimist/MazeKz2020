@@ -5,10 +5,10 @@
 }
 @section Scripts
 {
-    <script src="~/js/site.js"></script>
+    <script src="~/js/Police.js"></script>
 }
 
-<form id="searchViolation" method="post" asp-controller="Violation" asp-action="GetSearchItems">
+<form id="searchViolation" method="post" class="prevent-enter" asp-controller="Violation" asp-action="GetSearchItems">
     <div class="form-group row mb-3">
         <div class="col-12">
             <input name="SearchWord" type="text" class="form-control" placeholder="Поиск" />
@@ -57,7 +57,6 @@
         </tr>
     </thead>
     <tbody class="violations-list-container">
-        <tr class="violation-not-found" style="display: none;"><td>Test Not Found Element</td></tr>
         <tr class="d-flex violation-list-item violation-clickable">
             <td class="col-md-4 violation-user-field"></td>
             <td class="col-md-4 violation-policeman-field"></td>
@@ -68,3 +67,9 @@
         </tr>
     </tbody>
 </table>
+<div class="violation-not-found row justify-content-center" style="display: none;">
+    <div class="col-3">
+        <h2 class="text-center">Not Found</h2>
+        <img class="img-fluid" src="~/image/Police/not-found-img.jpg" />
+    </div>
+</div>

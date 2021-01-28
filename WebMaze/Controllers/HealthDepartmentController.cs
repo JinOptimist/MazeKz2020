@@ -194,7 +194,7 @@ namespace WebMaze.Controllers
 
             //await HttpContext.SignInAsync(claimsPrincipal);
 
-            await userService.SignInAsync(user, isPersistent: false);
+            await userService.SignInAsync(loginView.Login, loginView.Password, isPersistent: false);
 
             if (string.IsNullOrEmpty(loginView.ReturnUrl))
             {

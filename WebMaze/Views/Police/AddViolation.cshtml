@@ -1,0 +1,84 @@
+﻿@model WebMaze.Models.Police.Violation.ViolationRegistrationViewModel
+@{
+    Layout = "_PoliceLayout";
+}
+
+@section Scripts
+{
+    <script src="~/js/Police.js"></script>
+}
+
+<h2 class="mb-3">Сообщение о нарушении</h2>
+<form id="add-violation" method="post" class="prevent-enter" novalidate asp-controller="Violation" asp-action="Post">
+    <input name="date" type="hidden" value="@Model.Date.ToString("yyyy-MM-dd")" required />
+    <input name="blamedUserLogin" type="hidden" required />
+    <input name="userLogin" type="hidden" required value="@Model.UserLogin" />
+    <div class="form-group row">
+        <label class="col-md-4">Обвинитель:</label>
+        <div class="col-md-8">
+            <p class="form-control">@Model.UserName</p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Дата:</label>
+        <div class="col-md-8">
+            <p class="form-control">@Model.Date.ToString("dd MMMM yyyy")</p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Выберите нарушителя:</label>
+        <div class="col-md-8">
+            <input id="get-citizen-user-names" list="user-suggestions" class="form-control" placeholder="Обвиняемый" maxlength="50" required />
+            <div class="invalid-feedback">Введите имя обвиняемого</div>
+        </div>
+        <button id="cancel-get-user" type="button" class="btn btn-link col">Отменить</button>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Выберите тип нарушения:</label>
+        <div class="col-md-8">
+            <select name="offensetype" class="form-control-off">
+                <option value="administrative" selected>Административное правонарушение</option>
+                <option value="criminal">Уголовное правонарушение</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Доп. информация:</label>
+        <div class="col-md-8">
+            <textarea name="explanation" class="form-control" rows="5" maxlength="500" required
+                      placeholder="Расскажите в подробностях, что случилось, и почему этот человек заслуживает наказание."></textarea>
+            <div class="invalid-feedback">Если вы напишите объяснение, то шанс того, что вас быстрее проверят, увеличится</div>
+        </div>
+    </div>
+    <button id="makeConfirmModalView" class="btn btn-danger" data-toggle="modal" data-target="#confirm-submit" type="button">Отправить</button>
+</form>
+
+<div id="confirm-submit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirm-model-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="confirm-model-label">Внимание</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    После отправления этого заявления,
+                    его скоро должен проверить один из сотрудников МВД, и только после этого, он может либо принять,
+                    либо отказать в вашем заявлении.
+                </p>
+                <p>
+                    Вы сможете увидеть статус вашей заявки в вашем личном кабинете.
+                </p>
+                <p>
+                    Вы согласны продолжить?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>
+                <button id="confirm-add-violation" type="button" class="btn btn-secondary">Продолжить</button>
+            </div>
+        </div>
+    </div>
+</div>
