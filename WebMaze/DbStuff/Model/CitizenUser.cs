@@ -50,7 +50,7 @@ namespace WebMaze.DbStuff.Model
 
         public virtual List<PoliceCertificate> PoliceCertificates { get; set; }
 
-        public virtual List<Certificate> Certificates { get; set; }
+        public virtual List<Certificate> Certificates { get; set; } = new List<Certificate>();
 
         public virtual MedicalInsurance MedicalInsurance { get; set; }
         public virtual List<RecordForm> RecordForms { get; set; }

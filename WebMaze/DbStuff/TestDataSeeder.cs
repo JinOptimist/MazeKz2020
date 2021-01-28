@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using WebMaze.DbStuff.Model;
+using WebMaze.DbStuff.Model.UserAccount;
+using WebMaze.DbStuff.Repository;
 using WebMaze.Services;
 
 namespace WebMaze.DbStuff
@@ -27,6 +29,8 @@ namespace WebMaze.DbStuff
             AddDoctors();
             AddPolicemen();
             AddRegularUsers();
+
+            AddCertificates();
         }
 
         private void AddDoctors()
@@ -167,6 +171,82 @@ namespace WebMaze.DbStuff
                     }
                 }
             }
+        }
+
+        private void AddCertificates()
+        {
+            var allCitizens = userService.GetUsers();
+
+            // Ensure that all citizens have a birth certificate.
+            AddIfNotExistCertificateToCitizens(allCitizens, "Birth Certificate");
+
+            // Ensure that 5 citizens have a diploma.
+            var citizenLoginsWithDiploma = new List<string> { "Bill", "Musk", "Stroustrup", "Tsoi", "Chuck" };
+            var citizenWithDiploma = allCitizens.Where(c => citizenLoginsWithDiploma.Contains(c.Login)).ToList();
+            AddIfNotExistCertificateToCitizens(citizenWithDiploma, "Diploma of Higher Education");
+
+            // Ensure that citizens have a policeman certificate.
+            var citizenLoginsWithPoliceCertificate = new List<string> { "Chuck" };
+            var policemen = allCitizens.Where(c => citizenLoginsWithPoliceCertificate.Contains(c.Login)).ToList();
+            AddIfNotExistCertificateToCitizens(policemen, "Policeman Certificate");
+
+            // Ensure that citizens have a doctor certificate.
+            var citizenLoginsWithDoctorCertificate = new List<string> { "Tsoi" };
+            var doctors = allCitizens.Where(c => citizenLoginsWithDoctorCertificate.Contains(c.Login)).ToList();
+            AddIfNotExistCertificateToCitizens(doctors, "Doctor Certificate");
+        }
+
+        private void AddIfNotExistCertificateToCitizens(List<CitizenUser> citizens, string certificateName)
+        {
+            foreach (var citizen in citizens)
+            {
+                if (citizen.Certificates.All(c => c.Name != certificateName))
+                {
+                    var certificate = GenerateCertificate(certificateName, citizen);
+                    citizen.Certificates.Add(certificate);
+                    userService.Save(citizen);
+                }
+            }
+        }
+
+        private Certificate GenerateCertificate(string certificateName, CitizenUser owner)
+        {
+            var certificate = new Certificate
+            {
+                Name = certificateName,
+                Owner = owner
+            };
+
+            switch (certificateName)
+            {
+                case "Diploma of Higher Education":
+                    certificate.Description =
+                        "The document certifies that the person completed a course of study in a university";
+                    certificate.IssuedBy = "University";
+                    certificate.IssueDate = owner.BirthDate + TimeSpan.FromDays(22 * 365);
+                    certificate.ExpiryDate = DateTime.MaxValue;
+                    break;
+                case "Birth Certificate":
+                    certificate.Description = "The certificate documents the birth of the person";
+                    certificate.IssuedBy = "Hospital";
+                    certificate.IssueDate = owner.BirthDate;
+                    certificate.ExpiryDate = DateTime.MaxValue;
+                    break;
+                case "Policeman Certificate":
+                    certificate.Description = "The document assure qualification to work as a policeman";
+                    certificate.IssuedBy = "Police";
+                    certificate.IssueDate = new DateTime(2021, 1, 28);
+                    certificate.ExpiryDate = new DateTime(2022, 1, 28);
+                    break;
+                case "Doctor Certificate":
+                    certificate.Description = "The document assure qualification to work as a doctor";
+                    certificate.IssuedBy = "Health Department";
+                    certificate.IssueDate = new DateTime(2020, 5, 3);
+                    certificate.ExpiryDate = new DateTime(2021, 5, 3);
+                    break;
+            }
+
+            return certificate;
         }
     }
 }
