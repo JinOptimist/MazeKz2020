@@ -40,5 +40,22 @@ namespace WebMaze.Helpers.Police
 
             return new HtmlString(result.ToString());
         }
+
+        public static HtmlString GetValidationErrors(this IHtmlHelper html)
+        {
+            var result = new StringBuilder();
+            result.Append("<div id=\"form-validation-errors\" style=\"display: none!important;\">");
+            foreach (var key in html.ViewContext.ModelState)
+            {
+                foreach (var value in html.ViewContext.ModelState[key.Key].Errors)
+                {
+                    result.Append($"<span data-valmsg-for=\"{key.Key}\">{value.ErrorMessage}</span>");
+                }
+            }
+
+            result.Append("</div>");
+
+            return new HtmlString(result.ToString());
+        }
     }
 }

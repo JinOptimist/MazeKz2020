@@ -7,18 +7,18 @@
 }
 
 @section Scripts{
-    <script src="~/js/site.js"></script>
+    <script src="~/js/Police.js"></script>
 }
 
 <h2 class="text-center">Вход в аккаунт</h2>
 <hr />
 <form asp-controller="Police" asp-action="Login" method="post" class="needs-validation" novalidate>
+    @Html.GetValidationErrors()
     <input name="returnUrl" type="hidden" value="@Model.ReturnUrl" />
     <div class="form-group row justify-content-center">
         <label for="login" class="col-md-1 mr-4">Логин:</label>
         <div class="col-md-5">
             <input class="form-control" name="login" type="text" value="@Model.Login" placeholder="Логин" required />
-            <div class="invalid-validation text-danger mt-2">@Html.ValidationMessage("Login")</div>
             <div class="invalid-feedback">Введите логин</div>
         </div>
     </div>
@@ -26,7 +26,6 @@
         <label for="password" class="col-md-1 mr-4">Пароль:</label>
         <div class="col-md-5">
             <input class="form-control" name="password" type="password" placeholder="Пароль" required />
-            <div class="invalid-validation text-danger mt-2">@Html.ValidationMessage("Password")</div>
             <div class="invalid-feedback">Введите пароль</div>
         </div>
     </div>

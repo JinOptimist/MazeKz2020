@@ -26,7 +26,7 @@ namespace WebMaze.Models.CustomAttribute.Medecine
 
             var userRepo = validationContext.GetService(typeof(CitizenUserRepository))
                 as CitizenUserRepository;
-            var existingLogin = userRepo.GetUserByName(login);
+            var existingLogin = userRepo.GetUserByLogin(login);
             if(existingLogin == null)
             {
                 return new ValidationResult($"Пользователь c {login} не существует.");

@@ -14,11 +14,19 @@ namespace WebMaze.Controllers
     {
         private readonly IMapper mapper;
         private readonly ViolationRepository violationRepo;
+        private readonly ViolationDeclarationRepository declaredViolationRepo;
+        private readonly CitizenUserRepository userRepo;
 
-        public ViolationController(IMapper mapper, ViolationRepository violationRepo)
+        public ViolationController(
+            IMapper mapper,
+            ViolationRepository violationRepo,
+            CitizenUserRepository userRepo,
+            ViolationDeclarationRepository declaredViolationRepo)
         {
             this.mapper = mapper;
             this.violationRepo = violationRepo;
+            this.userRepo = userRepo;
+            this.declaredViolationRepo = declaredViolationRepo;
         }
 
         [HttpGet]
@@ -31,7 +39,7 @@ namespace WebMaze.Controllers
         public ActionResult<ViolationItemViewModel> Get(long id)
         {
             var item = violationRepo.Get(id);
-            if(item == null)
+            if (item == null)
             {
                 return NotFound();
             }
@@ -39,12 +47,23 @@ namespace WebMaze.Controllers
             return mapper.Map<ViolationItemViewModel>(item);
         }
 
+        [HttpGet("SearchUsers/{word}")]
+        public IEnumerable<FoundUsersViewModel> GetUsersByName(string word)
+        {
+            if (string.IsNullOrEmpty(word))
+            {
+                return new FoundUsersViewModel[] { new FoundUsersViewModel { Login = string.Empty, Name = string.Empty } };
+            }
+
+            return mapper.Map<IEnumerable<FoundUsersViewModel>>(userRepo.GetFamiliarUserNames(word));
+        }
+
         [HttpPost("Search")]
         public ActionResult<ViolationSearchItems> GetSearchItems(ViolationSearchItems searchItem)
         {
-            var item = violationRepo.GetByGivenSettings(searchItem.SearchWord, searchItem.DateFrom, 
+            var item = violationRepo.GetByGivenSettings(searchItem.SearchWord, searchItem.DateFrom,
                 searchItem.DateTo, searchItem.Order, out int foundCount, searchItem.CurrentPage);
-            
+
             searchItem.Violations = mapper.Map<ViolationItemViewModel[]>(item);
             searchItem.FoundCount = foundCount;
             searchItem.FoundOnThisPage = searchItem.Violations.Length;
@@ -53,17 +72,17 @@ namespace WebMaze.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ViolationRegistrationViewModel> Post(ViolationRegistrationViewModel item)
+        public ActionResult<ViolationDeclarationViewModel> Post(ViolationDeclarationViewModel item)
         {
             if (item == null)
             {
                 return BadRequest();
             }
 
-            var mappedItem = mapper.Map<Violation>(item);
-            if (!violationRepo.AddViolation(mappedItem, item.UserLogin, item.PolicemanLogin))
+            var violationDecl = mapper.Map<ViolationDeclaration>(item);
+            if (!declaredViolationRepo.AddViolationDeclaration(item.UserLogin, item.BlamedUserLogin, violationDecl))
             {
-                return BadRequest();
+                return BadRequest(item);
             }
 
             return Ok(item);

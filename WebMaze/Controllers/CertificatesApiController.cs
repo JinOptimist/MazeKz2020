@@ -78,7 +78,7 @@ namespace WebMaze.Controllers
                 return BadRequest(errorMessages);
             }
 
-            var citizenUser = citizenUserRepository.GetUserByName(certificateViewModel.OwnerLogin);
+            var citizenUser = citizenUserRepository.GetUserByLogin(certificateViewModel.OwnerLogin);
 
             if (citizenUser == null)
             {

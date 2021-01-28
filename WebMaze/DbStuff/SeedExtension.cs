@@ -2,8 +2,6 @@
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using WebMaze.DbStuff.Model;
 using WebMaze.DbStuff.Repository;
@@ -61,7 +59,7 @@ namespace WebMaze.DbStuff
                 throw new Exception("Cannot get UserService from ServiceProvider.");
             }
 
-            var admins = new List<CitizenUser> { 
+            var admins = new List<CitizenUser> {
                 new CitizenUser
                 {
                     Login = "Bill",

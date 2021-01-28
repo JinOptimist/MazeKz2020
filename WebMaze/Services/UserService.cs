@@ -53,7 +53,7 @@ namespace WebMaze.Services
 
         public virtual CitizenUser FindByLogin(string login)
         {
-            return citizenUserRepository.GetUserByName(login);
+            return citizenUserRepository.GetUserByLogin(login);
         }
 
         public virtual void Save(CitizenUser user)
